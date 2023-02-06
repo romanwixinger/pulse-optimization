@@ -1,0 +1,1 @@
+The results folder is not versioned and contains all simulation results, as well as the configuration files used to obtain them.
