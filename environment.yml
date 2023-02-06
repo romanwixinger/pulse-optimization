@@ -1,0 +1,14 @@
+name: pulse-optimization
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - setuptools
+  - pip
+  - pip:
+    - numpy
+    - qiskit==0.39.2
+    - scipy
+    - matplotlib
+    - pylatexenc
+    - quantum-gates>=1.0.2

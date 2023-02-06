@@ -1,0 +1,6 @@
+numpy
+qiskit==0.39.2
+scipy
+matplotlib
+pylatexenc
+quantum-gates>=1.0.2
