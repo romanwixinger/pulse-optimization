@@ -9,6 +9,10 @@ At the moment, we plan to conduct three main experiments to answer the following
 
 On a high level, we simply have to run circuits and see if the result changes according to the pulse shape. More precicely, we will simulate a sequence of gates which are involutions (X, SX, CNOT, H) with varying depth with various pulse shapes (constant, Gaussian, sin**2, linear), and compare the results to the noisy free solution. For parametrizated pulses, we can then plot the matrix elements as a function of the parameters. 
 
+### B) Does the accuracy of simulating real hardware improve when the same pulses are used? 
+
+To answer this question, we repeat the simulation done to answer question A) on real hardware. Then we can set up a matrix $M_ij = H(p_i^{SIM}, p_j^{REAL}$ for pulse shapes i, j which represents the Hellinger distances between simulation results and real hardware for various choices for the pulses on each. In case that the diagonal has lower values than the off-diagonal, this is an indication that the pulses are accurately described in the Noisy Gates approach, and that the resulting differences are at least partly physical.
+
 
 ## How to use
 ### Requirements
