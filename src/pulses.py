@@ -32,10 +32,10 @@ reversed_linear_pulse = Pulse(
 
 
 gaussian_args = [
-    (loc, scale) for loc in 0.1 * np.arange(11) for scale in [0.3]
+    (loc, scale) for loc in 0.1 * np.arange(11) for scale in [0.25]
 ]
 gaussian_pulse_lookup = {
-    "gaussian_{loc}_{scale}": GaussianPulse(loc=loc, scale=scale) for loc, scale in gaussian_args
+    f"gaussian_{loc:.2}_{scale:.2}": GaussianPulse(loc=loc, scale=scale) for loc, scale in gaussian_args
 }
 
 

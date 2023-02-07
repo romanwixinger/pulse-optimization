@@ -17,6 +17,7 @@ from quantum_gates.circuits import EfficientCircuit
 from quantum_gates.utilities import multiprocessing_parallel_simulation
 
 from src.pulses import triangle_pulse, sin_squared_pulse, linear_pulse, reversed_linear_pulse, gaussian_pulse_lookup
+from src.visualizations import plot_pulses, plot_parametrizations
 
 
 pulse_lookup = {
@@ -24,8 +25,7 @@ pulse_lookup = {
     "triangle_pulse": triangle_pulse,
     "sin_squared_pulse": sin_squared_pulse,
     "linear_pulse": linear_pulse,
-    "reversed_linear_pulse": reversed_linear_pulse,
-    **gaussian_pulse_lookup
+    "reversed_linear_pulse": reversed_linear_pulse
 }
 
 
@@ -55,6 +55,17 @@ def simulation():
 
 
 if __name__ == "__main__":
+
+    # Plot pulses
+    print("Plot normal pulses")
+    plot_pulses(pulse_lookup)
+    plot_parametrizations(pulse_lookup)
+
+    print("Plot gaussian pulses")
+    plot_pulses(gaussian_pulse_lookup)
+    plot_parametrizations(gaussian_pulse_lookup)
+
+    print("Finished")
 
     # Load configuration
 
