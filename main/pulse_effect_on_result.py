@@ -16,13 +16,42 @@ from quantum_gates.pulses import Pulse, GaussianPulse, standard_pulse
 from quantum_gates.circuits import EfficientCircuit
 from quantum_gates.utilities import multiprocessing_parallel_simulation
 
+from src.pulses import triangle_pulse, sin_squared_pulse, linear_pulse, reversed_linear_pulse, gaussian_pulse_lookup
+
+
+pulse_lookup = {
+    "standard_pulse": standard_pulse,
+    "triangle_pulse": triangle_pulse,
+    "sin_squared_pulse": sin_squared_pulse,
+    "linear_pulse": linear_pulse,
+    "reversed_linear_pulse": reversed_linear_pulse,
+    **gaussian_pulse_lookup
+}
+
 
 def main():
-    pass
+    """ Executes the experiment.
+    """
+
+    # Setup arguments
+
+    # Maps arguments on simulation
+
+    # Postprocessing
+
+    return None
 
 
 def simulation():
-    pass
+    """ Executes a run of the simulation. """
+
+    # Transform arguments
+
+    # Run simulator
+
+    # Postprocessing
+
+    return None
 
 
 if __name__ == "__main__":
