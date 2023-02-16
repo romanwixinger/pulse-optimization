@@ -10,15 +10,12 @@ Note:
 
 import numpy as np
 import matplotlib.pyplot as plt
-from collections import defaultdict
 
 from quantum_gates.pulses import standard_pulse
 from quantum_gates.gates import Gates, NoiseFreeGates
 from quantum_gates.utilities import DeviceParameters
 
-from src.pulses import triangle_pulse, sin_squared_pulse, linear_pulse, reversed_linear_pulse, gaussian_pulse_lookup
-from src.visualizations import plot_pulses, plot_parametrizations
-
+from src.pulses.pulses import triangle_pulse, sin_squared_pulse, linear_pulse, reversed_linear_pulse, gaussian_pulse_lookup
 
 pulse_lookup = {
     "standard_pulse": standard_pulse,

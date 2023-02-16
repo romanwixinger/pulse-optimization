@@ -17,12 +17,11 @@ from quantum_gates.simulators import MrAndersonSimulator
 from quantum_gates.pulses import standard_pulse
 from quantum_gates.gates import Gates
 from quantum_gates.circuits import EfficientCircuit
-from quantum_gates.utilities import multiprocessing_parallel_simulation, DeviceParameters
+from quantum_gates.utilities import DeviceParameters
 
-from src.pulses import triangle_pulse, sin_squared_pulse, linear_pulse, reversed_linear_pulse, gaussian_pulse_lookup
-from src.visualizations import plot_pulses, plot_parametrizations
-from src.quantum_algorithms import n_x_gates, n_sx_gates, n_h_gates, n_cnot_gates
-
+from src.pulses.pulses import triangle_pulse, sin_squared_pulse, linear_pulse, reversed_linear_pulse, gaussian_pulse_lookup
+from src.pulses.visualizations import plot_pulses, plot_parametrizations
+from src.algorithms.algorithms import n_x_gates
 
 pulse_lookup = {
     "standard_pulse": standard_pulse,
