@@ -10,26 +10,17 @@ constant, Gaussian, sin**2, linear, and compare the results to the noisy free so
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
 from collections import defaultdict
 
 from quantum_gates.simulators import MrAndersonSimulator
-from quantum_gates.pulses import standard_pulse
 from quantum_gates.gates import Gates
 from quantum_gates.circuits import EfficientCircuit
-from quantum_gates.utilities import DeviceParameters
 
-from src.pulses.pulses import triangle_pulse, sin_squared_pulse, linear_pulse, reversed_linear_pulse, gaussian_pulse_lookup
-from src.pulses.visualizations import plot_pulses, plot_parametrizations
+from configuration.device_parameters.lookup import device_param_lookup
+from src.pulses.pulses import gaussian_pulse_lookup
 from src.algorithms.algorithms import n_x_gates
-
-pulse_lookup = {
-    "standard_pulse": standard_pulse,
-    "triangle_pulse": triangle_pulse,
-    "sin_squared_pulse": sin_squared_pulse,
-    "linear_pulse": linear_pulse,
-    "reversed_linear_pulse": reversed_linear_pulse
-}
+from src.algorithms.experiments import analyze_result_lookup
+from src.algorithms.visualizations import plot_result_lookup
 
 
 def main(pulse_lookup: dict,
@@ -77,21 +68,6 @@ def simulation(pulse, run_args: dict):
 
 if __name__ == "__main__":
 
-    # Plot pulses
-    print("Plot normal pulses")
-    plot_pulses(pulse_lookup, "plots/pulses/normal_pulses.png")
-    plot_parametrizations(pulse_lookup, "plots/pulses/normal_parametrizations.png")
-
-    print("Plot gaussian pulses")
-    plot_pulses(gaussian_pulse_lookup, "plots/pulses/gaussian_pulse.png")
-    plot_parametrizations(gaussian_pulse_lookup, "plots/pulses/gaussian_parametrizations.png")
-
-    # Load configuration
-    qubits_layout = [0, 1, 4, 7, 10, 12, 15, 18, 21, 23, 24, 25, 22, 19, 16, 14, 11, 8, 5, 3, 2]
-    device_param = DeviceParameters(qubits_layout=qubits_layout)
-    device_param.load_from_json(location="configuration/")
-    device_param = device_param.__dict__()
-
     # Prepare arguments
     args = {
         "pulse_lookup": gaussian_pulse_lookup,
@@ -99,7 +75,7 @@ if __name__ == "__main__":
         "experiments": 16,
         "circuit_generator": n_x_gates,
         "circuit_generator_args": {"nqubits": 1, "N": 128},
-        "device_param": device_param
+        "device_param": device_param_lookup
     }
 
     # Run experiment
@@ -107,3 +83,4 @@ if __name__ == "__main__":
 
     # Analyze result
     y_list, y_std_list = analyze_result_lookup(result_lookup)
+    plot_result_lookup(y_list, y_std_list)

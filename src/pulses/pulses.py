@@ -1,6 +1,6 @@
 import numpy as np
 
-from quantum_gates.pulses import Pulse, GaussianPulse
+from quantum_gates.pulses import Pulse, GaussianPulse, standard_pulse
 
 
 class NumericalPulse(Pulse):
@@ -48,6 +48,15 @@ reversed_linear_pulse = NumericalPulse(
     parametrization=lambda x: 2*x - x**2,
     perform_checks=True
 )
+
+
+pulse_lookup = {
+    "standard_pulse": standard_pulse,
+    "triangle_pulse": triangle_pulse,
+    "sin_squared_pulse": sin_squared_pulse,
+    "linear_pulse": linear_pulse,
+    "reversed_linear_pulse": reversed_linear_pulse
+}
 
 
 gaussian_args = [round(loc, 2) for loc in [0.0, 0.25, 0.5, 0.75, 1.0]]
