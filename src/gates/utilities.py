@@ -3,7 +3,7 @@ Utilies for the gates.
 """
 
 
-def x_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, phi: float=0.0):
+def construct_x_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, phi: float=0.0):
     """ Takes the device parameters as lookup, and returns the corresponding arguments to sample an X gate. One can set
         a value 0 <= noise_scaling with which the noise is multiplied.
     """
@@ -19,7 +19,7 @@ def x_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, phi: float=
     }
 
 
-def cnot_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, phi_ctr: float=0.0, phi_trg: float=0.0):
+def construct_cnot_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, phi_ctr: float=0.0, phi_trg: float=0.0):
     """ Takes the device parameters as lookup, and returns the corresponding arguments to sample an X gate. One can set
         a value 0 <= noise_scaling with which the noise is multiplied.
     """

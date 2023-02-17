@@ -2,6 +2,7 @@
 Visualizes the results of the experiments on gate level.
 """
 
+import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -11,12 +12,12 @@ yellow = [1.0, 0.8, 0]
 get_color = lambda s: [s * red[i] + (1-s) * yellow[i] for i in range(3)]
 
 
-def plot_gates_mean(result_lookup: dict):
+def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
     """ Takes the result as lookup table with the pulse names as keys and the result as dict with keys x_mean, x_unc
         that represent the mean and uncertainty of the mean of the result for this pulse.
 
-        Plots the mean with error bars. As x axis, indices of the matrix elements are uses, so
-        0: Re(arr[0,0]),..., 7: Im(arr[1,1])
+        Plots the mean with error bars if the folder and filename are not None.
+        As x axis, indices of the matrix elements are uses, so 0: Re(arr[0,0]),..., 7: Im(arr[1,1])
     """
 
     plt.figure(figsize=(12, 8))
@@ -39,12 +40,12 @@ def plot_gates_mean(result_lookup: dict):
     plt.show()
 
 
-def plot_gates_standard_deviation(result_lookup: dict):
+def plot_gates_standard_deviation(result_lookup: dict, folder: str, filename: str):
     """ Takes the result as lookup table with the pulse names as keys and the result as dict with keys x_mean, x_unc
         that represent the mean and uncertainty of the mean of the result for this pulse.
 
-        Plots the standard deviation. As x axis, indices of the matrix elements are uses, so
-        0: Re(arr[0,0]),..., 7: Im(arr[1,1])
+        Plots the standard deviation if the folder are not None.
+        As x axis, indices of the matrix elements are uses, so 0: Re(arr[0,0]),..., 7: Im(arr[1,1])
     """
     plt.figure(figsize=(12, 8))
     color_num = max(1, len(result_lookup.keys()) - 1)
@@ -60,15 +61,18 @@ def plot_gates_standard_deviation(result_lookup: dict):
     plt.xlabel("Re(X[0][0]),..., Im(X[1][1])")
     plt.ylabel("Standard deviation [1]")
     plt.legend()
+
+    if folder is not None and filename is not None:
+        plt.savefig(f"{folder}/{filename}")
     plt.show()
 
 
-def plot_gates_mean_reverse(result_lookup: dict):
+def plot_gates_mean_reverse(result_lookup: dict, folder: str, filename):
     """ Takes the result as lookup table with the pulse names as keys and the result as dict with keys x_mean, x_unc
         that represent the mean and uncertainty of the mean of the result for this pulse.
 
-        Plots the mean with error bars. As x axis, the float value of the keys is used. So for Gaussian pulses, this
-        would be the loc parameter.
+        Plots the mean with error bars if the folder and the filename are not None.
+        As x axis, the float value of the keys is used. So for Gaussian pulses, this would be the loc parameter.
     """
     names = result_lookup.keys()
     x = [float(name) for name in names]
@@ -87,4 +91,7 @@ def plot_gates_mean_reverse(result_lookup: dict):
     plt.ylabel("Deviation from noiseless case [1]")
     plt.grid()
     plt.legend()
+
+    if folder is not None and filename is not None:
+        plt.savefig(f"{folder}/{filename}")
     plt.show()
