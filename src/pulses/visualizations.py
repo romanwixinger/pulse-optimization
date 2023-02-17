@@ -3,12 +3,17 @@ import matplotlib.pyplot as plt
 
 
 def plot_pulses(pulse_lookup, filename: str=None):
-    """ Plots the pulses on the interval [0,1]."""
+    """ Plots the pulses on the interval [0,1].
+    """
     x = np.linspace(0, 1, 100)
     for name, pulse in pulse_lookup.items():
         pulse = pulse.get_pulse()
         y = [pulse(x_val) for x_val in x]
         plt.plot(x, y, label=str(name))
+    plt.xlabel('Parametrization variable s')
+    plt.ylabel("ω(s)")
+    plt.title("Pulse shape")
+    plt.ylabel("Θ(s)")
     plt.title("Pulses")
     plt.legend()
     if filename is not None:
@@ -17,13 +22,16 @@ def plot_pulses(pulse_lookup, filename: str=None):
 
 
 def plot_parametrizations(pulse_lookup, filename: str=None):
-    """ Plots the parametrizations on the interval [0,1]."""
+    """ Plots the parametrizations on the interval [0,1].
+    """
     x = np.linspace(0, 1, 100)
     for name, pulse in pulse_lookup.items():
         param = pulse.get_parametrization()
         y = [param(x_val) for x_val in x]
         plt.plot(x, y, label=str(name))
-    plt.title("Parametrizations")
+    plt.xlabel('Parametrization variable s')
+    plt.ylabel("Θ(s)")
+    plt.title("Pulse parametrization (cdf)")
     plt.legend()
     if filename is not None:
         plt.savefig(filename)
