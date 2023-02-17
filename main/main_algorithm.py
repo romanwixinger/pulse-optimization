@@ -16,7 +16,7 @@ from quantum_gates.simulators import MrAndersonSimulator
 from quantum_gates.gates import Gates
 from quantum_gates.circuits import EfficientCircuit
 
-from configuration.device_parameters.lookup import device_param_lookup
+from configuration.device_parameters.lookup import device_param_lookup_20221208 as device_param_lookup
 from src.pulses.pulses import gaussian_pulse_lookup
 from src.algorithms.algorithms import n_x_gates
 from src.algorithms.experiments import analyze_result_lookup
