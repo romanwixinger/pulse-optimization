@@ -7,7 +7,21 @@ import numpy as np
 from quantum_gates.gates import Gates, NoiseFreeGates
 
 
-def x_gate_experiment(pulse_lookup: dict, n: 10000, gate_args: dict):
+def x_gate_experiment(args):
+    """ Wrapper to the _x_gate_experiment() function to be able to call the function with a single argument.
+        This is necessary for using the multiprocesing.map_unordered method. 
+    """
+    return _x_gate_experiment(**args)
+
+
+def cnot_gate_experiment(args):
+    """ Wrapper to the _cnot_gate_experiment() function to be able to call the function with a single argument.
+        This is necessary for using the multiprocesing.map_unordered method.
+    """
+    return _cnot_gate_experiment(**args)
+
+
+def _x_gate_experiment(pulse_lookup: dict, n: 10000, gate_args: dict):
     """ Samples n X gates each for the pulses defined in the lookup. Uses the noise parameters given in the gate_args
         lookup.
 
@@ -29,7 +43,7 @@ def x_gate_experiment(pulse_lookup: dict, n: 10000, gate_args: dict):
     return result_lookup
 
 
-def cnot_gate_experiment(pulse_lookup: dict, n: 10000, gate_args: dict):
+def _cnot_gate_experiment(pulse_lookup: dict, n: 10000, gate_args: dict):
     """ Samples n SX gates each for the pulses defined in the lookup. Uses the noise parameters given in the arguments.
 
         Returns a lookup table with the same keys as the pulse_lookup and the results (mean, std, unc. of the mean)
