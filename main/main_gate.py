@@ -51,6 +51,19 @@ if __name__ == "__main__":
     if not os.path.exists(result_folder):
         os.makedirs(result_folder)
 
+    # Save results
+    for i, x_result in enumerate(x_results):
+        for name, arr_lookup in x_result.items():
+            for part in ["mean", "std", "unc"]:
+                filename = f"x_{part}_{name}_{i}.txt"
+                arr = arr_lookup[part]
+                np.savetxt(f"{result_folder}/{filename}", arr)
+    for i, cnot_result in enumerate(cnot_results):
+        for name, arr_lookup in cnot_result.items():
+            for part in ["mean", "std", "unc"]:
+                filename = f"cnot_{part}_{name}_{i}.txt"
+                arr = arr_lookup[part]
+                np.savetxt(f"{result_folder}/{filename}", arr)
 
     # Create folder to save plots
     plots_folder = f"plots/gates/{run}"
@@ -69,3 +82,7 @@ if __name__ == "__main__":
     plot_gates_mean_reverse(cnot_result_lookup, plots_folder, filename="cnot_gate_mean_reversed.png")
 
     # Save configurations
+    with open(f"{result_folder}/{run}.json", 'w', encoding ='utf8') as file:
+        json.dump(config, file, indent=6)
+    with open(f"{plots_folder}/{run}.json", 'w', encoding ='utf8') as file:
+        json.dump(config, file, indent=6)
