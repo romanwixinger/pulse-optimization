@@ -3,6 +3,7 @@ Utilies for the gates.
 """
 
 import multiprocessing
+import tqdm
 
 
 def construct_x_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, phi: float=0.0):
@@ -63,7 +64,8 @@ def perform_parallel_simulation(args: list, simulation: callable, max_workers: i
     results = []
     p = multiprocessing.Pool(workers)
 
-    for result in p.imap_unordered(func=simulation, iterable=args, chunksize=chunksize):
+    # Wrap the multiprocessing in tqdm to display a progress bar.
+    for result in tqdm.tqdm(p.imap_unordered(func=simulation, iterable=args, chunksize=chunksize), total=len(args)):
         results.append(result)
 
     # Shut down pool
