@@ -10,5 +10,6 @@ _qubits_layout = [0, 1, 4, 7, 10, 12, 15, 18, 21, 23, 24, 25, 22, 19, 16, 14, 11
 _device_param = DeviceParameters(qubits_layout=_qubits_layout)
 _device_param.load_from_json(location="configuration/device_parameters/20221208/")
 device_param_lookup_20221208 = _device_param.__dict__()
+device_param_lookup_20221208.update({"version": "20221208"})
 
 
