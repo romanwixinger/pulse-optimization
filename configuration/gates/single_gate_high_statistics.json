@@ -2,8 +2,8 @@
     "name": "single_gate_high_statistics",
     "content":
     {
-        "samples": 10,
-        "runs": 10,
+        "samples": 1000,
+        "runs": 50,
         "device_parameters": "20221208",
         "boosting": 1.0
     }
