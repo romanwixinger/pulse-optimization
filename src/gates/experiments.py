@@ -2,6 +2,8 @@
 Experiment on level gate. Generates the results which are to be visualized.
 """
 
+import os
+import time
 import numpy as np
 
 from quantum_gates.gates import Gates, NoiseFreeGates
@@ -28,6 +30,8 @@ def _x_gate_experiment(pulse_lookup: dict, n: 10000, gate_args: dict):
         Returns a lookup table with the same keys as the pulse_lookup and the results (mean, std, unc. of the mean)
         as value, stored as lookup.
     """
+    # Set random seed, otherwise each experiment gets the same result
+    np.random.seed((os.getpid() * int(time.time())) % 123456789)
 
     # Generate the gate factories.
     gate_factory_lookup = dict()
@@ -49,6 +53,8 @@ def _cnot_gate_experiment(pulse_lookup: dict, n: 10000, gate_args: dict):
         Returns a lookup table with the same keys as the pulse_lookup and the results (mean, std, unc. of the mean)
         as value, stored as lookup.
     """
+    # Set random seed, otherwise each experiment gets the same result
+    np.random.seed((os.getpid() * int(time.time())) % 123456789)
 
     # Generate the gate factories.
     gate_factory_lookup = dict()
