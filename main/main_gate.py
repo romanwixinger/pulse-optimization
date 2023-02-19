@@ -73,10 +73,13 @@ if __name__ == "__main__":
     # Just plot the first result: TODO: Fix
     x_result_lookup = x_results[0]
     cnot_result_lookup = cnot_results[0]
+
+    # Plot and save first X gate result
     plot_gates_mean(x_result_lookup, plots_folder, filename="x_gate_mean.png")
     plot_gates_standard_deviation(x_result_lookup, plots_folder, filename="x_gate_std.png")
     plot_gates_mean_reverse(x_result_lookup, plots_folder, filename="cnot_gate_mean_reversed.png")
 
+    # Plot and save first CNOT gate result
     plot_gates_mean(cnot_result_lookup, plots_folder, filename="cnot_gate_mean.png")
     plot_gates_standard_deviation(cnot_result_lookup, plots_folder, filename="cnot_gate_std.png")
     plot_gates_mean_reverse(cnot_result_lookup, plots_folder, filename="cnot_gate_mean_reversed.png")
