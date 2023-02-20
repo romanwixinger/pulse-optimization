@@ -224,6 +224,7 @@ def load_results(folder: str) -> list:
             results.append(result_lookup)
         lookup[prefix] = results
 
+    print("Loaded results.")
     return lookup
 
 
@@ -270,4 +271,5 @@ def load_aggregated_results(folder: str) -> list:
             }
         lookup[prefix] = result_lookup
 
+    print("Loaded aggregated results.")
     return lookup
