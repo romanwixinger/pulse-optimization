@@ -85,7 +85,7 @@ if __name__ == "__main__":
     plot_gates_mean_reverse(cnot_result_lookup, plots_folder, filename="cnot_gate_mean_reversed.png")
 
     # Save configurations
-    with open(f"{result_folder}/{run}.json", 'w', encoding='utf8') as file:
+    with open(f"{result_folder}/{run}.json", 'w', encoding ='utf8') as file:
         json.dump(config, file, indent=6)
-    with open(f"{plots_folder}/{run}.json", 'w', encoding='utf8') as file:
+    with open(f"{plots_folder}/{run}.json", 'w', encoding ='utf8') as file:
         json.dump(config, file, indent=6)
