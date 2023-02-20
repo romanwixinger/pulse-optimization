@@ -10,7 +10,12 @@ import json
 from quantum_gates.utilities import load_config
 
 import configuration.device_parameters.lookup as dpl
-from src.gates.visualizations import plot_gates_mean, plot_gates_standard_deviation, plot_gates_mean_reverse
+from src.gates.visualizations import (
+    plot_gates_mean,
+    plot_gates_standard_deviation,
+    plot_gates_mean_reverse,
+    plot_gates_std_reverse
+)
 from src.gates.utilities import load_results, load_aggregated_results
 
 
@@ -36,12 +41,14 @@ def plot(run: str, config: dict):
     # Plot and save first X gate result
     plot_gates_mean(x_aggregated, plots_folder, filename="x_gate_mean.png")
     plot_gates_standard_deviation(x_aggregated, plots_folder, filename="x_gate_std.png")
-    plot_gates_mean_reverse(x_aggregated, plots_folder, filename="cnot_gate_mean_reversed.png")
+    plot_gates_mean_reverse(x_aggregated, plots_folder, filename="x_gate_mean_reversed.png")
+    plot_gates_std_reverse(x_aggregated, plots_folder, filename="x_gate_std_reversed.png")
 
     # Plot and save first CNOT gate result
     plot_gates_mean(cnot_aggregated, plots_folder, filename="cnot_gate_mean.png")
     plot_gates_standard_deviation(cnot_aggregated, plots_folder, filename="cnot_gate_std.png")
     plot_gates_mean_reverse(cnot_aggregated, plots_folder, filename="cnot_gate_mean_reversed.png")
+    plot_gates_std_reverse(cnot_aggregated, plots_folder, filename="cnot_gate_std_reversed.png")
 
     # Save configuration
     with open(f"{plots_folder}/{run}.json", 'w', encoding='utf8') as file:

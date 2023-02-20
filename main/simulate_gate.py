@@ -70,12 +70,6 @@ def main(run: str,
     save_aggregated_results(result=x_aggregated, folder=result_folder, prefix="x")
     save_aggregated_results(result=cnot_aggregated, folder=result_folder, prefix="cnot")
 
-    lookup = load_results(result_folder)
-    print("lookup", lookup)
-
-    lookup_agg = load_aggregated_results(result_folder)
-    print("lookup_agg", lookup_agg)
-
     # Save configurations
     with open(f"{result_folder}/{run}.json", 'w', encoding='utf8') as file:
         json.dump(config, file, indent=6)
