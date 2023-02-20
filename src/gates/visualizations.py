@@ -79,7 +79,7 @@ def plot_gates_mean_reverse(result_lookup: dict, folder: str, filename):
     for i in range(8):
         y = [result_lookup[name]["mean"][i] for name in names]
         yerr = [result_lookup[name]["unc"][i] for name in names]
-        plt.errorbar(x=x + 0.05*np.random.rand(5),
+        plt.errorbar(x=x + 0.05*np.random.rand(len(x)),
                      y=y,
                      yerr=yerr,
                      label=f"Matrix element {i}",
