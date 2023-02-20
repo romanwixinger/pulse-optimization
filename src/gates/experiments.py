@@ -77,9 +77,9 @@ def _gate_experiment(gate_factory_lookup: dict,
         provided.
 
         Returns a lookup of the results, with keys being lookups of the form
-            mean: np.array with mean of the sampled gates
-            std: np.array with standard deviation of the sampled gates
-            unc: np.array with uncertainty of the mean of the sampled gates
+            mean: np.array with mean of the sampled gates                       Mean of the population
+            std: np.array with standard deviation of the sampled gates          Empirical standard deviation of the pop.
+            unc: np.array with uncertainty of the mean of the sampled gates     Empirical uncertainty of the mean of the pop.
     """
     result_lookup = dict()
 
