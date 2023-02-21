@@ -22,8 +22,6 @@ from src.gates.utilities import (
     perform_parallel_simulation,
     save_results,
     save_aggregated_results,
-    load_results,
-    load_aggregated_results,
     aggregate_results
 )
 

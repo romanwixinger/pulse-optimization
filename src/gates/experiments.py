@@ -36,8 +36,10 @@ def _x_gate_experiment(pulse_lookup: dict, n: 10000, gate_args: dict):
     # Generate the gate factories.
     gate_factory_lookup = dict()
     for name, pulse in pulse_lookup.items():
-        gateset = Gates(pulse=pulse)
-        gate_factory = lambda: gateset.X(**gate_args)
+        # We have to use a default parameter in the lambda, otherwise the expression is evaluated to late and each
+        # key gets the same argument.
+        gateset_instance = Gates(pulse=pulse)
+        gate_factory = lambda gateset=gateset_instance: gateset.X(**gate_args)
         gate_factory_lookup[name] = gate_factory
 
     # Compute the noise free reference
@@ -59,8 +61,10 @@ def _cnot_gate_experiment(pulse_lookup: dict, n: 10000, gate_args: dict):
     # Generate the gate factories.
     gate_factory_lookup = dict()
     for name, pulse in pulse_lookup.items():
-        gateset = Gates(pulse=pulse)
-        gate_factory = lambda: gateset.CNOT(**gate_args)
+        # We have to use a default parameter in the lambda, otherwise the expression is evaluated to late and each
+        # key gets the same argument.
+        gateset_instance = Gates(pulse=pulse)
+        gate_factory = lambda gateset=gateset_instance: gateset.CNOT(**gate_args)
         gate_factory_lookup[name] = gate_factory
 
     # Compute the noise free reference
@@ -77,9 +81,9 @@ def _gate_experiment(gate_factory_lookup: dict,
         provided.
 
         Returns a lookup of the results, with keys being lookups of the form
-            mean: np.array with mean of the sampled gates                       Mean of the population
-            std: np.array with standard deviation of the sampled gates          Empirical standard deviation of the pop.
-            unc: np.array with uncertainty of the mean of the sampled gates     Empirical uncertainty of the mean of the pop.
+            mean: np.array with mean of the sampled gates                               Mean of the population
+            std: np.array with standard deviation of the sampled gates                  Empirical standard deviation of the population
+            std_sqrt(n): np.array with uncertainty of the mean of the sampled gates     Empirical uncertainty of the mean of the population.
     """
     result_lookup = dict()
 
@@ -99,16 +103,11 @@ def _gate_experiment(gate_factory_lookup: dict,
         ]
         flattened_gates = [arr.reshape(2 * dimension) for arr in stacked_gates]
 
-        # Compute metrics
-        mean = np.mean(flattened_gates, axis=0)
-        std = np.std(flattened_gates, axis=0)
-        unc = std / np.sqrt(n)
-
-        # Save metrics to lookup table
+        # Compute metrics and save in lookup table
         result_lookup[name] = {
-            "mean": mean,
-            "std": std,
-            "unc": unc
+            "mean": np.mean(flattened_gates, axis=0),
+            "std": np.std(flattened_gates, axis=0),
+            "std over sqrt(n)": np.std(flattened_gates, axis=0) / np.sqrt(n)
         }
 
     return result_lookup

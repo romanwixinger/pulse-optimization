@@ -18,15 +18,15 @@ def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
     color_num = max(1, len(result_lookup.keys()) - 1)
     for i, (name, result) in enumerate(result_lookup.items()):
         plt.errorbar(
-            x=range(len(result["mean"])),
-            y=result["mean"],
-            yerr=result["unc"],
+            x=range(len(result["mean(mean)"])),
+            y=result["mean(mean)"],
+            yerr=result["std(mean) over sqrt(n)"],
             label=name,
             elinewidth=3,
             capsize=10,
             color=plasma(i/color_num)
         )
-        is_x_gate = len(result["mean"]) == 8
+        is_x_gate = len(result["mean(mean)"]) == 8
 
     if is_x_gate:
         plt.title("Deviation of X gate matrix elements from noiseless result.")
@@ -43,7 +43,7 @@ def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
     plt.close()
 
 
-def plot_gates_standard_deviation(result_lookup: dict, folder: str, filename: str):
+def plot_gates_std(result_lookup: dict, folder: str, filename: str):
     """ Takes the result as lookup table with the pulse names as keys and the result as dict with keys x_mean, x_unc
         that represent the mean and uncertainty of the mean of the result for this pulse.
 
@@ -53,20 +53,22 @@ def plot_gates_standard_deviation(result_lookup: dict, folder: str, filename: st
     plt.figure(figsize=(12, 8))
     color_num = max(1, len(result_lookup.keys()) - 1)
     for i, (name, result) in enumerate(result_lookup.items()):
-        plt.plot(
-            range(len(result["std"])),
-            result["std"],
+        plt.errorbar(
+            x=range(len(result["mean(std)"])),
+            y=result["mean(std)"],
+            yerr=result["std(std) over sqrt(n)"],
             label=name,
+            elinewidth=3,
+            capsize=8,
             color=plasma(i/color_num)
         )
-        is_x_gate = len(result["mean"]) == 8
-
+        is_x_gate = len(result["mean(std)"]) == 8
 
     if is_x_gate:
-        plt.title("Standard deviation of X gate matrix elements from noiseless result.")
+        plt.title("Standard deviation of X gate matrix elements.")
         plt.xlabel("Re(X[0][0]),..., Im(X[1][1])")
     else:
-        plt.title("Standard deviation of CNOT gate matrix elements from noiseless result.")
+        plt.title("Standard deviation of CNOT gate matrix elements.")
         plt.xlabel("Re(X[0][0]),..., Im(X[3][3])")
     plt.ylabel("Standard deviation [1]")
     plt.legend()
@@ -87,16 +89,16 @@ def plot_gates_mean_reverse(result_lookup: dict, folder: str, filename):
     names = result_lookup.keys()
     x = [float(name) for name in names]
     plt.figure(figsize=(12, 8))
-    n_elements = len(result_lookup[list(names)[0]]["mean"])
+    n_elements = len(result_lookup[list(names)[0]]["mean(mean)"])
     for i in range(n_elements):
-        y = [result_lookup[name]["mean"][i] for name in names]
-        yerr = [result_lookup[name]["unc"][i] for name in names]
-        plt.errorbar(x=x + 0.02*np.random.rand(len(x)) - 0.02*np.random.rand(len(x)),
+        y = [result_lookup[name]["mean(mean)"][i] for name in names]
+        yerr = [result_lookup[name]["std(mean) over sqrt(n)"][i] for name in names]
+        plt.errorbar(x=x + 0.01*np.random.rand(len(x)) - 0.01*np.random.rand(len(x)),
                      y=y,
                      yerr=yerr,
                      label=f"Matrix element {i}",
                      alpha=0.5,
-                     capsize=10)
+                     capsize=8)
     plt.title(f"Deviation of the {'X' if n_elements == 8 else 'CNOT'} gate matrix elements as function of the Gaussian loc parameter.")
     plt.xlabel("Gaussian location parameter")
     plt.ylabel("Deviation from noiseless case [1]")
@@ -119,12 +121,18 @@ def plot_gates_std_reverse(result_lookup: dict, folder: str, filename):
     names = result_lookup.keys()
     x = [float(name) for name in names]
     plt.figure(figsize=(12, 8))
-    n_elements = len(result_lookup[list(names)[0]]["mean"])
+    n_elements = len(result_lookup[list(names)[0]]["mean(mean)"])
     for i in range(n_elements):
-        y = [result_lookup[name]["mean"][i] for name in names]
-        yerr = [result_lookup[name]["unc"][i] for name in names]
-        plt.plot(x, y, label=f"Matrix element {i}")
-    plt.title(f"Standard deviation of the {'X' if n_elements == 8 else 'CNOT'} gate matrix elements as function of the Gaussian loc parameter.")
+        y = [result_lookup[name]["mean(std)"][i] for name in names]
+        yerr = [result_lookup[name]["std(std) over sqrt(n)"][i] for name in names]
+        plt.errorbar(x=x + 0.01*np.random.rand(len(x)) - 0.01*np.random.rand(len(x)),
+                 y=y,
+                 yerr=yerr,
+                 label=f"Matrix element {i}",
+                 alpha=0.5,
+                 capsize=8)
+
+    plt.title(f"Standard deviation of the {'X' if n_elements == 8 else 'CNOT'} gate matrix elements.")
     plt.xlabel("Gaussian location parameter")
     plt.ylabel("Standard deviation [1]")
     plt.grid()
