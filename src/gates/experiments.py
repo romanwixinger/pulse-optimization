@@ -81,9 +81,9 @@ def _gate_experiment(gate_factory_lookup: dict,
         provided.
 
         Returns a lookup of the results, with keys being lookups of the form
-            mean: np.array with mean of the sampled gates                       Mean of the population
-            std: np.array with standard deviation of the sampled gates          Empirical standard deviation of the pop.
-            unc: np.array with uncertainty of the mean of the sampled gates     Empirical uncertainty of the mean of the pop.
+            mean: np.array with mean of the sampled gates                               Mean of the population
+            std: np.array with standard deviation of the sampled gates                  Empirical standard deviation of the population
+            std_sqrt(n): np.array with uncertainty of the mean of the sampled gates     Empirical uncertainty of the mean of the population.
     """
     result_lookup = dict()
 
@@ -103,16 +103,11 @@ def _gate_experiment(gate_factory_lookup: dict,
         ]
         flattened_gates = [arr.reshape(2 * dimension) for arr in stacked_gates]
 
-        # Compute metrics
-        mean = np.mean(flattened_gates, axis=0)
-        std = np.std(flattened_gates, axis=0)
-        unc = std / np.sqrt(n)
-
-        # Save metrics to lookup table
+        # Compute metrics and save in lookup table
         result_lookup[name] = {
-            "mean": mean,
-            "std": std,
-            "unc": unc
+            "mean": np.mean(flattened_gates, axis=0),
+            "std": np.std(flattened_gates, axis=0),
+            "std over sqrt(n)": np.std(flattened_gates, axis=0) / np.sqrt(n)
         }
 
     return result_lookup

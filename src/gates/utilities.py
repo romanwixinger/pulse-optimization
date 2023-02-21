@@ -8,6 +8,17 @@ import multiprocessing
 import tqdm
 
 
+result_metrics = ["mean", "std", "std over sqrt(n)"]
+aggregated_metrics = [
+    "mean(mean)",
+    "mean(std)",
+    "std(mean)",
+    "std(std)",
+    "std(mean) over sqrt(n)",
+    "std(std) over sqrt(n)"
+]
+
+
 def construct_x_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, phi: float=0.0):
     """ Takes the device parameters as lookup, and returns the corresponding arguments to sample an X gate. One can set
         a value 0 <= noise_scaling with which the noise is multiplied.
@@ -83,19 +94,18 @@ def perform_trivial_simulation(args: list, simulation: callable, max_workers: in
     return [simulation(arg) for arg in args]
 
 
-def save_results(results: list, folder: str, prefix: str, sub_keys: list=["mean", "std", "unc"]):
+def save_results(results: list, folder: str, prefix: str):
     """
     Takes results in the form of a lookup and saves it to a folder with filenames that have a certain prefix.
 
     Example input:
         results = [{
-        "pulse_0.0": {"mean": np.array([0.0,...,0.0]), ..., "unc": np.array([0.0,...,0.0])},
+        "pulse_0.0": {"mean": np.array([0.0,...,0.0]), ..., "std_sqrt(n)": np.array([0.0,...,0.0])},
         ...
-        "pulse_1.0": {"mean": np.array([0.0,...,0.0]), ..., "unc": np.array([0.0,...,0.0])},
+        "pulse_1.0": {"mean": np.array([0.0,...,0.0]), ..., "std_sqrt(n)": np.array([0.0,...,0.0])},
         } for i in range(10)]
         folder = "abc"
         prefix = "trivial"
-        sub_keys = ["mean", "std", "unc"]
 
     Example action:
         The method will create text files in the folder with filenames
@@ -104,9 +114,11 @@ def save_results(results: list, folder: str, prefix: str, sub_keys: list=["mean"
         trivial_unc_pulse_1.0_9.txt
     """
 
-    for i, x_result in enumerate(results):
-        for name, arr_lookup in x_result.items():
-            for part in sub_keys:
+    for i, result in enumerate(results):
+        for name, arr_lookup in result.items():
+            assert all((key in result_metrics for key in arr_lookup.keys())), \
+                f"Found unexpected key (metric). Expected {result_metrics} but found {arr_lookup.keys()}."
+            for part in result_metrics:
                 filename = f"{prefix}_{part}_{name}_{i}.txt"
                 arr = arr_lookup[part]
                 np.savetxt(f"{folder}/{filename}", arr)
@@ -114,41 +126,42 @@ def save_results(results: list, folder: str, prefix: str, sub_keys: list=["mean"
     return
 
 
-def save_aggregated_results(result: dict, folder: str, prefix: str, sub_keys: list=["mean", "std", "unc"]):
+def save_aggregated_results(result: dict, folder: str, prefix: str):
     """ Does the same as save_results(), but for a single lookup table which was created with aggregation.
     """
-
     for name, arr_lookup in result.items():
-        for part in sub_keys:
+        assert all((key in aggregated_metrics for key in arr_lookup.keys())), \
+            f"Found unexpected key (metric). Expected {aggregated_metrics} but found {arr_lookup.keys()}."
+        for part, arr in arr_lookup.items():
             filename = f"{prefix}_{part}_{name}_aggregated.txt"
-            arr = arr_lookup[part]
             np.savetxt(f"{folder}/{filename}", arr)
     print("Saved aggregated results.")
     return
 
 
 def aggregate_results(results: list):
-    """ Takes a list of lookup tables, which contain lookup tables with keys (mean, std, unc) on their own.
+    """ Takes a list of lookup tables, which contain lookup tables with keys (mean, std, std_sqrt(n)) on their own.
         The values are numpy arrays.
 
         Returns a single lookup table with the result as aggregated across the lookups. Namely, we aggregate
-        mean(mean) -> mean              Mean of the population
-        mean(std) -> std                Empirical standard deviation of the population.
-        std(mean)/sqrt(n) -> unc        Empirical uncertainty of the mean of means
+        mean(mean)              Mean of the population
+        mean(std)               Empirical standard deviation of the population.
+        std(mean)               Empirical standard deviation of the mean estimator
+        std(std)                Empirical standard deviation of the std estimator
+        std(mean) over sqrt(n)  Empirical uncertainty of the mean of means
 
         Example input:
         results = [{
-        "pulse_0.0": {"mean": np.array([0.0,...,0.0]), ..., "unc": np.array([0.0,...,0.0])},
+        "pulse_0.0": {"mean": np.array([0.0,...,0.0]), ..., "std_sqrt(n)  ": np.array([0.0,...,0.0])},
         ...
-        "pulse_1.0": {"mean": np.array([0.0,...,0.0]), ..., "unc": np.array([0.0,...,0.0])},
+        "pulse_1.0": {"mean": np.array([0.0,...,0.0]), ..., "std_sqrt(n)": np.array([0.0,...,0.0])},
         } for i in range(10)]
 
         Example output:
         output = {
-        "pulse_0.0": {"mean": np.array([0.0,...,0.0]), ..., "unc": np.array([0.0,...,0.0])},
+        "pulse_0.0": {"mean(mean)": np.array([0.0,...,0.0]), ..., "std(mean) over sqrt(n)": np.array([0.0,...,0.0])},
         ...
-        "pulse_1.0": {"mean": np.array([0.0,...,0.0]), ..., "unc": np.array([0.0,...,0.0])},
-        }
+        "pulse_1.0": {"mean(mean)": np.array([0.0,...,0.0]), ..., "std(mean) over sqrt(n)": np.array([0.0,...,0.0])},
     """
 
     # Input validation
@@ -159,10 +172,14 @@ def aggregate_results(results: list):
     names = results[0].keys()
     output = dict()
     for name in names:
-        res_mean = np.mean([lookup[name]["mean"] for lookup in results], axis=0)
-        res_std = np.std([lookup[name]["mean"] for lookup in results], axis=0)
-        res_unc = res_std/np.sqrt(len(results))
-        output[name] = {"mean": res_mean, "std": res_std, "unc": res_unc}
+        output[name] = {
+            "mean(mean)": np.mean([lookup[name]["mean"] for lookup in results], axis=0),
+            "mean(std)": np.mean([lookup[name]["std"] for lookup in results], axis=0),
+            "std(mean)": np.std([lookup[name]["mean"] for lookup in results], axis=0),
+            "std(std)": np.std([lookup[name]["std"] for lookup in results], axis=0),
+            "std(mean) over sqrt(n)": np.std([lookup[name]["mean"] for lookup in results], axis=0)/np.sqrt(len(results)),
+            "std(std) over sqrt(n)": np.std([lookup[name]["std"] for lookup in results], axis=0)/np.sqrt(len(results))
+        }
 
     return output
 
@@ -173,7 +190,7 @@ def load_results(folder: str) -> list:
 
     # Bookkeeping
     prefixes = set()   # x, cnot
-    parts = set()      # mean, std, unc
+    parts = set()      # mean, std, std_sqrt(n)
     names = set()      # 0.0, ..., 1.0
     i_set = set()
 
@@ -197,7 +214,7 @@ def load_results(folder: str) -> list:
             # Extract different variables
             splitted = filename.split("_")
             assert len(splitted) == 4, \
-                "Expected filename of the form {prefix}_{part}_{name}_{i}.txt but found otherwise."
+                f"Expected filename of the form prefix_part_name_i.txt but found otherwise: {filename}"
 
             # Add them to the bookkeeping
             prefix, part, name, i = splitted
@@ -219,7 +236,7 @@ def load_results(folder: str) -> list:
             result_lookup = dict()
             for name in names:
                 result_lookup[name] = {
-                    part: np.loadtxt(f"{folder}/{prefix}_{part}_{name}_{i}.txt") for part in ["mean", "std", "unc"]
+                    part: np.loadtxt(f"{folder}/{prefix}_{part}_{name}_{i}.txt") for part in result_metrics
                 }
             results.append(result_lookup)
         lookup[prefix] = results
@@ -234,7 +251,7 @@ def load_aggregated_results(folder: str) -> list:
 
     # Bookkeeping
     prefixes = set()   # x, cnot
-    parts = set()      # mean, std, unc
+    parts = set()      # aggregated_metrics
     names = set()      # 0.0, ..., 1.0
     i_set = set()
 
@@ -267,7 +284,7 @@ def load_aggregated_results(folder: str) -> list:
         result_lookup = dict()
         for name in names:
             result_lookup[name] = {
-                part: np.loadtxt(f"{folder}/{prefix}_{part}_{name}_aggregated.txt") for part in ["mean", "std", "unc"]
+                part: np.loadtxt(f"{folder}/{prefix}_{part}_{name}_aggregated.txt") for part in aggregated_metrics
             }
         lookup[prefix] = result_lookup
 
