@@ -78,9 +78,9 @@ def main(run: str,
 if __name__ == "__main__":
 
     # Configuration
-    run_ = "single_gate_high_statistics"
+    run_ = "single_gate_boosted_10"
     config_ = load_config(f"gates/{run_}.json")
-    noise_scaling_ = 1.0
+    noise_scaling_ = config_["content"]["noise_scaling"]
     phi_ = 0.0
     pulse_lookup_ = gaussian_pulse_lookup_100
 
