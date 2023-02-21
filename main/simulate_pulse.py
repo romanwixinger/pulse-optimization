@@ -2,7 +2,8 @@
 We visualize the pulses.
 """
 
-from src.pulses.pulses import pulse_lookup, gaussian_pulse_lookup
+from src.pulses.pulses import pulse_lookup
+from src.pulses.pulses import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
 from src.pulses.visualizations import plot_pulses, plot_parametrizations
 
 

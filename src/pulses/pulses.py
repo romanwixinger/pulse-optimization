@@ -59,11 +59,15 @@ pulse_lookup = {
 }
 
 
-gaussian_args = [round(loc, 2) for loc in 0.1 * np.arange(11)]
-gaussian_pulse_lookup = {
-    loc: GaussianPulse(loc=loc, scale=0.2) for loc in gaussian_args
+_gaussian_args_10 = [round(loc, 2) for loc in 0.1 * np.arange(11)]
+gaussian_pulse_lookup_10 = {
+    loc: GaussianPulse(loc=loc, scale=0.2) for loc in _gaussian_args_10
 }
 
+_gaussian_args_100 = [round(loc, 2) for loc in 0.01 * np.arange(101)]
+gaussian_pulse_lookup_100 = {
+    loc: GaussianPulse(loc=loc, scale=0.2) for loc in _gaussian_args_100
+}
 
 
 
