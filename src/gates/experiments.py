@@ -36,8 +36,10 @@ def _x_gate_experiment(pulse_lookup: dict, n: 10000, gate_args: dict):
     # Generate the gate factories.
     gate_factory_lookup = dict()
     for name, pulse in pulse_lookup.items():
-        gateset = Gates(pulse=pulse)
-        gate_factory = lambda: gateset.X(**gate_args)
+        # We have to use a default parameter in the lambda, otherwise the expression is evaluated to late and each
+        # key gets the same argument.
+        gateset_instance = Gates(pulse=pulse)
+        gate_factory = lambda gateset=gateset_instance: gateset.X(**gate_args)
         gate_factory_lookup[name] = gate_factory
 
     # Compute the noise free reference
@@ -59,8 +61,10 @@ def _cnot_gate_experiment(pulse_lookup: dict, n: 10000, gate_args: dict):
     # Generate the gate factories.
     gate_factory_lookup = dict()
     for name, pulse in pulse_lookup.items():
-        gateset = Gates(pulse=pulse)
-        gate_factory = lambda: gateset.CNOT(**gate_args)
+        # We have to use a default parameter in the lambda, otherwise the expression is evaluated to late and each
+        # key gets the same argument.
+        gateset_instance = Gates(pulse=pulse)
+        gate_factory = lambda gateset=gateset_instance: gateset.CNOT(**gate_args)
         gate_factory_lookup[name] = gate_factory
 
     # Compute the noise free reference
