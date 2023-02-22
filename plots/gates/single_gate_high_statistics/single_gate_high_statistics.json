@@ -4,6 +4,6 @@
             "samples": 10000,
             "runs": 50,
             "device_parameters": "20221208",
-            "boosting": 1.0
+            "noise_scaling": 1.0
       }
 }
