@@ -1,5 +1,9 @@
 """
 Experiment on level gate. Generates the results which are to be visualized.
+
+Note that the result is (noisy-gate - reference-gate) where the reference gate is the noiseless result
+for the same input parameters. This way we can directly plot the results when we want to visualize the
+differences.
 """
 
 import os
@@ -111,4 +115,3 @@ def _gate_experiment(gate_factory_lookup: dict,
         }
 
     return result_lookup
-
