@@ -1,9 +1,29 @@
 """
 Visualizes the results of the experiments on gate level.
+
+Note that the result is (noisy-gate - reference-gate) where the reference gate is the noiseless result
+for the same input parameters. This way we can directly plot the results when we want to visualize the
+differences. However, when we want to compute Hellinger(noisy-gate, reference-gate), then we have to reconstruct
+the noisy-gate first.
 """
 
 import numpy as np
+from uncertainties import unumpy
 import matplotlib.pyplot as plt
+import matplotlib as mpl
+
+from src.gates.utilities import hellinger_distance
+
+
+# We can use this reference: https://matplotlib.org/stable/tutorials/introductory/customizing.html
+mpl.rcParams['axes.titlesize'] = 16
+mpl.rcParams['axes.labelsize'] = 12
+mpl.rcParams['lines.linewidth'] = 1.5
+mpl.rcParams['lines.markersize'] = 5
+mpl.rcParams['xtick.labelsize'] = 12
+mpl.rcParams['ytick.labelsize'] = 12
+mpl.rcParams['legend.fontsize'] = "medium"
+mpl.rcParams['figure.figsize'] = 8, 6
 
 
 def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
@@ -14,14 +34,18 @@ def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
         As x axis, indices of the matrix elements are uses, so 0: Re(arr[0,0]),..., 7: Im(arr[1,1])
     """
 
-    plt.figure(figsize=(12, 8))
+    plt.figure()
     color_num = max(1, len(result_lookup.keys()) - 1)
+
+    # Only plot some labels if there are too many
+    get_label = (lambda i, name: name) if len(result_lookup.keys()) <= 10 else (lambda i, name: '_nolegend_' if i % 10 != 0 else name)
+
     for i, (name, result) in enumerate(result_lookup.items()):
         plt.errorbar(
             x=range(len(result["mean(mean)"])),
             y=result["mean(mean)"],
             yerr=result["std(mean) over sqrt(n)"],
-            label=name,
+            label=get_label(i, name),
             elinewidth=3,
             capsize=10,
             color=plasma(i/color_num)
@@ -36,6 +60,7 @@ def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
         plt.xlabel("Re(X[0][0]),..., Im(X[3][3])")
     plt.ylabel("Mean [1]")
     plt.legend()
+    plt.tight_layout()
 
     if folder is not None and filename is not None:
         plt.savefig(f"{folder}/{filename}")
@@ -50,14 +75,18 @@ def plot_gates_std(result_lookup: dict, folder: str, filename: str):
         Plots the standard deviation if the folder are not None.
         As x axis, indices of the matrix elements are uses, so 0: Re(arr[0,0]),..., 7: Im(arr[1,1])
     """
-    plt.figure(figsize=(12, 8))
+    plt.figure()
     color_num = max(1, len(result_lookup.keys()) - 1)
+
+    # Only plot some labels if there are too many
+    get_label = (lambda i, name: name) if len(result_lookup.keys()) <= 10 else (lambda i, name: '_nolegend_' if i % 10 != 0 else name)
+
     for i, (name, result) in enumerate(result_lookup.items()):
         plt.errorbar(
             x=range(len(result["mean(std)"])),
             y=result["mean(std)"],
             yerr=result["std(std) over sqrt(n)"],
-            label=name,
+            label=get_label(i, name),
             elinewidth=3,
             capsize=8,
             color=plasma(i/color_num)
@@ -65,12 +94,14 @@ def plot_gates_std(result_lookup: dict, folder: str, filename: str):
         is_x_gate = len(result["mean(std)"]) == 8
 
     if is_x_gate:
-        plt.title("Standard deviation of X gate matrix elements.")
+        plt.title("Standard deviation of X gate matrix elements")
         plt.xlabel("Re(X[0][0]),..., Im(X[1][1])")
     else:
-        plt.title("Standard deviation of CNOT gate matrix elements.")
+        plt.title("Standard deviation of CNOT gate matrix elements")
         plt.xlabel("Re(X[0][0]),..., Im(X[3][3])")
     plt.ylabel("Standard deviation [1]")
+    plt.tight_layout()
+
     plt.legend()
 
     if folder is not None and filename is not None:
@@ -88,7 +119,7 @@ def plot_gates_mean_reverse(result_lookup: dict, folder: str, filename):
     """
     names = result_lookup.keys()
     x = [float(name) for name in names]
-    plt.figure(figsize=(12, 8))
+    plt.figure()
     n_elements = len(result_lookup[list(names)[0]]["mean(mean)"])
     for i in range(n_elements):
         y = [result_lookup[name]["mean(mean)"][i] for name in names]
@@ -99,11 +130,14 @@ def plot_gates_mean_reverse(result_lookup: dict, folder: str, filename):
                      label=f"Matrix element {i}",
                      alpha=0.5,
                      capsize=8)
-    plt.title(f"Deviation of the {'X' if n_elements == 8 else 'CNOT'} gate matrix elements as function of the Gaussian loc parameter.")
+    plt.title(f"Deviation of the {'X' if n_elements == 8 else 'CNOT'} gate matrix elements.")
     plt.xlabel("Gaussian location parameter")
     plt.ylabel("Deviation from noiseless case [1]")
     plt.grid()
-    plt.legend()
+    plt.tight_layout()
+
+    if n_elements == 32:
+        plt.legend(ncol=4, prop={'size': 8})
 
     if folder is not None and filename is not None:
         plt.savefig(f"{folder}/{filename}")
@@ -120,7 +154,7 @@ def plot_gates_std_reverse(result_lookup: dict, folder: str, filename):
     """
     names = result_lookup.keys()
     x = [float(name) for name in names]
-    plt.figure(figsize=(12, 8))
+    plt.figure()
     n_elements = len(result_lookup[list(names)[0]]["mean(mean)"])
     for i in range(n_elements):
         y = [result_lookup[name]["mean(std)"][i] for name in names]
@@ -137,11 +171,74 @@ def plot_gates_std_reverse(result_lookup: dict, folder: str, filename):
     plt.ylabel("Standard deviation [1]")
     plt.grid()
     plt.legend()
+    plt.tight_layout()
+
+    if n_elements == 32:
+        plt.legend(ncol=4, prop={'size': 8})
 
     if folder is not None and filename is not None:
         plt.savefig(f"{folder}/{filename}")
     plt.show()
     plt.close()
+
+
+def plot_hellinger(result_lookup: dict,
+                   folder: str,
+                   filename: str,
+                   noise_free_gate: np.array,
+                   psi: np.array,
+                   gate_name: str="X",
+                   psi_name: str="|0>"):
+    """ Takes an lookup of the result (aggregated) as created by the experiments, and the noise free reference
+        gate. The result was previously computed as (result = noisy-gate - noise-free-gate).
+
+        Plots the Hellinger distance H(P,Q) of the probability distributions:
+        P = abs(noisy-gate * psi) ** 2
+        Q = abs(noise-free-gate * psi) ** 2
+        for psi as given. This is an application of the born rule.
+
+        Note that noisy-gate = result + noise-free-gate.
+    """
+
+    h_lookup = dict()
+    names = result_lookup.keys()
+    for name in names:
+        # Lookup result
+        result = result_lookup[name]["mean(mean)"]
+
+        # Compute noisy gate
+        noisy_gate = result + noise_free_gate
+
+        # Transform to matrices
+        l = noisy_gate.shape[0]
+        nqubits = 1 if l == 8 else 2
+        noisy_gate_reshaped = noisy_gate[:l//2] + 1J * noisy_gate[l//2:]
+        noisy_gate_reshaped = noisy_gate_reshaped.reshape((2**nqubits, 2**nqubits))
+        noise_free_reshaped = noise_free_gate[:l//2] + 1J * noise_free_gate[l//2:]
+        noise_free_reshaped = noise_free_reshaped.reshape((2**nqubits, 2**nqubits))
+
+        # Compute probability distributions with Born rule
+        P = np.square(np.abs(noisy_gate_reshaped @ psi))
+        Q = np.square(np.abs(noise_free_reshaped @ psi))
+
+        # Compute hellinger distance
+        h = hellinger_distance(P, Q)
+        h_lookup[name] = h
+
+    x = [float(name) for name in names]
+    y = [h_lookup[name] for name in names]
+    plt.figure()
+    plt.plot(x, y, "bo", label="Gaussian pulses")
+    plt.title(f"Hellinger distance between noisy \n and ideal distribution of <({gate_name}{psi_name})^2>.")
+    plt.xlabel(f"Location parameter of the Gaussian pulse [1]")
+    plt.ylabel(f"Hellinger distance [1]")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(f"{folder}/{filename}")
+    plt.show()
+
+    print(h_lookup)
+    return h_lookup
 
 
 def plasma(x: float, damp: float=0.2):

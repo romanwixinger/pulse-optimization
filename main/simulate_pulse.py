@@ -15,5 +15,5 @@ if __name__ == "__main__":
     plot_parametrizations(pulse_lookup, "plots/pulses/normal_parametrizations.png")
 
     print("Plot gaussian pulses")
-    plot_pulses(gaussian_pulse_lookup, "plots/pulses/gaussian_pulse.png")
-    plot_parametrizations(gaussian_pulse_lookup, "plots/pulses/gaussian_parametrizations.png")
+    plot_pulses(gaussian_pulse_lookup, "plots/pulses/gaussian_pulse.png", "loc = ")
+    plot_parametrizations(gaussian_pulse_lookup, "plots/pulses/gaussian_parametrizations.png", "loc = ")

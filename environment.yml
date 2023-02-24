@@ -13,3 +13,4 @@ dependencies:
     - pylatexenc
     - quantum-gates>=1.0.2
     - tqdm
+    - uncertainties
