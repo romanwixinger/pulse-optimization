@@ -4,6 +4,16 @@ Visualizes the results of the experiments on gate level.
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
+# We can use this reference: https://matplotlib.org/stable/tutorials/introductory/customizing.html
+mpl.rcParams['axes.titlesize'] = 16
+mpl.rcParams['axes.labelsize'] = 12
+mpl.rcParams['lines.linewidth'] = 1.5
+mpl.rcParams['lines.markersize'] = 5
+mpl.rcParams['xtick.labelsize'] = 12
+mpl.rcParams['ytick.labelsize'] = 12
+mpl.rcParams['legend.fontsize'] = "medium"
+mpl.rcParams['figure.figsize'] = 8, 6
 
 
 def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
@@ -15,13 +25,17 @@ def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
     """
 
     plt.figure(figsize=(12, 8))
+    plt.figure()
     color_num = max(1, len(result_lookup.keys()) - 1)
+    get_label = (lambda i, name: name) if len(result_lookup.keys()) <= 10 else (lambda i, name: '_nolegend_' if i % 10 != 0 else name)
+
     for i, (name, result) in enumerate(result_lookup.items()):
         plt.errorbar(
             x=range(len(result["mean(mean)"])),
             y=result["mean(mean)"],
             yerr=result["std(mean) over sqrt(n)"],
             label=name,
+            label=get_label(i, name),
             elinewidth=3,
             capsize=10,
             color=plasma(i/color_num)
@@ -36,6 +50,7 @@ def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
         plt.xlabel("Re(X[0][0]),..., Im(X[3][3])")
     plt.ylabel("Mean [1]")
     plt.legend()
+    plt.tight_layout()
 
     if folder is not None and filename is not None:
         plt.savefig(f"{folder}/{filename}")
@@ -51,13 +66,19 @@ def plot_gates_std(result_lookup: dict, folder: str, filename: str):
         As x axis, indices of the matrix elements are uses, so 0: Re(arr[0,0]),..., 7: Im(arr[1,1])
     """
     plt.figure(figsize=(12, 8))
+    plt.figure()
     color_num = max(1, len(result_lookup.keys()) - 1)
+
+    # Only plot some labels if there are too many
+    get_label = (lambda i, name: name) if len(result_lookup.keys()) <= 10 else (lambda i, name: '_nolegend_' if i % 10 != 0 else name)
+
     for i, (name, result) in enumerate(result_lookup.items()):
         plt.errorbar(
             x=range(len(result["mean(std)"])),
             y=result["mean(std)"],
             yerr=result["std(std) over sqrt(n)"],
             label=name,
+            label=get_label(i, name),
             elinewidth=3,
             capsize=8,
             color=plasma(i/color_num)
@@ -66,11 +87,15 @@ def plot_gates_std(result_lookup: dict, folder: str, filename: str):
 
     if is_x_gate:
         plt.title("Standard deviation of X gate matrix elements.")
+        plt.title("Standard deviation of X gate matrix elements")
         plt.xlabel("Re(X[0][0]),..., Im(X[1][1])")
     else:
         plt.title("Standard deviation of CNOT gate matrix elements.")
+        plt.title("Standard deviation of CNOT gate matrix elements")
         plt.xlabel("Re(X[0][0]),..., Im(X[3][3])")
     plt.ylabel("Standard deviation [1]")
+    plt.tight_layout()
+
     plt.legend()
 
     if folder is not None and filename is not None:
@@ -89,6 +114,7 @@ def plot_gates_mean_reverse(result_lookup: dict, folder: str, filename):
     names = result_lookup.keys()
     x = [float(name) for name in names]
     plt.figure(figsize=(12, 8))
+    plt.figure()
     n_elements = len(result_lookup[list(names)[0]]["mean(mean)"])
     for i in range(n_elements):
         y = [result_lookup[name]["mean(mean)"][i] for name in names]
@@ -100,10 +126,15 @@ def plot_gates_mean_reverse(result_lookup: dict, folder: str, filename):
                      alpha=0.5,
                      capsize=8)
     plt.title(f"Deviation of the {'X' if n_elements == 8 else 'CNOT'} gate matrix elements as function of the Gaussian loc parameter.")
+    plt.title(f"Deviation of the {'X' if n_elements == 8 else 'CNOT'} gate matrix elements.")
     plt.xlabel("Gaussian location parameter")
     plt.ylabel("Deviation from noiseless case [1]")
     plt.grid()
     plt.legend()
+    plt.tight_layout()
+
+    if n_elements == 32:
+        plt.legend(ncol=4, prop={'size': 8})
 
     if folder is not None and filename is not None:
         plt.savefig(f"{folder}/{filename}")
@@ -121,6 +152,7 @@ def plot_gates_std_reverse(result_lookup: dict, folder: str, filename):
     names = result_lookup.keys()
     x = [float(name) for name in names]
     plt.figure(figsize=(12, 8))
+    plt.figure()
     n_elements = len(result_lookup[list(names)[0]]["mean(mean)"])
     for i in range(n_elements):
         y = [result_lookup[name]["mean(std)"][i] for name in names]
@@ -137,6 +169,10 @@ def plot_gates_std_reverse(result_lookup: dict, folder: str, filename):
     plt.ylabel("Standard deviation [1]")
     plt.grid()
     plt.legend()
+    plt.tight_layout()
+
+    if n_elements == 32:
+        plt.legend(ncol=4, prop={'size': 8})
 
     if folder is not None and filename is not None:
         plt.savefig(f"{folder}/{filename}")
