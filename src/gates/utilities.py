@@ -6,6 +6,7 @@ import os
 import numpy as np
 import multiprocessing
 import tqdm
+from uncertainties import unumpy
 
 
 result_metrics = ["mean", "std", "std over sqrt(n)"]
@@ -290,3 +291,30 @@ def load_aggregated_results(folder: str) -> list:
 
     print("Loaded aggregated results.")
     return lookup
+
+
+def hellinger_distance(p1: np.array, p2: np.array) -> float:
+    """ Takes two probability distributions as numpy arrays and returns the Hellinger distance.
+    """
+    dh = (np.sqrt(p1)-np.sqrt(p2))**2
+    h = np.sum(dh)
+    h = (1/np.sqrt(2)) * np.sqrt(h)
+    return h
+
+
+def u_hellinger_distance(u_arr1, u_arr2) -> unumpy.umatrix:
+    """ Compute the hellinger distance for an unumpy.matrix and a numpy array.
+    """
+
+    dh = np.square(u_sqrt(u_arr1) - u_sqrt(u_arr2))
+    h = np.sum(dh)
+    h = (1/np.sqrt(2)) * u_sqrt(h)
+    return h
+
+
+def u_sqrt(u_arr) -> unumpy.umatrix:
+    """ Calculate the square root of an unumpy array.
+    """
+    nominal_val = np.sqrt(unumpy.nominal_values(u_arr))
+    std_devs = unumpy.std_devs(u_arr) / 2
+    return unumpy.umatrix(nominal_val, std_devs)
