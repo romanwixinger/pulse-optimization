@@ -4,6 +4,8 @@ integrals are affected by the change in pulse shapes.
 """
 
 import numpy as np
+import matplotlib as mpl
+mpl.rcParams['text.usetex'] = True  # Use LaTeX https://matplotlib.org/stable/tutorials/text/usetex.html
 import matplotlib.pyplot as plt
 
 from quantum_gates.integrators import Integrator
@@ -12,7 +14,17 @@ from quantum_gates.pulses import GaussianPulse
 from .utilities import integrands, markers
 
 
-def heatmaps_of_gaussian(locs: list, scales: list, integrands: list):
+# We can use this reference: https://matplotlib.org/stable/tutorials/introductory/customizing.html
+mpl.rcParams['axes.titlesize'] = 16
+mpl.rcParams['axes.labelsize'] = 12
+mpl.rcParams['lines.linewidth'] = 1.5
+mpl.rcParams['lines.markersize'] = 12
+mpl.rcParams['xtick.labelsize'] = 12
+mpl.rcParams['ytick.labelsize'] = 12
+mpl.rcParams['legend.fontsize'] = "medium"
+
+
+def heatmaps_of_gaussian(locs: list, scales: list, integrands: list, theta: float=np.pi, a: float=1.0):
     """
     Takes a list of parameters for GaussianPulse (locs, scales) and evaluates the integrands at pi. Then creates
     a heatmap (x: loc, y: scale) for each integrand.
@@ -22,9 +34,9 @@ def heatmaps_of_gaussian(locs: list, scales: list, integrands: list):
 
     for i, loc in enumerate(locs):
         for j, scale in enumerate(scales):
-            integrator = Integrator(pulse_parametrization=GaussianPulse(loc, scale).get_parametrization())
+            integrator = Integrator(pulse=GaussianPulse(loc, scale))
             for integrand in integrands:
-                res_lookup[integrand][i,j] = integrator.integrate(integrand, np.pi)
+                res_lookup[integrand][i,j] = integrator.integrate(integrand, theta, a)
 
     for integrand in integrands:
         # Result
@@ -49,16 +61,20 @@ def heatmaps_of_gaussian(locs: list, scales: list, integrands: list):
 
         ax.set_title(f"Integration result of {integrand} for GaussianPulse.")
         fig.tight_layout()
+        plt.savefig(f"plots/integrals/heatmap_gaussian_{integrand}.pdf")
         plt.show()
     return
 
 
 def plot_integral_results_for_parametrized_pulses(pulses: list,
                                                   parameters: list,
+                                                  parameter_name: str,
                                                   theta: float,
-                                                  filename: str):
+                                                  a: float=1.0,
+                                                  filename=None):
     """ Takes a list of pulses which were parametrized with values as given in the list parameters.
-    Calculate the integrals for a specific theta value, plots the result, and saves the result with a specific filename.
+        Calculate the integrals for a specific theta value, plots the result, and saves the result with a specific
+        filename.
     """
     result_dict = dict()
 
@@ -66,19 +82,23 @@ def plot_integral_results_for_parametrized_pulses(pulses: list,
         result_dict[integrand] = {}
         for pulse, param in zip(pulses, parameters):
             integrator = Integrator(pulse)
-            result_dict[integrand][param] = integrator.integrate(integrand, theta)
+            result_dict[integrand][param] = integrator.integrate(integrand, theta, a)
 
     for integrand in integrands:
         x = parameters
         y = result_dict[integrand].values()
         plt.plot(x, y, label=integrand)
 
-    plt.xlabel('Pulse parameter')
+    plt.xlabel(parameter_name)
     plt.ylabel("Integration result")
     plt.title("Integration result as function of the parametrization.")
     plt.legend()
-    plt.savefig(filename)
+    plt.grid()
+    if filename is not None:
+        plt.savefig(filename)
+    plt.show()
     plt.close()
+    return
 
 
 def plot_integration_result(pulse, pulse_name: str, thetas: np.array=np.arange(1e-3, 2 * np.pi, 0.1)):
