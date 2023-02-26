@@ -26,14 +26,14 @@ if __name__ == '__main__':
     plot_integral_results_for_parametrized_pulses(
         pulses=list(gaussian_pulse_lookup.values()),
         parameters=list(gaussian_pulse_lookup.keys()),
-        parameter_name="Gaussian location parameter",
+        parameter_name=r"Gaussian location parameter",
         theta=np.pi/2,
-        filename=f"{plot_folder}/integration_result_parametrized_gaussians_pi_half.png"
+        filename=f"{plot_folder}/integration_result_parametrized_gaussians_pi_half.pdf"
     )
     plot_integral_results_for_parametrized_pulses(
         pulses=list(gaussian_pulse_lookup.values()),
         parameters=list(gaussian_pulse_lookup.keys()),
         parameter_name="Gaussian location parameter",
         theta=np.pi,
-        filename=f"{plot_folder}/integration_result_parametrized_gaussians_pi.png"
+        filename=f"{plot_folder}/integration_result_parametrized_gaussians_pi.pdf"
     )

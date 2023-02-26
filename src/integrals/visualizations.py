@@ -4,8 +4,9 @@ integrals are affected by the change in pulse shapes.
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
 import matplotlib as mpl
+mpl.rcParams['text.usetex'] = True  # Use LaTeX https://matplotlib.org/stable/tutorials/text/usetex.html
+import matplotlib.pyplot as plt
 
 from quantum_gates.integrators import Integrator
 from quantum_gates.pulses import GaussianPulse
@@ -21,9 +22,6 @@ mpl.rcParams['lines.markersize'] = 12
 mpl.rcParams['xtick.labelsize'] = 12
 mpl.rcParams['ytick.labelsize'] = 12
 mpl.rcParams['legend.fontsize'] = "medium"
-
-# Use LaTeX https://matplotlib.org/stable/tutorials/text/usetex.html
-# mpl.rcParams['text.usetex'] = True
 
 
 def heatmaps_of_gaussian(locs: list, scales: list, integrands: list, theta: float=np.pi, a: float=1.0):
@@ -63,6 +61,7 @@ def heatmaps_of_gaussian(locs: list, scales: list, integrands: list, theta: floa
 
         ax.set_title(f"Integration result of {integrand} for GaussianPulse.")
         fig.tight_layout()
+        plt.savefig(f"plots/integrals/heatmap_gaussian_{integrand}.pdf")
         plt.show()
     return
 

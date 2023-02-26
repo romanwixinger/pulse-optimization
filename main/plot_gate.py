@@ -36,16 +36,16 @@ def plot(run: str, config: dict):
         os.makedirs(plots_folder)
 
     # Plot and save first X gate result
-    plot_gates_mean(x_aggregated, plots_folder, filename="x_gate_mean.png")
-    plot_gates_std(x_aggregated, plots_folder, filename="x_gate_std.png")
-    plot_gates_mean_reverse(x_aggregated, plots_folder, filename="x_gate_mean_reversed.png")
-    plot_gates_std_reverse(x_aggregated, plots_folder, filename="x_gate_std_reversed.png")
+    plot_gates_mean(x_aggregated, plots_folder, filename="x_gate_mean.pdf")
+    plot_gates_std(x_aggregated, plots_folder, filename="x_gate_std.pdf")
+    plot_gates_mean_reverse(x_aggregated, plots_folder, filename="x_gate_mean_reversed.pdf")
+    plot_gates_std_reverse(x_aggregated, plots_folder, filename="x_gate_std_reversed.pdf")
 
     # Plot and save first CNOT gate result
-    plot_gates_mean(cnot_aggregated, plots_folder, filename="cnot_gate_mean.png")
-    plot_gates_std(cnot_aggregated, plots_folder, filename="cnot_gate_std.png")
-    plot_gates_mean_reverse(cnot_aggregated, plots_folder, filename="cnot_gate_mean_reversed.png")
-    plot_gates_std_reverse(cnot_aggregated, plots_folder, filename="cnot_gate_std_reversed.png")
+    plot_gates_mean(cnot_aggregated, plots_folder, filename="cnot_gate_mean.pdf")
+    plot_gates_std(cnot_aggregated, plots_folder, filename="cnot_gate_std.pdf")
+    plot_gates_mean_reverse(cnot_aggregated, plots_folder, filename="cnot_gate_mean_reversed.pdf")
+    plot_gates_std_reverse(cnot_aggregated, plots_folder, filename="cnot_gate_std_reversed.pdf")
 
     # Plot Hellinger((X_noisy psi)**2, (X_noise_free psi)**2)
     x_gate_args = construct_x_gate_args(device_param_lookup_20221208, noise_scaling=1e-12, phi=0.0)
@@ -54,7 +54,7 @@ def plot(run: str, config: dict):
     plot_hellinger(
         x_aggregated,
         folder=plots_folder,
-        filename="hellinger_distance_cnot_0.png",
+        filename="hellinger_distance_cnot_0.pdf",
         noise_free_gate=x_noise_free,
         psi=np.array([1, 0]),
         psi_name="|0>",
@@ -63,7 +63,7 @@ def plot(run: str, config: dict):
     plot_hellinger(
         x_aggregated,
         folder=plots_folder,
-        filename="hellinger_distance_cnot_1.png",
+        filename="hellinger_distance_cnot_1.pdf",
         noise_free_gate=x_noise_free,
         psi=np.array([0, 1]),
         psi_name="|1>",
@@ -72,7 +72,7 @@ def plot(run: str, config: dict):
     plot_hellinger(
         x_aggregated,
         folder=plots_folder,
-        filename="hellinger_distance_cnot_0_plus_1.png",
+        filename="hellinger_distance_cnot_0_plus_1.pdf",
         noise_free_gate=x_noise_free,
         psi=np.array([1, 1]) / np.sqrt(2),
         psi_name="(|1> + |0>)/sqrt(2)",
@@ -85,7 +85,7 @@ def plot(run: str, config: dict):
     plot_hellinger(
         cnot_aggregated,
         folder=plots_folder,
-        filename="hellinger_distance_cnot_00.png",
+        filename="hellinger_distance_cnot_00.pdf",
         noise_free_gate=cnot_noise_free,
         psi=np.array([1, 0, 0, 0]),
         psi_name="|00>",
@@ -94,7 +94,7 @@ def plot(run: str, config: dict):
     plot_hellinger(
         cnot_aggregated,
         folder=plots_folder,
-        filename="hellinger_distance_cnot_01.png",
+        filename="hellinger_distance_cnot_01.pdf",
         noise_free_gate=cnot_noise_free,
         psi=np.array([0, 1, 0, 0]),
         psi_name="|01>",
@@ -103,7 +103,7 @@ def plot(run: str, config: dict):
     plot_hellinger(
         cnot_aggregated,
         folder=plots_folder,
-        filename="hellinger_distance_cnot_10.png",
+        filename="hellinger_distance_cnot_10.pdf",
         noise_free_gate=cnot_noise_free,
         psi=np.array([0, 0, 1, 0]),
         psi_name="|10>",
@@ -112,7 +112,7 @@ def plot(run: str, config: dict):
     plot_hellinger(
         cnot_aggregated,
         folder=plots_folder,
-        filename="hellinger_distance_cnot_11.png",
+        filename="hellinger_distance_cnot_11.pdf",
         noise_free_gate=cnot_noise_free,
         psi=np.array([0, 0, 0, 1]),
         psi_name="|11>",
