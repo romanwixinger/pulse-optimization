@@ -21,12 +21,10 @@ from src.gates.utilities import load_aggregated_results, construct_x_gate_args, 
 from configuration.device_parameters.lookup import device_param_lookup_20221208
 
 
-def plot(run: str, config: dict):
+def plot(run: str, config: dict, agg_results: dict):
     """ Create all plots of the results. """
 
-    # Load aggregated results
-    result_folder = f"results/gates/{run}"
-    agg_results = load_aggregated_results(result_folder)
+    # Extract aggregated results
     x_aggregated = agg_results["x"]
     cnot_aggregated = agg_results["cnot"]
 
@@ -130,5 +128,9 @@ if __name__ == "__main__":
     run_ = "single_gate_high_statistics"
     config_ = load_config(f"gates/{run_}.json")
 
+    # Load results
+    result_folder_ = f"results/gates/{run}"
+    agg_results_ = load_aggregated_results(result_folder_)
+
     # Plot
-    plot(run=run_, config=config_)
+    plot(run=run_, config=config_, agg_results=agg_results_)
