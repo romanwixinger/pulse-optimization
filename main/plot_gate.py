@@ -124,11 +124,20 @@ def plot(run: str, config: dict):
         json.dump(config, file, indent=6)
 
 
+def main():
+    runs = [
+        "single_gate_boosted_1",
+        "single_gate_boosted_0.1",
+        "single_gate_boosted_10",
+        "single_gate_boosted_100",
+        "single_gate_boosted_1000"
+    ]
+
+    for run in runs:
+        config = load_config(f"gates/{run}.json")
+        plot(run=run, config=config)
+
+
 if __name__ == "__main__":
 
-    # Load configuration
-    run_ = "single_gate_high_statistics"
-    config_ = load_config(f"gates/{run_}.json")
-
-    # Plot
-    plot(run=run_, config=config_)
+    main()
