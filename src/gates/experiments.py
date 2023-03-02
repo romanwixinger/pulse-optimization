@@ -12,6 +12,44 @@ import numpy as np
 
 from quantum_gates.gates import Gates, NoiseFreeGates
 
+from src.gates.utilities import (
+    perform_parallel_simulation,
+    aggregate_results,
+    save_results,
+    save_aggregated_results
+)
+
+
+def simulate_gate(run: str,
+                  gate_parameters: dict,
+                  samples: int,
+                  runs: int,
+                  pulse_lookup: dict,
+                  simulation: callable,
+                  prefix: str):
+    """ Compute a gate for a specific level of noise to a high precision.
+    """
+
+    # Prepare arguments
+    args = [{"pulse_lookup": pulse_lookup, "n": samples, "gate_args": gate_parameters} for i in range(runs)]
+
+    # Compute in parallel
+    results = perform_parallel_simulation(args=args, simulation=simulation, max_workers=50)
+
+    # Aggregate results
+    aggregated = aggregate_results(results)
+
+    # Create folder to save results
+    result_folder = f"results/gates/{run}"
+    if not os.path.exists(result_folder):
+        os.makedirs(result_folder)
+
+    # Save results
+    save_results(results=results, folder=result_folder, prefix=prefix)
+    save_aggregated_results(result=aggregated, folder=result_folder, prefix=prefix)
+
+    return
+
 
 def x_gate_experiment(args):
     """ Wrapper to the _x_gate_experiment() function to be able to call the function with a single argument.
