@@ -9,18 +9,19 @@ from src.integrals.visualizations import (
     plot_integral_results_for_parametrized_pulses
 )
 from src.integrals.utilities import integrands
-from src.pulses.pulses import gaussian_pulse_lookup
+from src.pulses.pulses import gaussian_pulse_lookup_100 as gaussian_pulse_lookup
 
 
-if __name__ == '__main__':
-
-    # Folder
-    plot_folder = "plots/integrals"
-
+def main_heatmaps():
     # Heatmaps of integrals for Gaussian pulse
     locs = np.linspace(0.0, 1.0, 5)
     scales = np.linspace(0.1, 0.5, 5)
-    #heatmaps_of_gaussian(locs, scales, integrands)
+    heatmaps_of_gaussian(locs, scales, integrands)
+    return
+
+
+def main_plots():
+    plot_folder = "plots/integrals"
 
     # Integration result for Gaussian pulses
     plot_integral_results_for_parametrized_pulses(
@@ -37,3 +38,9 @@ if __name__ == '__main__':
         theta=np.pi,
         filename=f"{plot_folder}/integration_result_parametrized_gaussians_pi.pdf"
     )
+    return
+
+
+if __name__ == '__main__':
+
+    main_plots()
