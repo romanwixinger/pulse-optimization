@@ -61,7 +61,6 @@ def heatmaps_of_gaussian(locs: list, scales: list, integrands: list, theta: floa
 
         ax.set_title(f"Integration result of {integrand} for GaussianPulse.")
         fig.tight_layout()
-        plt.savefig(f"plots/integrals/heatmap_gaussian_{integrand}.pdf")
         plt.show()
     return
 
