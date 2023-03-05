@@ -18,10 +18,9 @@ from src.gates.utilities import gate_args_constructor_lookup
 from src.gates.factories import factory_class_lookup
 
 
-def main():
+def main(run: str):
 
     # Configuration
-    run = "standard_configuration"
     config = load_config(f"gates/{run}.json")
     content = config["content"]
 
@@ -57,4 +56,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+
+    runs = ["standard_configuration"]
+
+    for run in runs:
+        print(f"Start run with configuration {run}")
+        main(run=run)
