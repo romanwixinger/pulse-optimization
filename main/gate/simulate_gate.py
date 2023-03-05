@@ -7,59 +7,49 @@ Note:
   effects. Moreover, it is much cheaper.
 """
 
-import os
 import json
 
 from quantum_gates.utilities import load_config
 
-import configuration.device_parameters.lookup as dpl
-from src.pulses.pulses import gaussian_pulse_lookup
-from src.gates.experiments import x_gate_experiment, cnot_gate_experiment, simulate_gate
-from src.gates.utilities import (
-    construct_x_gate_args,
-    construct_cnot_gate_args,
-)
+from configuration.device_parameters.lookup import device_param_lookup
+from src.pulses.pulses import all_pulse_lookup
+from src.gates.experiments import simulate_gate
+from src.gates.utilities import gate_args_constructor_lookup
+from src.gates.factories import factory_class_lookup
 
 
 def main():
 
     # Configuration
-    run = "single_gate_high_statistics"
+    run = "standard_configuration"
     config = load_config(f"gates/{run}.json")
     content = config["content"]
-    phi = 0.0
-    pulse_lookup = gaussian_pulse_lookup
 
-    # Load device parameters
-    device_param = dpl.device_param_lookup_20221208
-    assert device_param["version"] == content["device_parameters"], \
-        "Wrong device parameter version."
+    # Load instances
+    pulse_lookup = all_pulse_lookup[content["pulse_lookup"]]
+    device_param = device_param_lookup[content["device_parameters"]]
 
     # Construct gate parameters
-    gate_param_x = construct_x_gate_args(device_param, noise_scaling=content["noise_scaling"], phi=phi)
-    gate_param_cnot = construct_cnot_gate_args(device_param, noise_scaling=content["noise_scaling"],
-                                               phi_ctr=phi, phi_trg=phi)
+    gate_args_lookup = {
+        name: gate_args_constructor_lookup[name](
+            device_param_lookup=device_param,
+            noise_scaling=content["noise_scaling"],
+            **content["extra_gate_args"][name]
+        ) for name in content["gates"]
+    }
 
-    # Run X Gate
-    simulate_gate(
-        run=run,
-        gate_parameters=gate_param_x,
-        samples=content["samples"],
-        runs=content["runs"],
-        pulse_lookup=pulse_lookup,
-        simulation=x_gate_experiment,
-        prefix="x"
-    )
-    # Run CNOT gate
-    simulate_gate(
-        run=run,
-        gate_parameters=gate_param_cnot,
-        samples=content["samples"],
-        runs=content["runs"],
-        pulse_lookup=pulse_lookup,
-        simulation=cnot_gate_experiment,
-        prefix="cnot"
-    )
+    # Execute simulations
+    for name in content["gates"]:
+        print(f"Simulate {name} gate.")
+        simulate_gate(
+            GateFactoryClass=factory_class_lookup[name],
+            gate_args=gate_args_lookup[name],
+            pulse_lookup=pulse_lookup,
+            run=run,
+            samples=content["samples"],
+            runs=content["runs"],
+            prefix=name,
+        )
 
     # Save configurations
     with open(f"results/gates/{run}/{run}.json", 'w', encoding='utf8') as file:
