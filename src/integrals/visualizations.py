@@ -100,7 +100,7 @@ def plot_integral_results_for_parametrized_pulses(pulses: list,
     return
 
 
-def plot_integration_result(pulse, pulse_name: str, thetas: np.array=np.arange(1e-3, 2 * np.pi, 0.1)):
+def plot_integration_result_for_theta_values(pulse, pulse_name: str, thetas: np.array=np.arange(1e-3, 2 * np.pi, 0.1)):
     """ Takes a pulse and creates the corresponding integrator. Evaluates the integrals on a linspace of theta values,
         and plots the result.
     """

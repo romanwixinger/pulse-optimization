@@ -2,7 +2,7 @@
 We visualize the pulses.
 """
 
-from src.pulses.pulses import pulse_lookup
+from src.pulses.pulses import normal_pulse_lookup
 from src.pulses.pulses import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
 from src.pulses.visualizations import plot_pulses, plot_parametrizations
 
@@ -14,8 +14,8 @@ if __name__ == "__main__":
 
     # Plot pulses
     print("Plot normal pulses")
-    plot_pulses(pulse_lookup, f"{plot_folder}/normal_pulses.pdf")
-    plot_parametrizations(pulse_lookup, f"{plot_folder}/normal_parametrizations.pdf")
+    plot_pulses(normal_pulse_lookup, f"{plot_folder}/normal_pulses.pdf")
+    plot_parametrizations(normal_pulse_lookup, f"{plot_folder}/normal_parametrizations.pdf")
 
     print("Plot gaussian pulses")
     plot_pulses(gaussian_pulse_lookup, f"{plot_folder}/gaussian_pulse.pdf", "loc = ")

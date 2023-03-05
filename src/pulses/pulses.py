@@ -35,7 +35,7 @@ reversed_linear_pulse = Pulse(
 )
 
 
-pulse_lookup = {
+normal_pulse_lookup = {
     "constant_pulse": constant_pulse,
     "triangle_pulse": triangle_pulse,
     "sin_squared_pulse": sin_squared_pulse,
@@ -52,4 +52,11 @@ gaussian_pulse_lookup_10 = {
 _gaussian_args_100 = [round(loc, 2) for loc in 0.01 * np.arange(101)]
 gaussian_pulse_lookup_100 = {
     loc: GaussianPulse(loc=loc, scale=0.2) for loc in _gaussian_args_100
+}
+
+
+all_pulse_lookup = {
+    "normal_pulse_lookup": normal_pulse_lookup,
+    "gaussian_pulses_10": gaussian_pulse_lookup_10,
+    "gaussian_pulses_100": gaussian_pulse_lookup_100,
 }
