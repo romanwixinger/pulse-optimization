@@ -61,7 +61,6 @@ def heatmaps_of_gaussian(locs: list, scales: list, integrands: list, theta: floa
 
         ax.set_title(f"Integration result of {integrand} for GaussianPulse.")
         fig.tight_layout()
-        plt.savefig(f"plots/integrals/heatmap_gaussian_{integrand}.pdf")
         plt.show()
     return
 
@@ -101,7 +100,7 @@ def plot_integral_results_for_parametrized_pulses(pulses: list,
     return
 
 
-def plot_integration_result(pulse, pulse_name: str, thetas: np.array=np.arange(1e-3, 2 * np.pi, 0.1)):
+def plot_integration_result_for_theta_values(pulse, pulse_name: str, thetas: np.array=np.arange(1e-3, 2 * np.pi, 0.1)):
     """ Takes a pulse and creates the corresponding integrator. Evaluates the integrals on a linspace of theta values,
         and plots the result.
     """

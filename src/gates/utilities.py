@@ -21,8 +21,9 @@ aggregated_metrics = [
 
 
 def construct_x_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, phi: float=0.0):
-    """ Takes the device parameters as lookup, and returns the corresponding arguments to sample an X gate. One can set
-        a value 0 <= noise_scaling with which the noise is multiplied.
+    """ Takes the device parameters as lookup, and returns the corresponding arguments to sample an X or SX gate.
+
+        One can set a value 0 <= noise_scaling with which the noise is multiplied.
     """
 
     assert noise_scaling >= 0, "Negative noise values are not physical."
@@ -37,8 +38,10 @@ def construct_x_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, p
 
 
 def construct_cnot_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, phi_ctr: float=0.0, phi_trg: float=0.0):
-    """ Takes the device parameters as lookup, and returns the corresponding arguments to sample an X gate. One can set
-        a value 0 <= noise_scaling with which the noise is multiplied.
+    """ Takes the device parameters as lookup, and returns the corresponding arguments to sample an CNOT or CNOT inv
+        gate.
+
+        One can set a value 0 <= noise_scaling with which the noise is multiplied.
     """
 
     assert noise_scaling >= 0, "Negative noise values are not physical."
@@ -54,7 +57,37 @@ def construct_cnot_gate_args(device_param_lookup: dict, noise_scaling: float=1.0
         "T1_ctr": device_param_lookup["T1"][0] / noise_scaling,
         "T2_ctr": device_param_lookup["T2"][0] / noise_scaling,
         "T1_trg": device_param_lookup["T1"][1] / noise_scaling,
-        "T2_trg": device_param_lookup["T2"][1] / noise_scaling
+        "T2_trg": device_param_lookup["T2"][1] / noise_scaling,
+    }
+
+
+def construct_cr_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, theta: float=np.pi/4, phi: float=0.0):
+    """ Takes the device parameters as lookup, and returns the corresponding arguments to sample an CR gate. One can set
+        a value 0 <= noise_scaling with which the noise is multiplied.
+    """
+
+    assert noise_scaling >= 0, "Negative noise values are not physical."
+    noise_scaling = max(noise_scaling, 1e-15)
+
+    t_cnot = device_param_lookup["t_cnot"][0][1]
+    p_cnot = device_param_lookup["p_cnot"][0][1] * noise_scaling
+    p_single_ctr = device_param_lookup["p"][0]
+    p_single_trg = device_param_lookup["p"][1]
+
+    # Use calculations from CNOT gate
+    tg = 35*10**(-9)
+    t_cr = t_cnot/2 - tg
+    p_cr = (4/3) * (1 - np.sqrt(np.sqrt((1 - (3/4) * p_cnot)**2 / ((1-(3/4)*p_single_ctr)**2 * (1-(3/4)*p_single_trg)))))
+
+    return {
+        "theta": theta,
+        "phi": phi,
+        "t_cr": t_cr,
+        "p_cr": p_cr * noise_scaling,
+        "T1_ctr": device_param_lookup["T1"][0] / noise_scaling,
+        "T2_ctr": device_param_lookup["T2"][0] / noise_scaling,
+        "T1_trg": device_param_lookup["T1"][1] / noise_scaling,
+        "T2_trg": device_param_lookup["T2"][1] / noise_scaling,
     }
 
 
@@ -318,3 +351,12 @@ def u_sqrt(u_arr) -> unumpy.umatrix:
     nominal_val = np.sqrt(unumpy.nominal_values(u_arr))
     std_devs = unumpy.std_devs(u_arr) / 2
     return unumpy.umatrix(nominal_val, std_devs)
+
+
+gate_args_constructor_lookup = {
+    "X": construct_x_gate_args,
+    "SX": construct_x_gate_args,
+    "CR": construct_cr_gate_args,
+    "CNOT": construct_cnot_gate_args,
+    "CNOT_inv": construct_cnot_gate_args,
+}
