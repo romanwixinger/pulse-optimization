@@ -6,7 +6,8 @@ import numpy as np
 
 from src.integrals.visualizations import (
     heatmaps_of_gaussian,
-    plot_integral_results_for_parametrized_pulses
+    plot_integral_results_for_parametrized_pulses,
+    plot_integral_sum_for_parametrized_pulses,
 )
 from src.integrals.utilities import integrands
 from src.pulses.pulses import gaussian_pulse_lookup_100 as gaussian_pulse_lookup
@@ -27,6 +28,23 @@ def main_plots():
     """
     plot_folder = "plots/integrals"
 
+    # Plot sum of integrations results for Gaussian pulses
+    plot_integral_sum_for_parametrized_pulses(
+        pulses=list(gaussian_pulse_lookup.values()),
+        parameters=list(gaussian_pulse_lookup.keys()),
+        parameter_name="Gaussian location parameter",
+        theta=np.pi/2,
+        filename=f"{plot_folder}/integration_sum_parametrized_gaussians_pi_half.pdf"
+    )
+
+    plot_integral_sum_for_parametrized_pulses(
+        pulses=list(gaussian_pulse_lookup.values()),
+        parameters=list(gaussian_pulse_lookup.keys()),
+        parameter_name="Gaussian location parameter",
+        theta=np.pi,
+        filename=f"{plot_folder}/integration_sum_parametrized_gaussians_pi.pdf"
+    )
+
     # Integration result for Gaussian pulses
     plot_integral_results_for_parametrized_pulses(
         pulses=list(gaussian_pulse_lookup.values()),
@@ -42,6 +60,7 @@ def main_plots():
         theta=np.pi,
         filename=f"{plot_folder}/integration_result_parametrized_gaussians_pi.pdf"
     )
+
     return
 
 

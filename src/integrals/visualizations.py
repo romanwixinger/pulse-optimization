@@ -8,7 +8,7 @@ Todo:
 """
 
 
-
+from collections import defaultdict
 import numpy as np
 import matplotlib as mpl
 mpl.rcParams['text.usetex'] = True  # Use LaTeX https://matplotlib.org/stable/tutorials/text/usetex.html
@@ -105,6 +105,39 @@ def plot_integral_results_for_parametrized_pulses(pulses: list,
     plt.xlabel(parameter_name)
     plt.ylabel("Integration result")
     plt.title("Integration result as function of the parametrization.")
+    plt.legend()
+    plt.grid()
+    if filename is not None:
+        plt.savefig(filename)
+    plt.show()
+    plt.close()
+    return
+
+
+def plot_integral_sum_for_parametrized_pulses(pulses: list,
+                                              parameters: list,
+                                              parameter_name: str,
+                                              theta: float,
+                                              a: float=1.0,
+                                              filename=None):
+    """ Takes a list of pulses which were parametrized with values as given in the list parameters.
+        Calculate the integrals for a specific theta value, plots the sum, and saves the result with a specific
+        filename.
+    """
+    sum_dict = defaultdict(int)
+
+    for integrand in integrands:
+        for pulse, param in zip(pulses, parameters):
+            integrator = Integrator(pulse)
+            sum_dict[param] += integrator.integrate(integrand, theta, a)
+
+    x = sum_dict.keys()
+    y = sum_dict.values()
+    plt.plot(x, y, label="Sum")
+
+    plt.xlabel(parameter_name)
+    plt.ylabel("Sum of integration results")
+    plt.title("Sum of integration results as function of the parametrization.")
     plt.legend()
     plt.grid()
     if filename is not None:
