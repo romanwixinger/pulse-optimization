@@ -13,6 +13,8 @@ from src.pulses.pulses import gaussian_pulse_lookup_100 as gaussian_pulse_lookup
 
 
 def main_heatmaps():
+    """Create the heatmaps for Gaussian pulses.
+    """
     # Heatmaps of integrals for Gaussian pulse
     locs = np.linspace(0.0, 1.0, 5)
     scales = np.linspace(0.1, 0.5, 5)
@@ -21,6 +23,8 @@ def main_heatmaps():
 
 
 def main_plots():
+    """Plot the integral results for parametrized Gaussian pulses.
+    """
     plot_folder = "plots/integrals"
 
     # Integration result for Gaussian pulses

@@ -1,5 +1,4 @@
-"""
-Load and visualize the results of the gate experiments.
+"""Load and visualize the results of the gate experiments.
 """
 
 import numpy as np
@@ -9,7 +8,6 @@ import json
 from quantum_gates.utilities import load_config
 from quantum_gates.gates import NoiseFreeGates
 
-import configuration.device_parameters.lookup as dpl
 from src.gates.visualizations import (
     plot_gates_mean,
     plot_gates_std,
@@ -22,7 +20,14 @@ from configuration.device_parameters.lookup import device_param_lookup_20221208
 
 
 def plot(run: str, config: dict, agg_results: dict):
-    """ Create all plots of the results. """
+    """Create all plots of the results.
+
+    Args:
+        run (str): Name of the run of the experiment.
+        config (dict): Configuration file.
+        agg_results (dict): Aggregated results as created by the simulate_gate() function or as loaded be the
+            load_aggregated_results() function.
+    """
 
     # Extract aggregated results
     x_aggregated = agg_results["x"]
@@ -120,6 +125,8 @@ def plot(run: str, config: dict, agg_results: dict):
     # Save configuration
     with open(f"{plots_folder}/{run}.json", 'w', encoding='utf8') as file:
         json.dump(config, file, indent=6)
+
+    return
 
 
 if __name__ == "__main__":

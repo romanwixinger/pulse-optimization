@@ -1,5 +1,4 @@
-"""
-We visualize the pulses.
+"""Visualizes the pulses.
 """
 
 from src.pulses.pulses import normal_pulse_lookup
