@@ -1,9 +1,4 @@
-"""
-Experiment on level gate. Generates the results which are to be visualized.
-
-Note that the result is (noisy-gate - reference-gate) where the reference gate is the noiseless result
-for the same input parameters. This way we can directly plot the results when we want to visualize the
-differences.
+"""Experiments on level gate. Generates the results which are to be visualized.
 """
 
 import os
@@ -26,7 +21,16 @@ def simulate_gate(GateFactoryClass: type[GateFactory],
                   samples: int=10000,
                   runs: int=50,
                   prefix: str="X"):
-    """ Compute a gate for a specific level of noise to a high precision.
+    """Compute a gate for a specific level of noise and various pulses to a high precision.
+
+    Args:
+        GateFactoryClass (type[GateFactory]):
+        gate_args (dict): Arguments like theta, T1, p_cnot that are used to construct the gate stored as lookup.
+        pulse_lookup (str): Lookup with the pulse name or parametrization value as key and the pulse as value.
+        run (str): Name of the current run of the experiment.
+        samples (int): Number of gates to be sampled for each run.
+        runs (int): Number of repetitions of the experiments.
+        prefix (str): Gate name or prefix to be added to the filenames of the results.
     """
 
     # Prepare arguments
@@ -35,7 +39,7 @@ def simulate_gate(GateFactoryClass: type[GateFactory],
             "pulse_lookup": pulse_lookup,
             "GateFactoryClass": GateFactoryClass,
             "gate_args": gate_args,
-            "n": samples,
+            "samples": samples,
         } for i in range(runs)
     ]
 
@@ -60,8 +64,14 @@ def simulate_gate(GateFactoryClass: type[GateFactory],
 
 
 def _gate_experiment_with_single_argument(args):
-    """ Wrapper to the _gate_experiment() function to be able to call the function with a single argument.
-        This is necessary for using the multiprocesing.map_unordered method. 
+    """Wrapper to the _gate_experiment() function to be able to call the function with a single argument.
+
+        The fact that this method has just a single argument is necessary for using the multiprocesing.map_unordered
+        method.
+
+    Args:
+        args (dict): All the arguments of the gate experiment saved as a lookup, where the key is the argument name
+        as str and the value is the argument value in the corresponding type.
     """
     return _gate_experiment(**args)
 
@@ -69,11 +79,23 @@ def _gate_experiment_with_single_argument(args):
 def _gate_experiment(pulse_lookup: dict,
                      GateFactoryClass: type[GateFactory],
                      gate_args: dict,
-                     n: int=10000):
-    """ Samples n gates each for the pulses defined in the lookup. Uses the noise parameters given in the gate_args
-        lookup.
+                     samples: int=10000):
+    """Samples n gates with the GateFactoryClass for each pulses defined in the lookup.
 
-        Returns a lookup of the results, with keys being lookups of the form
+    Uses the noise parameters given in the gate_args lookup.
+
+    Args:
+        pulse_lookup (str): Lookup with the pulse name or parametrization value as key and the pulse as value.
+        GateFactoryClass (type[GateFactory]):
+        gate_args (dict): Arguments like theta, T1, p_cnot that are used to construct the gate stored as lookup.
+        run (str): Name of the current run of the experiment.
+        samples (int): Number of gates to be sampled for each run.
+        runs (int): Number of repetitions of the experiments.
+        prefix (str): Gate name or prefix to be added to the filenames of the results.
+
+    Returns:
+        A lookup of the results with the name of the pulses as key (str) and with values being lookups itself.
+        Each of these lookup has mean, std, and std_sqrt(n) as keys, and arrays as values. More precicely:
             mean: np.array with mean of the sampled gates                               Mean of the population
             std: np.array with standard deviation of the sampled gates                  Empirical standard deviation of the population
             std_sqrt(n): np.array with uncertainty of the mean of the sampled gates     Empirical uncertainty of the mean of the population.
@@ -89,7 +111,7 @@ def _gate_experiment(pulse_lookup: dict,
         gate_factory = GateFactoryClass(pulse=pulse, gate_args=gate_args)
 
         # Sample gates
-        sampled_gates = [gate_factory.construct() for i in range(n)]
+        sampled_gates = [gate_factory.construct() for i in range(samples)]
 
         # Transform complex 2x2 (4x4) arrays to real 8x1 (32x1) vector
         flattened_gates = [_reshape_gate(gate) for gate in sampled_gates]
@@ -104,8 +126,8 @@ def _gate_experiment(pulse_lookup: dict,
     return result_lookup
 
 
-def _reshape_gate(gate: np.array):
-    """ Takes a complex 2x2 (4x4) array and turns it to a vector with 8 (32) real entries, which represent the real and
+def _reshape_gate(gate: np.array) -> np.array:
+    """Takes a complex 2x2 (4x4) array and turns it to a vector with 8 (32) real entries, which represent the real and
         complex part of the array.
 
         Example input:
@@ -113,6 +135,12 @@ def _reshape_gate(gate: np.array):
 
         Example output:
             np.array([1, 0, 0, 0, 0, 1, 0, 0])
+
+        Args:
+            gate (np.array): Complex 2x2 (4x4) array
+
+        Returns:
+            vector (np.array): Vector with 8 (32) real entries, which represent the real and complex part of the array.
     """
     dim = gate.shape[0]**2
     return np.concatenate((gate.real.reshape(dim), gate.imag.reshape(dim))).reshape(2 * dim)

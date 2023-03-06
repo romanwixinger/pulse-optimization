@@ -1,7 +1,11 @@
-"""
-Utilies for the gates.
-"""
+"""Utilities for simulating the gates.
 
+Attributes:
+    result_metrics (list[str]): List of the metrics we compute on the list of sampled gates.
+    aggregated_metrics (list[str]): List of the metrics we compute on the list of result metrics.
+    gate_args_constructor_lookup (dict): Lookup with the gate name as key and the constructor of the gate arguments as
+        value.
+"""
 import os
 import numpy as np
 import multiprocessing
@@ -20,10 +24,16 @@ aggregated_metrics = [
 ]
 
 
-def construct_x_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, phi: float=0.0):
-    """ Takes the device parameters as lookup, and returns the corresponding arguments to sample an X or SX gate.
+def construct_x_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, phi: float=0.0) -> dict:
+    """Constructs the arguments used to sample an X or SX gate.
 
-        One can set a value 0 <= noise_scaling with which the noise is multiplied.
+        Args:
+            device_param_lookup (dict): DeviceParameters as lookup. Contains the information about the level of noise.
+            noise_scaling (float): Value by which the level of noise specified in the device parameters is scaled.
+            phi (float): Phase of the X gate.
+
+        Returns:
+            Lookup of the argument names (str) as key and the argument (float) as value.
     """
 
     assert noise_scaling >= 0, "Negative noise values are not physical."
@@ -37,11 +47,17 @@ def construct_x_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, p
     }
 
 
-def construct_cnot_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, phi_ctr: float=0.0, phi_trg: float=0.0):
-    """ Takes the device parameters as lookup, and returns the corresponding arguments to sample an CNOT or CNOT inv
-        gate.
+def construct_cnot_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, phi_ctr: float=0.0, phi_trg: float=0.0) -> dict:
+    """Constructs the arguments used to sample an CNOT or CNOT inv gate.
 
-        One can set a value 0 <= noise_scaling with which the noise is multiplied.
+        Args:
+            device_param_lookup (dict): DeviceParameters as lookup. Contains the information about the level of noise.
+            noise_scaling (float): Value by which the level of noise specified in the device parameters is scaled.
+            phi_ctr (float): Phase of the control qubit.
+            phi_trg (float): Phase of the target qubit.
+
+        Returns:
+            Lookup of the argument names (str) as key and the argument (float) as value.
     """
 
     assert noise_scaling >= 0, "Negative noise values are not physical."
@@ -61,9 +77,17 @@ def construct_cnot_gate_args(device_param_lookup: dict, noise_scaling: float=1.0
     }
 
 
-def construct_cr_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, theta: float=np.pi/4, phi: float=0.0):
-    """ Takes the device parameters as lookup, and returns the corresponding arguments to sample an CR gate. One can set
-        a value 0 <= noise_scaling with which the noise is multiplied.
+def construct_cr_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, theta: float=np.pi/4, phi: float=0.0) -> dict:
+    """Constructs the arguments used to sample a CR gate.
+
+        Args:
+            device_param_lookup (dict): DeviceParameters as lookup. Contains the information about the level of noise.
+            noise_scaling (float): Value by which the level of noise specified in the device parameters is scaled.
+            theta (float): Angle of rotation.
+            phi (float): Phase.
+
+        Returns:
+            Lookup of the argument names (str) as key and the argument (float) as value.
     """
 
     assert noise_scaling >= 0, "Negative noise values are not physical."
@@ -91,9 +115,19 @@ def construct_cr_gate_args(device_param_lookup: dict, noise_scaling: float=1.0, 
     }
 
 
-def perform_parallel_simulation(args: list, simulation: callable, max_workers: int=2):
-    """ The .map method allows to execute the function simulation runs times simultaneously by preserving the order
-            of the given comprehension list.
+def perform_parallel_simulation(args: list, simulation: callable, max_workers: int=2) -> list:
+    """Wrapper to the multiprocessing.imap_unordered method.
+
+        The arguments are mapped with the simulation by a maximum number of workers. Note that the ordering of the
+        results is not guaranteed to correspond to the ordering of the arguments.
+
+        Args:
+            args (list): List of the arguments which are passed to the simulation.
+            simulation (callable): Function to be applied on each item of args. Must have a single argument.
+            max_workers (int): Maximum number of multiprocessing pool workers to be created.
+
+        Returns:
+            List of the return values of the simulation, one for each argument, but in arbitrary ordering.
     """
 
     # Configure pool
@@ -121,16 +155,24 @@ def perform_parallel_simulation(args: list, simulation: callable, max_workers: i
     return results
 
 
-def perform_trivial_simulation(args: list, simulation: callable, max_workers: int=2):
-    """ Verison of the perform_parallel_simulation method which uses a trivial for loop. This methods can be used
-        for debugging.
+def perform_trivial_simulation(args: list, simulation: callable, max_workers: int=2) -> list:
+    """Mock version of perform_parallel_simulation.
+
+        This version uses a trivial for loop and is meant for debugging.
+
+        Args:
+            args (list): List of the arguments which are passed to the simulation.
+            simulation (callable): Function to be applied on each item of args. Must have a single argument.
+            max_workers (int): Mock argument such that the interface is the same.
+
+        Returns:
+            List of the return values of the simulation, one for each argument, but in arbitrary ordering.
     """
     return [simulation(arg) for arg in args]
 
 
 def save_results(results: list, folder: str, prefix: str):
-    """
-    Takes results in the form of a lookup and saves it to a folder with filenames that have a certain prefix.
+    """Takes results in the form of a lookup and saves it to a folder with filenames that have a certain prefix.
 
     Example input:
         results = [{
@@ -146,6 +188,11 @@ def save_results(results: list, folder: str, prefix: str):
         trivial_mean_pulse_0.0_0.txt
         ...
         trivial_unc_pulse_1.0_9.txt
+
+    Args:
+        results (list[dict]): Results as produced by the simulate_gate function in experiments.py.
+        folder (str): Path and name of the folder in which the results should be saved.
+        prefix (str): Prefix to be added to the names of the files. Must not contain any underscores (_).
     """
 
     for i, result in enumerate(results):
@@ -161,7 +208,12 @@ def save_results(results: list, folder: str, prefix: str):
 
 
 def save_aggregated_results(result: dict, folder: str, prefix: str):
-    """ Does the same as save_results(), but for a single lookup table which was created with aggregation.
+    """Does the same as save_results(), but for a single lookup table which was created with aggregation.
+
+        Args:
+            results (list[dict]): Results as produced by the simulate_gate function in experiments.py.
+            folder (str): Path and name of the folder in which the results should be saved.
+            prefix (str): Prefix to be added to the names of the files. Must not contain any underscores (_).
     """
     for name, arr_lookup in result.items():
         assert all((key in aggregated_metrics for key in arr_lookup.keys())), \
@@ -174,28 +226,30 @@ def save_aggregated_results(result: dict, folder: str, prefix: str):
 
 
 def aggregate_results(results: list):
-    """ Takes a list of lookup tables, which contain lookup tables with keys (mean, std, std_sqrt(n)) on their own.
-        The values are numpy arrays.
-
-        Returns a single lookup table with the result as aggregated across the lookups. Namely, we aggregate
-        mean(mean)              Mean of the population
-        mean(std)               Empirical standard deviation of the population.
-        std(mean)               Empirical standard deviation of the mean estimator
-        std(std)                Empirical standard deviation of the std estimator
-        std(mean) over sqrt(n)  Empirical uncertainty of the mean of means
+    """Aggregates a list of lookup tables, which contain lookup tables with keys (mean, std, std_sqrt(n)) on their own.
 
         Example input:
-        results = [{
-        "pulse_0.0": {"mean": np.array([0.0,...,0.0]), ..., "std_sqrt(n)  ": np.array([0.0,...,0.0])},
-        ...
-        "pulse_1.0": {"mean": np.array([0.0,...,0.0]), ..., "std_sqrt(n)": np.array([0.0,...,0.0])},
-        } for i in range(10)]
+            results = [{
+            "pulse_0.0": {"mean": np.array([0.0,...,0.0]), ..., "std_sqrt(n)  ": np.array([0.0,...,0.0])},
+            ...
+            "pulse_1.0": {"mean": np.array([0.0,...,0.0]), ..., "std_sqrt(n)": np.array([0.0,...,0.0])},
+            } for i in range(10)]
 
         Example output:
-        output = {
-        "pulse_0.0": {"mean(mean)": np.array([0.0,...,0.0]), ..., "std(mean) over sqrt(n)": np.array([0.0,...,0.0])},
-        ...
-        "pulse_1.0": {"mean(mean)": np.array([0.0,...,0.0]), ..., "std(mean) over sqrt(n)": np.array([0.0,...,0.0])},
+            output = {
+            "pulse_0.0": {"mean(mean)": np.array([0.0,...,0.0]), ..., "std(mean) over sqrt(n)": np.array([0.0,...,0.0])},
+            ...
+            "pulse_1.0": {"mean(mean)": np.array([0.0,...,0.0]), ..., "std(mean) over sqrt(n)": np.array([0.0,...,0.0])},
+            }
+
+        Returns:
+             A single lookup table with the result as aggregated across the lookups. Namely, we aggregate
+                mean(mean)              Mean of the population
+                mean(std)               Empirical standard deviation of the population.
+                std(mean)               Empirical standard deviation of the mean estimator
+                std(std)                Empirical standard deviation of the std estimator
+                std(mean) over sqrt(n)  Empirical uncertainty of the mean of means
+
     """
 
     # Input validation
@@ -219,7 +273,12 @@ def aggregate_results(results: list):
 
 
 def load_results(folder: str) -> list:
-    """ Parses the results file generated from a run and returns the results in the original lookup format.
+    """Inverse method of save_results.
+
+        Parses the results file generated from a run and returns the results in the original lookup format.
+
+        Args:
+            folder (str): Path and name of the folder in which the files were saved by the save_results() function.
     """
 
     # Bookkeeping
@@ -280,14 +339,18 @@ def load_results(folder: str) -> list:
 
 
 def load_aggregated_results(folder: str) -> list:
-    """ Parses the results file generated from a run and returns the results in the original lookup format.
+    """Inverse method of save_aggregated_results.
+
+        Parses the aggregated results files generated from a run and returns them in the original lookup format.
+
+        Args:
+            folder (str): Path and name of the folder in which the files were saved by the save_aggregated_results()
+                function.
     """
 
     # Bookkeeping
     prefixes = set()   # x, cnot
-    parts = set()      # aggregated_metrics
     names = set()      # 0.0, ..., 1.0
-    i_set = set()
 
     def _is_aggregated(filename: str):
         return filename.endswith("_aggregated.txt")
@@ -327,8 +390,16 @@ def load_aggregated_results(folder: str) -> list:
 
 
 def hellinger_distance(p1: np.array, p2: np.array) -> float:
-    """ Takes two probability distributions as numpy arrays and returns the Hellinger distance.
+    """Compute the Hellinger distance between to probability distributions.
+
+        Args:
+            p1 (np.array): Non-negative array with sum equal to 1.
+            p2 (np.array): Non-negative array with sum equal to 1, must have the same shape as p1.
+
+        Returns:
+            Hellinger distance H(p1, p2) as float.
     """
+
     dh = (np.sqrt(p1)-np.sqrt(p2))**2
     h = np.sum(dh)
     h = (1/np.sqrt(2)) * np.sqrt(h)
@@ -336,7 +407,14 @@ def hellinger_distance(p1: np.array, p2: np.array) -> float:
 
 
 def u_hellinger_distance(u_arr1, u_arr2) -> unumpy.umatrix:
-    """ Compute the hellinger distance for an unumpy.matrix and a numpy array.
+    """Compute the Hellinger distance between to probability distributions with uncertainties.
+
+        Args:
+            u_arr1 (unumpy.matrix): Non-negative array with sum equal to 1 and uncertainties.
+            u_arr2 (unumpy.matrix): Non-negative array with sum equal to 1 and uncertainties, must have the same shape.
+
+        Returns:
+            Hellinger distance H(u_arr1, u_arr2) as unumpy.umatrix containing the value with the uncertainty.
     """
 
     dh = np.square(u_sqrt(u_arr1) - u_sqrt(u_arr2))
@@ -345,8 +423,14 @@ def u_hellinger_distance(u_arr1, u_arr2) -> unumpy.umatrix:
     return h
 
 
-def u_sqrt(u_arr) -> unumpy.umatrix:
-    """ Calculate the square root of an unumpy array.
+def u_sqrt(u_arr: unumpy.umatrix) -> unumpy.umatrix:
+    """Element-wise square root of an unumpy array.
+
+        Args:
+            u_arr (unumpy.umatrix): Matrix
+
+        Returns:
+            Matrix (unumpy.umatrix).
     """
     nominal_val = np.sqrt(unumpy.nominal_values(u_arr))
     std_devs = unumpy.std_devs(u_arr) / 2
