@@ -1,3 +1,8 @@
+"""Visualizations of the pulses.
+
+This script defines functions to visualize the pulses.
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -14,7 +19,12 @@ mpl.rcParams['legend.fontsize'] = "medium"
 
 
 def plot_pulses(pulse_lookup, filename: str=None, label_prefix: str=""):
-    """ Plots the pulses on the interval [0,1].
+    """Plots the pulse waveform on the interval [0,1]. Saves to filename if specified.
+
+    Args:
+        pulse_lookup (dict): Lookup of pulses with the name (str) as key and pulse (Pulse) as value.
+        filename (str): Relative path plus filename to save the visualization.
+        label_prefix (str): Adds a prefix to the label of the plot.
     """
     x = np.linspace(0, 1, 100)
     for name, pulse in pulse_lookup.items():
@@ -31,7 +41,12 @@ def plot_pulses(pulse_lookup, filename: str=None, label_prefix: str=""):
 
 
 def plot_parametrizations(pulse_lookup, filename: str=None, label_prefix: str=""):
-    """ Plots the parametrizations on the interval [0,1].
+    """Plots the pulse parametrization on the interval [0,1]. Saves to filename if specified.
+
+    Args:
+        pulse_lookup (dict): Lookup of pulses with the name (str) as key and pulse (Pulse) as value.
+        filename (str): Relative path plus filename to save the visualization.
+        label_prefix (str): Adds a prefix to the label of the plot.
     """
     x = np.linspace(0, 1, 100)
     for name, pulse in pulse_lookup.items():
