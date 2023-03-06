@@ -1,5 +1,12 @@
-"""
-Lookup for the integrands and other utilities.
+"""Utilities used for characterizing the integrals.
+
+This script defines pulses and makes them available through lookup. The key is either the name of the pulse or the
+name plus a parameteter in the case of parametrized pulses.
+
+Attributes:
+    integrands (list): List of integrands used in the Ito integrals of the quantum-gates library.
+
+    markers (list): List of matplotlib.pyplot markers used for visualizing the integration values.
 """
 
 

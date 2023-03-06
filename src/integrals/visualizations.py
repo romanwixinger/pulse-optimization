@@ -1,7 +1,13 @@
+"""Module for plotting the integrals for pulses represented as parametrizations.
+
+The goal is to display which integrals are affected by the change in pulse shapes.
+
+Todo:
+    * Add better color scale in heatmaps_of_gaussian().
+    * Combine the nine plots of heatmaps_of_gaussian() from the nine integrals into a single plot.
 """
-Script for plotting the integrals for different pulses represented as parametrizations. The goal is to display which
-integrals are affected by the change in pulse shapes.
-"""
+
+
 
 import numpy as np
 import matplotlib as mpl
@@ -25,9 +31,17 @@ mpl.rcParams['legend.fontsize'] = "medium"
 
 
 def heatmaps_of_gaussian(locs: list, scales: list, integrands: list, theta: float=np.pi, a: float=1.0):
-    """
+    """Visualizes the nine Ito integrals for Gaussian pulses and creates a heatmap from the results.
+
     Takes a list of parameters for GaussianPulse (locs, scales) and evaluates the integrands at pi. Then creates
     a heatmap (x: loc, y: scale) for each integrand.
+
+    Args:
+        locs (list[float]): Location parameter options for the Gaussian pulses.
+        scales (list[float]): Scale parameter options for the Gaussian pulses.
+        integrands (list[str]): Name of the integrands of the Ito integrals.
+        theta (float): Upper limit of the integration.
+        a (float): Parameter of the integrand.
     """
     res = np.zeros((len(locs), len(scales)))
     res_lookup = {integrand: np.zeros_like(res) for integrand in integrands}
