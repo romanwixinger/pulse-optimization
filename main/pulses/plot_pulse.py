@@ -1,9 +1,9 @@
 """Visualizes the pulses.
 """
 
-from src.pulses.pulses import normal_pulse_lookup
-from src.pulses.pulses import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
-from src.pulses.visualizations import plot_pulses, plot_parametrizations
+from src.pulse_optimization.pulses.pulses import normal_pulse_lookup
+from src.pulse_optimization.pulses.pulses import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
+from src.pulse_optimization.pulses.visualizations import plot_pulses, plot_parametrizations
 
 
 if __name__ == "__main__":

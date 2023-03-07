@@ -8,14 +8,14 @@ import json
 from quantum_gates.utilities import load_config
 from quantum_gates.gates import NoiseFreeGates
 
-from src.gates.visualizations import (
+from src.pulse_optimization.gates.visualizations import (
     plot_gates_mean,
     plot_gates_std,
     plot_gates_mean_reverse,
     plot_gates_std_reverse,
     plot_hellinger
 )
-from src.gates.utilities import load_aggregated_results, construct_x_gate_args, construct_cnot_gate_args
+from src.pulse_optimization.gates.utilities import load_aggregated_results, construct_x_gate_args, construct_cnot_gate_args
 from configuration.device_parameters.lookup import device_param_lookup_20221208
 
 

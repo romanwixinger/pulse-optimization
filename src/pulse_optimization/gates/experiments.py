@@ -5,8 +5,8 @@ import os
 import time
 import numpy as np
 
-from src.gates.factories import GateFactory
-from src.gates.utilities import (
+from src.pulse_optimization.gates.factories import GateFactory
+from src.pulse_optimization.gates.utilities import (
     perform_parallel_simulation,
     aggregate_results,
     save_results,

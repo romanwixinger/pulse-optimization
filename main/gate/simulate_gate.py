@@ -6,10 +6,10 @@ import json
 from quantum_gates.utilities import load_config
 
 from configuration.device_parameters.lookup import device_param_lookup
-from src.pulses.pulses import all_pulse_lookup
-from src.gates.experiments import simulate_gate
-from src.gates.utilities import gate_args_constructor_lookup
-from src.gates.factories import factory_class_lookup
+from src.pulse_optimization.pulses.pulses import all_pulse_lookup
+from src.pulse_optimization.gates.experiments import simulate_gate
+from src.pulse_optimization.gates.utilities import gate_args_constructor_lookup
+from src.pulse_optimization.gates.factories import factory_class_lookup
 
 
 def main(run: str):

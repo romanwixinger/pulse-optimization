@@ -8,11 +8,10 @@ Todo:
 """
 
 import numpy as np
-from uncertainties import unumpy
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
-from src.gates.utilities import hellinger_distance
+from src.pulse_optimization.gates.utilities import hellinger_distance
 
 
 # We can use this reference: https://matplotlib.org/stable/tutorials/introductory/customizing.html
