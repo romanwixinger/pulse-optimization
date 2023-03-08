@@ -31,6 +31,8 @@ autosummary_generate = True
 napoleon_google_docstring = True
 napoleon_include_private_with_doc = True
 
+autodoc_member_order = 'bysource'
+
 templates_path = ['_templates']
 exclude_patterns = []
 

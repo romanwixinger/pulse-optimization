@@ -11,6 +11,33 @@ Welcome to Pulse Optimization's documentation!
    :caption: Contents:
 
 
+**Structure**
+=============
+.. toctree::
+   :maxdepth: 2
+   :caption: Pulses
+
+   pulses
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Integrals
+
+   integrals
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Gates
+
+   gates
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Algorithms
+
+   algorithms
+
+
 
 Indices and tables
 ==================
@@ -18,91 +45,6 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-
-Pulses
-======
-
-Visualizations
---------------
-.. automodule:: pulse_opt.pulses.pulses
-   :members:
-   :undoc-members:
-
-Visualizations
---------------
-.. automodule:: pulse_opt.pulses.visualizations
-   :members:
-   :undoc-members:
-
-
-Integrals
-=========
-
-Visualizations
---------------
-.. automodule:: pulse_opt.integrals.visualizations
-   :members:
-   :undoc-members:
-
-Utilities
----------
-.. automodule:: pulse_opt.integrals.utilities
-   :members:
-   :undoc-members:
-
-
-Gates
-=====
-
-Experiments
------------
-.. automodule:: pulse_opt.gates.experiments
-   :members:
-   :undoc-members:
-
-
-Factories
----------
-.. automodule:: pulse_opt.gates.factories
-   :members:
-   :undoc-members:
-
-
-Visualizations
---------------
-.. automodule:: pulse_opt.gates.visualizations
-   :members:
-   :undoc-members:
-
-
-Utilities
----------
-.. automodule:: pulse_opt.gates.utilities
-   :members:
-   :undoc-members:
-
-
-Algorithms
-==========
-
-Algorithms
------------
-.. automodule:: pulse_opt.algorithms.algorithms
-   :members:
-   :undoc-members:
-
-Experiments
------------
-.. automodule:: pulse_opt.algorithms.experiments
-   :members:
-   :undoc-members:
-
-Visualizations
---------------
-.. automodule:: pulse_opt.algorithms.visualizations
-   :members:
-   :undoc-members:
 
 
 
