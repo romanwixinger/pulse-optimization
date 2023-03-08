@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 from quantum_gates.integrators import Integrator
 from quantum_gates.pulses import GaussianPulse
 
-from src.pulse_optimization.integrals.utilities import integrands, markers
+from pulse_opt.integrals.utilities import integrands, markers
 
 
 # We can use this reference: https://matplotlib.org/stable/tutorials/introductory/customizing.html

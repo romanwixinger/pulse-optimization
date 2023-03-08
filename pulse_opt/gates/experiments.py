@@ -5,8 +5,8 @@ import os
 import time
 import numpy as np
 
-from src.pulse_optimization.gates.factories import GateFactory
-from src.pulse_optimization.gates.utilities import (
+from pulse_opt.gates.factories import GateFactory
+from pulse_opt.gates.utilities import (
     perform_parallel_simulation,
     aggregate_results,
     save_results,
@@ -96,9 +96,9 @@ def _gate_experiment(pulse_lookup: dict,
     Returns:
         A lookup of the results with the name of the pulses as key (str) and with values being lookups itself.
         Each of these lookup has mean, std, and std_sqrt(n) as keys, and arrays as values. More precicely:
-            mean: np.array with mean of the sampled gates                               Mean of the population
-            std: np.array with standard deviation of the sampled gates                  Empirical standard deviation of the population
-            std_sqrt(n): np.array with uncertainty of the mean of the sampled gates     Empirical uncertainty of the mean of the population.
+        mean: np.array with mean of the sampled gates                               Mean of the population
+        std: np.array with standard deviation of the sampled gates                  Empirical standard deviation of the population
+        std_sqrt(n): np.array with uncertainty of the mean of the sampled gates     Empirical uncertainty of the mean of the population.
     """
     # Set random seed, otherwise each experiment gets the same result
     np.random.seed((os.getpid() * int(time.time())) % 123456789)
