@@ -23,7 +23,8 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
-    "sphinx.ext.todo"
+    "sphinx.ext.todo",
+    "sphinx.ext.linkcode",
 ]
 
 autosummary_generate = True
@@ -51,3 +52,12 @@ intersphinx_mapping = {
     'typing': ('https://docs.python.org/3/library/typing.html', None),
     'pandas': ('https://pandas.pydata.org/', None)
 }
+
+
+def linkcode_resolve(domain, info):
+    if domain != 'py':
+        return None
+    if not info['module']:
+        return None
+    filename = info['module'].replace('.', '/')
+    return "https://github.com/romanwixinger/pulse-optimization/tree/documentation/%s.py" % filename
