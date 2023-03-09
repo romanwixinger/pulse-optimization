@@ -19,17 +19,17 @@ from pulse_opt.gates.utilities import load_aggregated_results, construct_x_gate_
 from configuration.device_parameters.lookup import device_param_lookup_20221208
 
 
-def plot(run: str, config: dict, agg_results: dict):
+def plot(run: str, config: dict):
     """Create all plots of the results.
 
     Args:
         run (str): Name of the run of the experiment.
         config (dict): Configuration file.
-        agg_results (dict): Aggregated results as created by the simulate_gate() function or as loaded be the
-            load_aggregated_results() function.
     """
 
-    # Extract aggregated results
+    # Load aggregated results
+    result_folder = f"results/gates/{run}"
+    agg_results = load_aggregated_results(result_folder)
     x_aggregated = agg_results["x"]
     cnot_aggregated = agg_results["cnot"]
 
@@ -129,15 +129,20 @@ def plot(run: str, config: dict, agg_results: dict):
     return
 
 
+def main():
+    runs = [
+        "single_gate_boosted_1",
+        "single_gate_boosted_0.1",
+        "single_gate_boosted_10",
+        "single_gate_boosted_100",
+        "single_gate_boosted_1000"
+    ]
+
+    for run in runs:
+        config = load_config(f"gates/{run}.json")
+        plot(run=run, config=config)
+
+
 if __name__ == "__main__":
 
-    # Load configuration
-    run_ = "single_gate_high_statistics"
-    config_ = load_config(f"gates/{run_}.json")
-
-    # Load results
-    result_folder_ = f"results/gates/{run}"
-    agg_results_ = load_aggregated_results(result_folder_)
-
-    # Plot
-    plot(run=run_, config=config_, agg_results=agg_results_)
+    main()

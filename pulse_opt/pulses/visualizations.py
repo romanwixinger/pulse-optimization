@@ -8,14 +8,24 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 
-# We can use this reference: https://matplotlib.org/stable/tutorials/introductory/customizing.html
-mpl.rcParams['axes.titlesize'] = 16
-mpl.rcParams['axes.labelsize'] = 12
-mpl.rcParams['lines.linewidth'] = 1.5
-mpl.rcParams['lines.markersize'] = 12
-mpl.rcParams['xtick.labelsize'] = 12
-mpl.rcParams['ytick.labelsize'] = 12
-mpl.rcParams['legend.fontsize'] = "medium"
+plt.rcParams.update({
+    "axes.titlesize": 16,
+    "axes.labelsize": 12,
+    "lines.linewidth": 1.5,
+    "lines.markersize": 5,
+    "xtick.labelsize": 12,
+    "ytick.labelsize": 12,
+    "legend.fontsize": "medium",
+    "figure.figsize": (8, 6),
+})
+
+# Plot background -> white inside, transparent outside
+plt.rcParams.update({
+    "figure.facecolor":  (1.0, 1.0, 1.0, 0.0),  # white with alpha = 0%
+    "axes.facecolor":    (1.0, 1.0, 1.0, 1.0),  # white with alpha = 100%
+    "savefig.facecolor": (1.0, 1.0, 1.0, 0.0),  # white with alpha = 0%
+})
+
 
 
 def plot_pulses(pulse_lookup, filename: str=None, label_prefix: str=""):
@@ -26,17 +36,6 @@ def plot_pulses(pulse_lookup, filename: str=None, label_prefix: str=""):
         filename (str): Relative path plus filename to save the visualization.
         label_prefix (str): Adds a prefix to the label of the plot.
     """
-    fig = plt.figure()
-
-    # Make outer background transparent
-    fig.patch.set_facecolor('white')
-    fig.patch.set_alpha(0.0)
-
-    # Make inner background white
-    ax = fig.add_subplot(111)
-    ax.patch.set_facecolor('white')
-    ax.patch.set_alpha(1.0)
-
     # Plot each pulse
     x = np.linspace(0, 1, 100)
     for name, pulse in pulse_lookup.items():
@@ -49,7 +48,7 @@ def plot_pulses(pulse_lookup, filename: str=None, label_prefix: str=""):
     plt.title("Pulse waveform")
     plt.legend()
     if filename is not None:
-        plt.savefig(filename, facecolor=fig.get_facecolor(), edgecolor='none')
+        plt.savefig(filename)
     plt.show()
 
 
@@ -61,17 +60,6 @@ def plot_parametrizations(pulse_lookup, filename: str=None, label_prefix: str=""
         filename (str): Relative path plus filename to save the visualization.
         label_prefix (str): Adds a prefix to the label of the plot.
     """
-    fig = plt.figure()
-
-    # Make outer background transparent
-    fig.patch.set_facecolor('white')
-    fig.patch.set_alpha(0.0)
-
-    # Make inner background white
-    ax = fig.add_subplot(111)
-    ax.patch.set_facecolor('white')
-    ax.patch.set_alpha(1.0)
-
     # Plot each parametrization
     x = np.linspace(0, 1, 100)
     for name, pulse in pulse_lookup.items():
@@ -83,5 +71,5 @@ def plot_parametrizations(pulse_lookup, filename: str=None, label_prefix: str=""
     plt.title("Pulse parametrization")
     plt.legend()
     if filename is not None:
-        plt.savefig(filename, facecolor=fig.get_facecolor(), edgecolor='none')
+        plt.savefig(filename)
     plt.show()

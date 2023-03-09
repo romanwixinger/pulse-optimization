@@ -14,15 +14,23 @@ import matplotlib as mpl
 from pulse_opt.gates.utilities import hellinger_distance
 
 
-# We can use this reference: https://matplotlib.org/stable/tutorials/introductory/customizing.html
-mpl.rcParams['axes.titlesize'] = 16
-mpl.rcParams['axes.labelsize'] = 12
-mpl.rcParams['lines.linewidth'] = 1.5
-mpl.rcParams['lines.markersize'] = 5
-mpl.rcParams['xtick.labelsize'] = 12
-mpl.rcParams['ytick.labelsize'] = 12
-mpl.rcParams['legend.fontsize'] = "medium"
-mpl.rcParams['figure.figsize'] = 8, 6
+plt.rcParams.update({
+    "axes.titlesize": 16,
+    "axes.labelsize": 12,
+    "lines.linewidth": 1.5,
+    "lines.markersize": 5,
+    "xtick.labelsize": 12,
+    "ytick.labelsize": 12,
+    "legend.fontsize": "medium",
+    "figure.figsize": (8, 6),
+})
+
+# Plot background -> white inside, transparent outside
+plt.rcParams.update({
+    "figure.facecolor":  (1.0, 1.0, 1.0, 0.0),  # white with alpha = 0%
+    "axes.facecolor":    (1.0, 1.0, 1.0, 1.0),  # white with alpha = 100%
+    "savefig.facecolor": (1.0, 1.0, 1.0, 0.0),  # white with alpha = 0%
+})
 
 
 def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
