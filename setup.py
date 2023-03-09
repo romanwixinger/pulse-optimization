@@ -25,6 +25,7 @@ setup(
         "scipy>=1.9",
         "quantum_gates>=1.0.3",
         "pylatexenc",
+        "tqdm",
     ],
     extras_require={
         "docs": [
