@@ -26,17 +26,30 @@ def plot_pulses(pulse_lookup, filename: str=None, label_prefix: str=""):
         filename (str): Relative path plus filename to save the visualization.
         label_prefix (str): Adds a prefix to the label of the plot.
     """
+    fig = plt.figure()
+
+    # Make outer background transparent
+    fig.patch.set_facecolor('white')
+    fig.patch.set_alpha(0.0)
+
+    # Make inner background white
+    ax = fig.add_subplot(111)
+    ax.patch.set_facecolor('white')
+    ax.patch.set_alpha(1.0)
+
+    # Plot each pulse
     x = np.linspace(0, 1, 100)
     for name, pulse in pulse_lookup.items():
         pulse = pulse.get_pulse()
         y = [pulse(x_val) for x_val in x]
         plt.plot(x, y, label=f"{label_prefix}{name}")
+
     plt.xlabel('Parametrization variable t')
     plt.ylabel("s [1]")
     plt.title("Pulse waveform")
     plt.legend()
     if filename is not None:
-        plt.savefig(filename)
+        plt.savefig(filename, facecolor=fig.get_facecolor(), edgecolor='none')
     plt.show()
 
 
@@ -48,6 +61,18 @@ def plot_parametrizations(pulse_lookup, filename: str=None, label_prefix: str=""
         filename (str): Relative path plus filename to save the visualization.
         label_prefix (str): Adds a prefix to the label of the plot.
     """
+    fig = plt.figure()
+
+    # Make outer background transparent
+    fig.patch.set_facecolor('white')
+    fig.patch.set_alpha(0.0)
+
+    # Make inner background white
+    ax = fig.add_subplot(111)
+    ax.patch.set_facecolor('white')
+    ax.patch.set_alpha(1.0)
+
+    # Plot each parametrization
     x = np.linspace(0, 1, 100)
     for name, pulse in pulse_lookup.items():
         param = pulse.get_parametrization()
@@ -58,5 +83,5 @@ def plot_parametrizations(pulse_lookup, filename: str=None, label_prefix: str=""
     plt.title("Pulse parametrization")
     plt.legend()
     if filename is not None:
-        plt.savefig(filename)
+        plt.savefig(filename, facecolor=fig.get_facecolor(), edgecolor='none')
     plt.show()
