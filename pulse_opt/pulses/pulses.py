@@ -1,3 +1,34 @@
+"""Pulses used in the Gates.
+
+This script defines pulses and makes them available through lookup. The key is either the name of the pulse or the
+name plus a parameteter in the case of parametrized pulses.
+
+Attributes:
+    sin_squared_pulse (Pulse): Pulse with waveform of the form sin(x)^2 such that it vanishes at 0 and 1.
+
+    triangle_pulse (Pulse): Pulse with waveform of the form of a triangle such that it vanishes exactly at 0 and 1.
+
+    linear_pulse (Pulse): Add description.
+
+    reversed_linear_pulse (Pulse): Add description.
+
+    normal_pulse_lookup (dict): Lookup with the pulse name (str) as key and the pulse (Pulse) as value. Contains the
+        discrete pulses.
+
+    gaussian_pulse_lookup_10 (dict): Lookup with the pulse name (str) as key and the pulse (Pulse) as value. Contains
+        the Gaussian pulses with scale=0.25 and location parameter in [0.0, 0.1, ..., 1.0].
+
+    gaussian_pulse_lookup_100 (dict): Lookup with the pulse name (str) as key and the pulse (Pulse) as value. Contains
+        the Gaussian pulses with scale=0.25 and location parameter in [0.0, 0.01, ..., 1.0].
+
+    all_pulse_lookup (dict): Lookup for the other three lookups with the lookup name (str) as key and the lookup (dict)
+        as value.
+
+Todo:
+    * Add other pulse shapes supported on IBM Kolkata.
+"""
+
+
 import numpy as np
 
 from quantum_gates.pulses import Pulse, GaussianPulse, constant_pulse

@@ -15,12 +15,13 @@ from collections import defaultdict
 from quantum_gates.simulators import MrAndersonSimulator
 from quantum_gates.gates import Gates
 from quantum_gates.circuits import EfficientCircuit
+from quantum_gates.pulses import Pulse
 
 from configuration.device_parameters.lookup import device_param_lookup_20221208 as device_param_lookup
-from src.pulses.pulses import gaussian_pulse_lookup
-from src.algorithms.algorithms import n_x_gates
-from src.algorithms.experiments import analyze_result_lookup
-from src.algorithms.visualizations import plot_result_lookup
+from pulse_opt.pulses.pulses import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
+from pulse_opt.algorithms.algorithms import n_x_gates
+from pulse_opt.algorithms.experiments import analyze_result_lookup
+from pulse_opt.algorithms.visualizations import plot_result_lookup
 
 
 def main(pulse_lookup: dict,
@@ -28,8 +29,20 @@ def main(pulse_lookup: dict,
          experiments: int,
          circuit_generator: callable,
          circuit_generator_args: dict,
-         device_param: dict):
-    """ Executes the experiment.
+         device_param: dict) -> dict:
+    """Executes the simulation of an algorithm.
+
+    Args:
+        pulse_lookup (dict): Lookup with the pulse name (str) as key and the pulse (Pulse) as value.
+        shots (int): Number of times the algorithm is simulated in each experiment.
+        experiments (int): Number of repetitions of the experiment.
+        circuit_generator (callable): Function that returns a Qiskit circuit when given specific arguments.
+        circuit_generator_args (dict): Arguments to be provided to the generator.
+        device_param (dict): Device parameters as lookup, specify the level of noise on the device.
+
+    Returns:
+        Results of the simulation as lookup with the pulse names (str) as keys and a list of the experiment results as
+            value.
     """
 
     result_lookup = defaultdict(list)
@@ -53,8 +66,16 @@ def main(pulse_lookup: dict,
     return result_lookup
 
 
-def simulation(pulse, run_args: dict):
-    """ Executes a run of the simulation. """
+def simulation(pulse: Pulse, run_args: dict):
+    """Executes a run of the simulation.
+
+    Args:
+        pulse (Pulse): Pulse used in the gates.
+        run_args (dict): Arguments used in the run of the MrAndersonSimulator as lookup.
+
+    Returns:
+        Probability distribution as np.array as simulated.
+    """
 
     # Transform arguments
     gates = Gates(pulse=pulse)

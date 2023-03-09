@@ -1,10 +1,4 @@
-"""
-We compute the expectation value of the gates for various pulse shapes to understand
-the effect of the pulses.
-
-Note:
-- Just sampling a single gate has the advantage that we do not have an accumulation of
-  effects. Moreover, it is much cheaper.
+""" Compute the expectation value of the gates for various pulse shapes to understand the effect of the pulses.
 """
 
 import json
@@ -12,13 +6,18 @@ import json
 from quantum_gates.utilities import load_config
 
 from configuration.device_parameters.lookup import device_param_lookup
-from src.pulses.pulses import all_pulse_lookup
-from src.gates.experiments import simulate_gate
-from src.gates.utilities import gate_args_constructor_lookup
-from src.gates.factories import factory_class_lookup
+from pulse_opt.pulses.pulses import all_pulse_lookup
+from pulse_opt.gates.experiments import simulate_gate
+from pulse_opt.gates.utilities import gate_args_constructor_lookup
+from pulse_opt.gates.factories import factory_class_lookup
 
 
 def main(run: str):
+    """Executes all computations for a run of the experiment.
+
+    Args:
+        run (str): Name of the run.
+    """
 
     # Configuration
     config = load_config(f"gates/{run}.json")
@@ -53,6 +52,8 @@ def main(run: str):
     # Save configurations
     with open(f"results/gates/{run}/{run}.json", 'w', encoding='utf8') as file:
         json.dump(config, file, indent=6)
+
+    return
 
 
 if __name__ == "__main__":

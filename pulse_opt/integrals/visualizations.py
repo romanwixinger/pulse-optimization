@@ -1,8 +1,14 @@
-"""
-Script for plotting the integrals for different pulses represented as parametrizations. The goal is to display which
-integrals are affected by the change in pulse shapes.
+"""Module for plotting the integrals for pulses represented as parametrizations.
+
+The goal is to display which integrals are affected by the change in pulse shapes.
+
+Todo:
+    * Add better color scale in heatmaps_of_gaussian().
+    * Combine the nine plots of heatmaps_of_gaussian() from the nine integrals into a single plot.
 """
 
+
+from collections import defaultdict
 import numpy as np
 import matplotlib as mpl
 mpl.rcParams['text.usetex'] = True  # Use LaTeX https://matplotlib.org/stable/tutorials/text/usetex.html
@@ -11,23 +17,40 @@ import matplotlib.pyplot as plt
 from quantum_gates.integrators import Integrator
 from quantum_gates.pulses import GaussianPulse
 
-from .utilities import integrands, markers
+from pulse_opt.integrals.utilities import integrands, markers
 
 
-# We can use this reference: https://matplotlib.org/stable/tutorials/introductory/customizing.html
-mpl.rcParams['axes.titlesize'] = 16
-mpl.rcParams['axes.labelsize'] = 12
-mpl.rcParams['lines.linewidth'] = 1.5
-mpl.rcParams['lines.markersize'] = 12
-mpl.rcParams['xtick.labelsize'] = 12
-mpl.rcParams['ytick.labelsize'] = 12
-mpl.rcParams['legend.fontsize'] = "medium"
+plt.rcParams.update({
+    "axes.titlesize": 16,
+    "axes.labelsize": 12,
+    "lines.linewidth": 1.5,
+    "lines.markersize": 5,
+    "xtick.labelsize": 12,
+    "ytick.labelsize": 12,
+    "legend.fontsize": "medium",
+    "figure.figsize": (8, 6),
+})
+
+# Plot background -> white inside, transparent outside
+plt.rcParams.update({
+    "figure.facecolor":  (1.0, 1.0, 1.0, 0.0),  # white with alpha = 0%
+    "axes.facecolor":    (1.0, 1.0, 1.0, 1.0),  # white with alpha = 100%
+    "savefig.facecolor": (1.0, 1.0, 1.0, 0.0),  # white with alpha = 0%
+})
 
 
 def heatmaps_of_gaussian(locs: list, scales: list, integrands: list, theta: float=np.pi, a: float=1.0):
-    """
+    """Visualizes the nine Ito integrals for Gaussian pulses and creates a heatmap from the results.
+
     Takes a list of parameters for GaussianPulse (locs, scales) and evaluates the integrands at pi. Then creates
     a heatmap (x: loc, y: scale) for each integrand.
+
+    Args:
+        locs (list[float]): Location parameter options for the Gaussian pulses.
+        scales (list[float]): Scale parameter options for the Gaussian pulses.
+        integrands (list[str]): Name of the integrands of the Ito integrals.
+        theta (float): Upper limit of the integration.
+        a (float): Parameter of the integrand.
     """
     res = np.zeros((len(locs), len(scales)))
     res_lookup = {integrand: np.zeros_like(res) for integrand in integrands}
@@ -91,6 +114,39 @@ def plot_integral_results_for_parametrized_pulses(pulses: list,
     plt.xlabel(parameter_name)
     plt.ylabel("Integration result")
     plt.title("Integration result as function of the parametrization.")
+    plt.legend()
+    plt.grid()
+    if filename is not None:
+        plt.savefig(filename)
+    plt.show()
+    plt.close()
+    return
+
+
+def plot_integral_sum_for_parametrized_pulses(pulses: list,
+                                              parameters: list,
+                                              parameter_name: str,
+                                              theta: float,
+                                              a: float=1.0,
+                                              filename=None):
+    """ Takes a list of pulses which were parametrized with values as given in the list parameters.
+        Calculate the integrals for a specific theta value, plots the sum, and saves the result with a specific
+        filename.
+    """
+    sum_dict = defaultdict(int)
+
+    for integrand in integrands:
+        for pulse, param in zip(pulses, parameters):
+            integrator = Integrator(pulse)
+            sum_dict[param] += integrator.integrate(integrand, theta, a)
+
+    x = sum_dict.keys()
+    y = sum_dict.values()
+    plt.plot(x, y, label="Sum")
+
+    plt.xlabel(parameter_name)
+    plt.ylabel("Sum of integration results")
+    plt.title("Sum of integration results as function of the parametrization.")
     plt.legend()
     plt.grid()
     if filename is not None:
