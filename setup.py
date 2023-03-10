@@ -26,6 +26,7 @@ setup(
         "quantum_gates>=1.0.3",
         "pylatexenc",
         "tqdm",
+        "uncertainties"
     ],
     extras_require={
         "docs": [

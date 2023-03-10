@@ -5,3 +5,4 @@ matplotlib
 pylatexenc
 quantum-gates>=1.0.3
 tqdm
+uncertainties
