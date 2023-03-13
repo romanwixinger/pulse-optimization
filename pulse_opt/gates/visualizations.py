@@ -9,28 +9,10 @@ Todo:
 
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib as mpl
 
 from pulse_opt.gates.utilities import hellinger_distance
-
-
-plt.rcParams.update({
-    "axes.titlesize": 16,
-    "axes.labelsize": 12,
-    "lines.linewidth": 1.5,
-    "lines.markersize": 5,
-    "xtick.labelsize": 12,
-    "ytick.labelsize": 12,
-    "legend.fontsize": "medium",
-    "figure.figsize": (8, 6),
-})
-
-# Plot background -> white inside, transparent outside
-plt.rcParams.update({
-    "figure.facecolor":  (1.0, 1.0, 1.0, 0.0),  # white with alpha = 0%
-    "axes.facecolor":    (1.0, 1.0, 1.0, 1.0),  # white with alpha = 100%
-    "savefig.facecolor": (1.0, 1.0, 1.0, 0.0),  # white with alpha = 0%
-})
+from pulse_opt.configuration.plotting_parameters import set_matplotlib_style
+set_matplotlib_style()
 
 
 def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
@@ -65,7 +47,6 @@ def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
             y=result["mean(mean)"],
             yerr=result["std(mean) over sqrt(n)"],
             label=get_label(i, name),
-            elinewidth=3,
             capsize=10,
             color=plasma(i/color_num)
         )
@@ -112,8 +93,6 @@ def plot_gates_std(result_lookup: dict, folder: str, filename: str):
             y=result["mean(std)"],
             yerr=result["std(std) over sqrt(n)"],
             label=get_label(i, name),
-            elinewidth=3,
-            capsize=8,
             color=plasma(i/color_num)
         )
         is_x_gate = len(result["mean(std)"]) == 8
@@ -161,10 +140,9 @@ def plot_gates_mean_reverse(result_lookup: dict, folder: str, filename):
                      y=y,
                      yerr=yerr,
                      label=f"Matrix element {i}",
-                     alpha=0.5,
-                     capsize=8)
+                     alpha=0.5)
     plt.title(f"Deviation of the {'X' if n_elements == 8 else 'CNOT'} gate matrix elements.")
-    plt.xlabel("Gaussian location parameter")
+    plt.xlabel("Gaussian location parameter [1]")
     plt.ylabel("Deviation from noiseless case [1]")
     plt.grid()
     plt.tight_layout()
@@ -201,11 +179,10 @@ def plot_gates_std_reverse(result_lookup: dict, folder: str, filename):
                  y=y,
                  yerr=yerr,
                  label=f"Matrix element {i}",
-                 alpha=0.5,
-                 capsize=8)
+                 alpha=0.5)
 
     plt.title(f"Standard deviation of the {'X' if n_elements == 8 else 'CNOT'} gate matrix elements.")
-    plt.xlabel("Gaussian location parameter")
+    plt.xlabel("Gaussian location parameter [1]")
     plt.ylabel("Standard deviation [1]")
     plt.grid()
     plt.legend()

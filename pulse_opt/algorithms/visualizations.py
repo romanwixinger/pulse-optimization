@@ -4,24 +4,8 @@ Visualizes the integration results for various pulses to understand the relation
 
 import matplotlib.pyplot as plt
 
-
-plt.rcParams.update({
-    "axes.titlesize": 16,
-    "axes.labelsize": 12,
-    "lines.linewidth": 1.5,
-    "lines.markersize": 5,
-    "xtick.labelsize": 12,
-    "ytick.labelsize": 12,
-    "legend.fontsize": "medium",
-    "figure.figsize": (8, 6),
-})
-
-# Plot background -> white inside, transparent outside
-plt.rcParams.update({
-    "figure.facecolor":  (1.0, 1.0, 1.0, 0.0),  # white with alpha = 0%
-    "axes.facecolor":    (1.0, 1.0, 1.0, 1.0),  # white with alpha = 100%
-    "savefig.facecolor": (1.0, 1.0, 1.0, 0.0),  # white with alpha = 0%
-})
+from pulse_opt.configuration.plotting_parameters import set_matplotlib_style
+set_matplotlib_style()
 
 
 def plot_result_lookup(y_list, y_std_list):
