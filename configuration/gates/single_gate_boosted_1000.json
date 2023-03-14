@@ -1,0 +1,16 @@
+{
+  "name": "single_gate_boosted_1000",
+  "content":
+  {
+      "samples": 10000,
+      "runs": 50,
+      "device_parameters": "20221208",
+      "noise_scaling": 1000.0,
+      "pulse_lookup": "gaussian_pulses_100",
+      "gates": ["X", "CNOT"],
+      "extra_gate_args": {
+          "X": {"phi":  0.0},
+          "CNOT": {"phi_ctr": 0.0, "phi_trg":  0.0}
+      }
+  }
+}
