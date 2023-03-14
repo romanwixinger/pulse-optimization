@@ -131,7 +131,7 @@ def _reshape_gate(gate: np.array) -> np.array:
         complex part of the array.
 
         Example input:
-            np.array([1, J, 0, 0])
+            np.array([[1, J],[0, 0])
 
         Example output:
             np.array([1, 0, 0, 0, 0, 1, 0, 0])
