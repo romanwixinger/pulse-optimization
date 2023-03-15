@@ -155,8 +155,8 @@ def plot_conf_intervals(run: str, config: dict):
     plot_gates_std_confidence_interval(x_aggregated, plots_folder, filename="x_gate_std_confidence_interval.pdf")
 
     # Plot and save first CNOT gate result
-    plot_gates_mean_confidence_interval(cnot_aggregated, plots_folder, filename="cnot_gate_confidence_interval.pdf")
-    plot_gates_std_confidence_interval(cnot_aggregated, plots_folder, filename="cnot_gate_confidence_interval.pdf")
+    plot_gates_mean_confidence_interval(cnot_aggregated, plots_folder, filename="cnot_gate_mean_confidence_interval.pdf")
+    plot_gates_std_confidence_interval(cnot_aggregated, plots_folder, filename="cnot_gate_std_confidence_interval.pdf")
 
 
     # Save configuration
