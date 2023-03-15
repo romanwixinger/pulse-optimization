@@ -25,6 +25,7 @@ extensions = [
     "sphinx.ext.autosummary",
     "sphinx.ext.todo",
     "sphinx.ext.linkcode",
+    "sphinx.ext.intersphinx",
 ]
 
 autosummary_generate = True
@@ -45,13 +46,31 @@ exclude_patterns = []
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 
+
 intersphinx_mapping = {
-    'python': ('https://docs.python.org/', None),
-    'numpy': ('https://numpy.org/doc/stable/', None),
-    'qiskit': ('https://qiskit.org/', None),
-    'typing': ('https://docs.python.org/3/library/typing.html', None),
-    'pandas': ('https://pandas.pydata.org/', None)
+    'python': ('https://docs.python.org/3', None),
+    'numpy': ('https://numpy.org/doc/stable', None),
+    'pandas': ('https://pandas.pydata.org/pandas-docs/stable', None),
+    'matplotlib': ('https://matplotlib.org/stable', None),
 }
+
+# To debug:
+#intersphinx_mapping['qiskit'] = ('https://qiskit.org', None)
+#intersphinx_mapping['typing'] = ('https://docs.python.org/3/library/typing.html', None)
+#intersphinx_mapping['quantum-gates'] = ('https://pypi.org/project/quantum-gates', None)
+
+
+def autodoc_process_signature(app, what, name, obj, options, signature, return_annotation):
+    # Do something
+    return signature, return_annotation
+
+
+def setup(app):
+    app.connect("autodoc-process-signature", autodoc_process_signature)
+
+
+autodoc_typehints = "both"
+autodoc_typehints_format = "short"  # This is handy too
 
 
 def linkcode_resolve(domain, info):
