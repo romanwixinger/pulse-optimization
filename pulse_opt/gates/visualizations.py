@@ -16,57 +16,10 @@ from pulse_opt.gates.utilities import (
     matrix_elements_labels_1_qubit,
     matrix_elements_labels_2_qubits,
 )
+from pulse_opt.configuration.plotting_colors import selected_colors_8, selected_colors_32
 from pulse_opt.configuration.plotting_parameters import set_matplotlib_style, activate_latex
 set_matplotlib_style()
 activate_latex()
-
-all_colors = colors.get_named_colors_mapping()
-color_choice = [
-    "deepskyblue",
-    "royalblue",
-    "darkcyan",
-    "cyan",
-    "lemonchiffon",
-    "gold",
-    "orange",
-    "goldenrod",
-    "lightcoral",
-    "indianred",
-    "darkred",
-    "maroon",
-    "peachpuff",
-    "sandybrown",
-    "chocolate",
-    "saddlebrown",
-    "honeydew",
-    "palegreen",
-    "yellowgreen",
-    "olivedrab",
-    "thistle",
-    "plum",
-    "violet",
-    "purple",
-    "pink",
-    "palevioletred",
-    "mediumvioletred",
-    "darkmagenta",
-    "lightgrey",
-    "darkgrey",
-    "grey",
-    "gray",
-    "dimgrey",
-    "dimgray",
-    "black",
-    "turquoise",
-    "aquamarine",
-    "mediumaquamarine",
-    "lightseagreen",
-    "mediumblue",
-    "darkblue",
-    "midnightblue",
-    "navy",
-]
-selected_colors = {key: all_colors[key] for key in color_choice}
 
 
 def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
@@ -294,10 +247,11 @@ def plot_gates_mean_confidence_interval(result_lookup: dict, folder: str, filena
     n_elements = len(result_lookup[list(names)[0]]["mean(mean)"])
     assert n_elements in [8, 32], f"Expected 8 or 32 matrix elements for 1, 2 qubit result, but found {n_elements}."
     label_lookup = matrix_elements_labels_1_qubit if n_elements == 8 else matrix_elements_labels_2_qubits
+    selected_colors = selected_colors_8 if n_elements == 8 else selected_colors_32
 
     for color_name, i in zip(selected_colors, range(n_elements)):
         y = np.array([result_lookup[name]["mean(mean)"][i] for name in names])
-        yerr = np.array([result_lookup[name]["std(mean) over sqrt(n)"][i] for name in names])
+        yerr = np.array([result_lookup[name]["std(mean)"][i] for name in names])
         plt.plot(x, y, label=label_lookup[i], color=selected_colors[color_name])
         ax.fill_between(x, (y - yerr), (y + yerr), color=selected_colors[color_name], alpha=.1)
     plt.title(f"Deviation of the {'X' if n_elements == 8 else 'CNOT'} gate matrix elements.")
@@ -339,10 +293,11 @@ def plot_gates_std_confidence_interval(result_lookup: dict, folder: str, filenam
     n_elements = len(result_lookup[list(names)[0]]["mean(mean)"])
     assert n_elements in [8, 32], f"Expected 8 or 32 matrix elements for 1, 2 qubit result, but found {n_elements}."
     label_lookup = matrix_elements_labels_1_qubit if n_elements == 8 else matrix_elements_labels_2_qubits
+    selected_colors = selected_colors_8 if n_elements == 8 else selected_colors_32
 
     for color_name, i in zip(selected_colors, range(n_elements)):
         y = np.array([result_lookup[name]["mean(std)"][i] for name in names])
-        yerr = np.array([result_lookup[name]["std(std) over sqrt(n)"][i] for name in names])
+        yerr = np.array([result_lookup[name]["std(std)"][i] for name in names])
         plt.plot(x, y, label=label_lookup[i], color=selected_colors[color_name])
         ax.fill_between(x, (y - yerr), (y + yerr), color=selected_colors[color_name], alpha=.1)
 

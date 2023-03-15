@@ -38,6 +38,12 @@ Welcome to Pulse Optimization's documentation!
    algorithms
 
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Configuration
+
+   configuration
+
 
 Indices and tables
 ==================
