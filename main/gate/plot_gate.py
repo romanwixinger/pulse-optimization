@@ -13,7 +13,9 @@ from pulse_opt.gates.visualizations import (
     plot_gates_std,
     plot_gates_mean_reverse,
     plot_gates_std_reverse,
-    plot_hellinger
+    plot_gates_mean_confidence_interval,
+    plot_gates_std_confidence_interval,
+    plot_hellinger,
 )
 from pulse_opt.gates.utilities import load_aggregated_results, construct_x_gate_args, construct_cnot_gate_args
 from configuration.device_parameters.lookup import device_param_lookup_20221208
@@ -129,6 +131,41 @@ def plot(run: str, config: dict):
     return
 
 
+def plot_conf_intervals(run: str, config: dict):
+    """Create just some new plots.
+
+    Args:
+        run (str): Name of the run of the experiment.
+        config (dict): Configuration file.
+    """
+
+    # Load aggregated results
+    result_folder = f"results/gates/{run}"
+    agg_results = load_aggregated_results(result_folder)
+    x_aggregated = agg_results["x"]
+    cnot_aggregated = agg_results["cnot"]
+
+    # Create folder to save plots
+    plots_folder = f"plots/gates/{run}"
+    if not os.path.exists(plots_folder):
+        os.makedirs(plots_folder)
+
+    # Plot and save first X gate result
+    plot_gates_mean_confidence_interval(x_aggregated, plots_folder, filename="x_gate_mean_confidence_interval.pdf")
+    plot_gates_std_confidence_interval(x_aggregated, plots_folder, filename="x_gate_std_confidence_interval.pdf")
+
+    # Plot and save first CNOT gate result
+    plot_gates_mean_confidence_interval(cnot_aggregated, plots_folder, filename="cnot_gate_confidence_interval.pdf")
+    plot_gates_std_confidence_interval(cnot_aggregated, plots_folder, filename="cnot_gate_confidence_interval.pdf")
+
+
+    # Save configuration
+    with open(f"{plots_folder}/{run}.json", 'w', encoding='utf8') as file:
+        json.dump(config, file, indent=6)
+
+    return
+
+
 def main():
     runs = [
         "single_gate_boosted_1",
@@ -140,7 +177,7 @@ def main():
 
     for run in runs:
         config = load_config(f"gates/{run}.json")
-        plot(run=run, config=config)
+        plot_conf_intervals(run=run, config=config)
 
 
 if __name__ == "__main__":
