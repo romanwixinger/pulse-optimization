@@ -10,7 +10,7 @@ from pulse_opt.integrals.visualizations import (
     plot_integral_sum_for_parametrized_pulses,
 )
 from pulse_opt.integrals.utilities import integrands
-from pulse_opt.pulses.pulses import gaussian_pulse_lookup_100 as gaussian_pulse_lookup
+from pulse_opt.pulses.pulses import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
 
 
 def main_heatmaps():
@@ -23,8 +23,8 @@ def main_heatmaps():
     return
 
 
-def main_plots():
-    """Plot the integral results for parametrized Gaussian pulses.
+def main_sum():
+    """Plot the integral sums for parametrized Gaussian pulses.
     """
     plot_folder = "plots/integrals"
 
@@ -44,6 +44,12 @@ def main_plots():
         theta=np.pi,
         filename=f"{plot_folder}/integration_sum_parametrized_gaussians_pi.pdf"
     )
+
+
+def main_plots():
+    """Plot the integral results for parametrized Gaussian pulses.
+    """
+    plot_folder = "plots/integrals"
 
     # Integration result for Gaussian pulses
     plot_integral_results_for_parametrized_pulses(
