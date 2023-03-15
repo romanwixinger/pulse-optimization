@@ -1,6 +1,7 @@
 """Sets the style of matplotlib.
 """
 
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 
@@ -38,4 +39,32 @@ def set_matplotlib_style(overwrite: dict={}):
     # Overwrite default behaviour
     if isinstance(overwrite, dict) and len(overwrite) > 0:
         plt.rcParams.update(overwrite)
+    return
+
+
+def activate_latex(preamble_list: list[str]=[]):
+    """Activates LaTeX for use in Matplotlib and import some packages.
+
+    Imported packages include amsmath, amssymb, and braket.
+
+    Examples:
+        preamble_list = ['\\usepackage{myfancypackage}'] where the string has an r as prefix.
+
+    Args:
+        preample_list (list[str]): List of raw str that represent the lines of the LaTeX preample used for imports.
+    """
+
+    pgf_with_latex = {
+        "text.usetex": True,
+        "font.family": "sans-serif",
+        "font.sans-serif": ["Helvetica"],
+        "text.latex.preamble": "\n".join([
+            r"\usepackage[utf8]{inputenc}",
+            r"\usepackage[T1]{fontenc}",
+            r"\usepackage{amsmath}",
+            r"\usepackage{amssymb}",
+            r"\usepackage{braket}",
+        ] + preamble_list)
+    }
+    mpl.rcParams.update(pgf_with_latex)
     return
