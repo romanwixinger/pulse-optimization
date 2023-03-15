@@ -10,9 +10,14 @@ Todo:
 import numpy as np
 import matplotlib.pyplot as plt
 
-from pulse_opt.gates.utilities import hellinger_distance
-from pulse_opt.configuration.plotting_parameters import set_matplotlib_style
+from pulse_opt.gates.utilities import (
+    hellinger_distance,
+    matrix_elements_labels_1_qubit,
+    matrix_elements_labels_2_qubits,
+)
+from pulse_opt.configuration.plotting_parameters import set_matplotlib_style, activate_latex
 set_matplotlib_style()
+activate_latex()
 
 
 def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
@@ -132,15 +137,23 @@ def plot_gates_mean_reverse(result_lookup: dict, folder: str, filename):
     names = result_lookup.keys()
     x = [float(name) for name in names]
     plt.figure()
+
+    # Check if we are in 1 or 2 qubit case and prepare labels
     n_elements = len(result_lookup[list(names)[0]]["mean(mean)"])
+    assert n_elements in [8, 32], f"Expected 8 or 32 matrix elements for 1, 2 qubit result, but found {n_elements}."
+    label_lookup = matrix_elements_labels_1_qubit if n_elements == 8 else matrix_elements_labels_2_qubits
+
+    plt.figure()
     for i in range(n_elements):
         y = [result_lookup[name]["mean(mean)"][i] for name in names]
         yerr = [result_lookup[name]["std(mean) over sqrt(n)"][i] for name in names]
-        plt.errorbar(x=x + 0.01*np.random.rand(len(x)) - 0.01*np.random.rand(len(x)),
-                     y=y,
-                     yerr=yerr,
-                     label=f"Matrix element {i}",
-                     alpha=0.5)
+        plt.errorbar(
+            x=x + 0.01*np.random.rand(len(x)) - 0.01*np.random.rand(len(x)),
+            y=y,
+            yerr=yerr,
+            label=label_lookup[i],
+            alpha=0.5
+        )
     plt.title(f"Deviation of the {'X' if n_elements == 8 else 'CNOT'} gate matrix elements.")
     plt.xlabel("Gaussian location parameter [1]")
     plt.ylabel("Deviation from noiseless case [1]")
@@ -149,6 +162,8 @@ def plot_gates_mean_reverse(result_lookup: dict, folder: str, filename):
 
     if n_elements == 32:
         plt.legend(ncol=4, prop={'size': 8})
+    else:
+        plt.legend()
 
     if folder is not None and filename is not None:
         plt.savefig(f"{folder}/{filename}")
@@ -171,15 +186,22 @@ def plot_gates_std_reverse(result_lookup: dict, folder: str, filename):
     names = result_lookup.keys()
     x = [float(name) for name in names]
     plt.figure()
+
+    # Check if we are in 1 or 2 qubit case and prepare labels
     n_elements = len(result_lookup[list(names)[0]]["mean(mean)"])
+    assert n_elements in [8, 32], f"Expected 8 or 32 matrix elements for 1, 2 qubit result, but found {n_elements}."
+    label_lookup = matrix_elements_labels_1_qubit if n_elements == 8 else matrix_elements_labels_2_qubits
+
     for i in range(n_elements):
         y = [result_lookup[name]["mean(std)"][i] for name in names]
         yerr = [result_lookup[name]["std(std) over sqrt(n)"][i] for name in names]
-        plt.errorbar(x=x + 0.01*np.random.rand(len(x)) - 0.01*np.random.rand(len(x)),
-                 y=y,
-                 yerr=yerr,
-                 label=f"Matrix element {i}",
-                 alpha=0.5)
+        plt.errorbar(
+            x=x + 0.01*np.random.rand(len(x)) - 0.01*np.random.rand(len(x)),
+            y=y,
+            yerr=yerr,
+            label=label_lookup[i],
+            alpha=0.5
+        )
 
     plt.title(f"Standard deviation of the {'X' if n_elements == 8 else 'CNOT'} gate matrix elements.")
     plt.xlabel("Gaussian location parameter [1]")

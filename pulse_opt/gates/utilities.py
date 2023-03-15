@@ -437,6 +437,57 @@ def u_sqrt(u_arr: unumpy.umatrix) -> unumpy.umatrix:
     return unumpy.umatrix(nominal_val, std_devs)
 
 
+matrix_elements_labels_1_qubit = {
+    0: r'$\rm{Re}(\ket{0}\bra{0})$',
+    1: r'$\rm{Re}(\ket{0}\bra{1})$',
+    2: r'$\rm{Re}(\ket{1}\bra{0})$',
+    3: r'$\rm{Re}(\ket{1}\bra{1})$',
+    4: r'$\rm{Im}(\ket{0}\bra{0})$',
+    5: r'$\rm{Im}(\ket{0}\bra{1})$',
+    6: r'$\rm{Im}(\ket{1}\bra{0})$',
+    7: r'$\rm{Im}(\ket{1}\bra{1})$',
+}
+
+
+matrix_elements_labels_2_qubits = {
+    0: r'$\rm{Re}(\ket{00}\bra{00})$',
+    1: r'$\rm{Re}(\ket{00}\bra{01})$',
+    2: r'$\rm{Re}(\ket{00}\bra{10})$',
+    3: r'$\rm{Re}(\ket{00}\bra{11})$',
+    4: r'$\rm{Re}(\ket{01}\bra{00})$',
+    5: r'$\rm{Re}(\ket{01}\bra{01})$',
+    6: r'$\rm{Re}(\ket{01}\bra{10})$',
+    7: r'$\rm{Re}(\ket{01}\bra{11})$',
+    8: r'$\rm{Re}(\ket{10}\bra{00})$',
+    9: r'$\rm{Re}(\ket{10}\bra{01})$',
+    10: r'$\rm{Re}(\ket{10}\bra{10})$',
+    11: r'$\rm{Re}(\ket{10}\bra{11})$',
+    12: r'$\rm{Re}(\ket{11}\bra{00})$',
+    13: r'$\rm{Re}(\ket{11}\bra{01})$',
+    14: r'$\rm{Re}(\ket{11}\bra{10})$',
+    15: r'$\rm{Re}(\ket{11}\bra{11})$',
+}
+
+matrix_elements_labels_2_qubits.update({
+    16: r'$\rm{Im}(\ket{00}\bra{00})$',
+    17: r'$\rm{Im}(\ket{00}\bra{01})$',
+    18: r'$\rm{Im}(\ket{00}\bra{10})$',
+    19: r'$\rm{Im}(\ket{00}\bra{11})$',
+    20: r'$\rm{Im}(\ket{01}\bra{00})$',
+    21: r'$\rm{Im}(\ket{01}\bra{01})$',
+    22: r'$\rm{Im}(\ket{01}\bra{10})$',
+    23: r'$\rm{Im}(\ket{01}\bra{11})$',
+    24: r'$\rm{Im}(\ket{10}\bra{00})$',
+    25: r'$\rm{Im}(\ket{10}\bra{01})$',
+    26: r'$\rm{Im}(\ket{10}\bra{10})$',
+    27: r'$\rm{Im}(\ket{10}\bra{11})$',
+    28: r'$\rm{Im}(\ket{11}\bra{00})$',
+    29: r'$\rm{Im}(\ket{11}\bra{01})$',
+    30: r'$\rm{Im}(\ket{11}\bra{10})$',
+    31: r'$\rm{Im}(\ket{11}\bra{11})$',
+})
+
+
 gate_args_constructor_lookup = {
     "X": construct_x_gate_args,
     "SX": construct_x_gate_args,
@@ -444,3 +495,5 @@ gate_args_constructor_lookup = {
     "CNOT": construct_cnot_gate_args,
     "CNOT_inv": construct_cnot_gate_args,
 }
+
+

@@ -10,16 +10,15 @@ Todo:
 
 from collections import defaultdict
 import numpy as np
-import matplotlib as mpl
-mpl.rcParams['text.usetex'] = True  # Use LaTeX https://matplotlib.org/stable/tutorials/text/usetex.html
 import matplotlib.pyplot as plt
 
 from quantum_gates.integrators import Integrator
 from quantum_gates.pulses import GaussianPulse
 
 from pulse_opt.integrals.utilities import integrands, markers
-from pulse_opt.configuration.plotting_parameters import set_matplotlib_style
+from pulse_opt.configuration.plotting_parameters import set_matplotlib_style, activate_latex
 set_matplotlib_style()
+activate_latex()
 
 
 def heatmaps_of_gaussian(locs: list, scales: list, integrands: list, theta: float=np.pi, a: float=1.0):
@@ -95,7 +94,8 @@ def plot_integral_results_for_parametrized_pulses(pulses: list,
         plt.plot(x, y, label=integrand)
 
     plt.xlabel(parameter_name)
-    plt.ylabel("Integration result")
+
+    plt.ylabel(r'Integration result.')
     plt.title("Integration result as function of the parametrization.")
     plt.legend()
     plt.grid()
