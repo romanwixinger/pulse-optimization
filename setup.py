@@ -28,6 +28,7 @@ setup(
         "tqdm",
         "uncertainties",
         "pytest",
+        "simpy",
     ],
     extras_require={
         "docs": [
