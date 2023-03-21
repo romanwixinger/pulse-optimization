@@ -32,6 +32,7 @@ def plot_pulses(pulse_lookup, filename: str=None, label_prefix: str=""):
     if filename is not None:
         plt.savefig(filename)
     plt.show()
+    plt.close()
 
 
 def plot_parametrizations(pulse_lookup, filename: str=None, label_prefix: str=""):
@@ -49,9 +50,10 @@ def plot_parametrizations(pulse_lookup, filename: str=None, label_prefix: str=""
         y = [param(x_val) for x_val in x]
         plt.plot(x, y, label=f"{label_prefix}{name}")
     plt.xlabel('Parametrization variable t')
-    plt.ylabel("Θ [1]")
+    plt.ylabel(r"$\theta$ [1]")
     plt.title("Pulse parametrization")
     plt.legend()
     if filename is not None:
         plt.savefig(filename)
     plt.show()
+    plt.close()
