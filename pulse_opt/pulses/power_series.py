@@ -12,52 +12,63 @@ from quantum_gates.pulses import Pulse
 
 
 class PowerPulse(Pulse):
-    """Pulse based on Power series.
+    """Pulse based on power series around x0 = shift.
+
+    Args:
+        coefficients (np.array): Real coefficients (a0,...,an) of the power series f(x) = sum_i a_i (x-shift)^n for i
+            from 0 to n.
+        shift (float): Expansion point of the power series.
+        perform_checks (bool): Should the resulting pulse be verified by the parent class.
 
     Note:
         The coefficients should be such that integral over the interval [0,1] is positive. Otherwise, the coefficients
         will be multiplied by a factor of -1. Moreover, the coefficients will be scaled to make the pulse well-defined
         with a total area of 1.
+
+    Attributes:
+        pulse (callable): Pulse waveform.
+        parametrization (callable): Pulse parametrization, the parameter integral of the waveform.
+        use_lookup (bool): False, we use numerical integration.
     """
 
-    def __init__(self, coefficients: np.array, perform_checks: bool=False):
+    def __init__(self, coefficients: np.array, shift: float=0.0, perform_checks: bool=False):
         super(PowerPulse, self).__init__(
-            pulse=self._construct_pulse(coefficients),
-            parametrization=self._construct_parametrization(coefficients),
+            pulse=self._construct_pulse(coefficients, shift),
+            parametrization=self._construct_parametrization(coefficients, shift),
             perform_checks=perform_checks,
             use_lookup=False
         )
 
     @staticmethod
-    def _construct_pulse(coefficients: np.array):
+    def _construct_pulse(coefficients: np.array, shift: float):
         """ Constructs the waveform from the real coefficients. """
 
         # Input validation
         assert isinstance(coefficients, np.ndarray)
-        total_integral = sum((a_i * 1/(i+1) for i, a_i in enumerate(coefficients)))
+        total_integral = sum((a_i * ((1.0 - shift)**(i+1) - (0.0 - shift)**(i+1))/(i+1) for i, a_i in enumerate(coefficients)))
         if abs(total_integral) < 1e-9:
             return lambda x: 1
 
         def waveform(x):
             """ Waveform f: [0,1] -> R of the pulse.
             """
-            return sum((a_i * x**i for i, a_i in enumerate(coefficients))) / total_integral
+            return sum((a_i * (x-shift)**i for i, a_i in enumerate(coefficients))) / total_integral
         return waveform
 
     @staticmethod
-    def _construct_parametrization(coefficients: np.array):
+    def _construct_parametrization(coefficients: np.array, shift):
         """ Constructs the pulse parametrization from the real coefficients. """
 
         # Input validation
         assert isinstance(coefficients, np.ndarray)
-        total_integral = sum((a_i * 1/(i+1) for i, a_i in enumerate(coefficients)))
+        total_integral = sum((a_i * ((1.0 - shift)**(i+1) - (0.0 - shift)**(i+1))/(i+1) for i, a_i in enumerate(coefficients)))
         if abs(total_integral) < 1e-9:
             return lambda x: x
 
         def parametrization(x):
             """ Parameter integral F: [0,1] -> [0,1] of the waveform the pulse.
             """
-            return sum((a_i * x**(i+1)/(i+1) for i, a_i in enumerate(coefficients))) / total_integral
+            return sum((a_i * ((x - shift)**(i+1) - (0.0 - shift)**(i+1))/(i+1) for i, a_i in enumerate(coefficients))) / total_integral
         return parametrization
 
 
@@ -109,6 +120,13 @@ power_pulse_lookup = {
     "power_x": PowerPulse(np.array([0, 1])),
     "power_x_squared": PowerPulse(np.array([0, 0, 1])),
     "power_x_minus_x_squared": PowerPulse(np.array([0, 1, -1])),
+}
+
+shifted_power_pulse_lookup = {
+    "power_1": PowerPulse(np.array([1]), shift=0.45),
+    "power_x": PowerPulse(np.array([0, 1]), shift=0.45),
+    "power_x_squared": PowerPulse(np.array([0, 0, 1]), shift=0.45),
+    "power_x_minus_x_squared": PowerPulse(np.array([0, 1, -1]), shift=0.45),
 }
 
 
