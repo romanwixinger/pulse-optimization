@@ -7,7 +7,7 @@ import scipy.optimize
 from quantum_gates.integrators import Integrator
 
 from .utilities import integrands
-from ..pulses.power_series import PowerPulse, ReluPowerPulse
+from ..pulses.power_pulses import PowerPulse, ReluPowerPulse
 
 
 def power_loss(coefficients: np.array, theta=np.pi/2):

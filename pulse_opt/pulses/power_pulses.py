@@ -1,6 +1,4 @@
 """Implements a pulse based on a truncated Power series.
-
-Maybe we can use this resource: https://docs.sympy.org/latest/modules/series/formal.html
 """
 
 
@@ -9,6 +7,13 @@ import scipy.integrate
 import scipy.interpolate
 
 from quantum_gates.pulses import Pulse
+from .utilities import (
+    pulse_integrates_to_one,
+    pulse_is_non_negative,
+    parametrization_has_valid_endpoints,
+    parametrization_is_monotone,
+    pulse_and_parametrization_are_compatible,
+)
 
 
 class PowerPulse(Pulse):
@@ -32,9 +37,19 @@ class PowerPulse(Pulse):
     """
 
     def __init__(self, coefficients: np.array, shift: float=0.0, perform_checks: bool=False):
+        # Setup
+        pulse = self._construct_pulse(coefficients, shift)
+        parametrization = self._construct_parametrization(coefficients, shift)
+
+        # Validation
+        pulse_integrates_to_one(pulse)
+        parametrization_has_valid_endpoints(parametrization)
+        pulse_and_parametrization_are_compatible(pulse, parametrization)
+
+        # Initialize parent class
         super(PowerPulse, self).__init__(
-            pulse=self._construct_pulse(coefficients, shift),
-            parametrization=self._construct_parametrization(coefficients, shift),
+            pulse=pulse,
+            parametrization=parametrization,
             perform_checks=perform_checks,
             use_lookup=False
         )
@@ -123,15 +138,15 @@ power_pulse_lookup = {
 }
 
 shifted_power_pulse_lookup = {
-    "power_1": PowerPulse(np.array([1]), shift=0.45),
-    "power_x": PowerPulse(np.array([0, 1]), shift=0.45),
-    "power_x_squared": PowerPulse(np.array([0, 0, 1]), shift=0.45),
-    "power_x_minus_x_squared": PowerPulse(np.array([0, 1, -1]), shift=0.45),
+    "shifted_power_1": PowerPulse(np.array([1]), shift=0.45),
+    "shifted_power_x": PowerPulse(np.array([0, 1]), shift=0.45),
+    "shifted_power_x_squared": PowerPulse(np.array([0, 0, 1]), shift=0.45),
+    "shifted_power_x_minus_x_squared": PowerPulse(np.array([0, 1, -1]), shift=0.45),
 }
 
 
 relu_power_pulse_lookup = {
-    "power_1": ReluPowerPulse(np.array([1])),
-    "power_x": ReluPowerPulse(np.array([0, 1])),
-    "x_squared_minus_x": ReluPowerPulse(np.array([0.2, -1.0, 1.0])),
+    "relu_power_1": ReluPowerPulse(np.array([1])),
+    "relu_power_x": ReluPowerPulse(np.array([0, 1])),
+    "relu_x_squared_minus_x": ReluPowerPulse(np.array([0.2, -1.0, 1.0])),
 }

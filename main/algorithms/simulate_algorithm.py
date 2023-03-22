@@ -18,7 +18,7 @@ from quantum_gates.circuits import EfficientCircuit
 from quantum_gates.pulses import Pulse
 
 from configuration.device_parameters.lookup import device_param_lookup_20221208 as device_param_lookup
-from pulse_opt.pulses.pulses import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
+from pulse_opt.pulses.gaussian_pulses import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
 from pulse_opt.algorithms.algorithms import n_x_gates
 from pulse_opt.algorithms.experiments import analyze_result_lookup
 from pulse_opt.algorithms.visualizations import plot_result_lookup
