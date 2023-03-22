@@ -93,10 +93,21 @@ class ReluPowerPulse(Pulse):
     Note:
         To ensure that the pulse has a non-vanishing support with f(x)>0, we recommend setting the first
         coefficient (a0) to a positive value.
+
+    Args:
+        coefficients (np.array): Real coefficients (a0,...,an) of the power series f(x) = sum_i a_i (x-shift)^n for i
+            from 0 to n.
+        shift (float): Expansion point of the power series.
+        perform_checks (bool): Should the resulting pulse be verified by the parent class.
     """
 
-    def __init__(self, coefficients: np.array, perform_checks: bool=False):
-        pulse, parametrization = self._construct_pulse_and_parametrization(coefficients)
+    def __init__(self, coefficients: np.array, perform_checks: bool=False, shift: float=0.0):
+        pulse, parametrization = self._construct_pulse_and_parametrization(coefficients, shift)
+        pulse_integrates_to_one(pulse),
+        pulse_is_non_negative(pulse),
+        parametrization_has_valid_endpoints(parametrization),
+        parametrization_is_monotone(parametrization),
+        pulse_and_parametrization_are_compatible(pulse, parametrization)
         if coefficients[0] <= 0:
             print("Warning, using non-positive first coefficient ")
         super(ReluPowerPulse, self).__init__(
@@ -107,8 +118,12 @@ class ReluPowerPulse(Pulse):
         )
 
     @staticmethod
-    def _construct_pulse_and_parametrization(coefficients: np.array):
-        """ Constructs the waveform from the real coefficients. """
+    def _construct_pulse_and_parametrization(coefficients: np.array, shift: float):
+        """ Constructs the waveform from the real coefficients.
+            oefficients (np.array): Real coefficients (a0,...,an) of the power series f(x) = sum_i a_i (x-shift)^n for i
+            from 0 to n.
+            shift (float): Expansion point of the power series.
+        """
 
         # Input validation
         assert isinstance(coefficients, np.ndarray)
@@ -116,7 +131,7 @@ class ReluPowerPulse(Pulse):
             return lambda x: 1, lambda x: x
 
         # Construction
-        raw_pulse = lambda x: sum((a_i * x**i for i, a_i in enumerate(coefficients)))
+        raw_pulse = lambda x: sum((a_i * (x-shift)**i for i, a_i in enumerate(coefficients)))
         non_zero_pulse = lambda x: max(0.0, raw_pulse(x))
         total_integral, abserr = scipy.integrate.quad(non_zero_pulse, 0, 1)
         assert total_integral > 0, f"Expected non-zero pulse but found total integral {total_integral}."

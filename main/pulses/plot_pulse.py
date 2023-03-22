@@ -26,13 +26,13 @@ def main_power(plot_folder: str):
 
 
 def main_shifted_power(plot_folder: str):
-    print("Power pulses")
+    print("Shifted power pulses")
     plot_pulses(shifted_power_pulse_lookup, f"{plot_folder}/power_pulse.pdf", "f(x-0.5) = ")
     plot_parametrizations(shifted_power_pulse_lookup, f"{plot_folder}/shifted_power_parametrizations.pdf", "f(x) = ")
 
 
 def main_relu_power(plot_folder: str):
-    print("Relu Power pulses")
+    print("Relu power pulses")
     plot_pulses(relu_power_pulse_lookup, f"{plot_folder}/power_pulse.pdf", "f(x) = ")
     plot_parametrizations(relu_power_pulse_lookup, f"{plot_folder}/relu_power_parametrizations.pdf", "f(x) = ")
 
@@ -47,4 +47,3 @@ if __name__ == "__main__":
     main_power(plot_folder)
     main_shifted_power(plot_folder)
     main_relu_power(plot_folder)
-
