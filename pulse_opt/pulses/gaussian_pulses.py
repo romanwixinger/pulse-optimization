@@ -21,6 +21,17 @@ import numpy as np
 from quantum_gates.pulses import Pulse, GaussianPulse
 
 
+class GaussianSuperpositionPulse(Pulse):
+    """Creates a pulse from a superposition of Gaussian pulses.
+    """
+
+    def __init__(self):
+        gaussian = GaussianPulse(loc=0.5, scale=0.3)
+        pulse = gaussian.get_pulse()
+        parametrization = gaussian.get_parametrization()
+        super(GaussianSuperpositionPulse, self).__init__(pulse, parametrization)
+
+
 _gaussian_args_10 = [round(loc, 2) for loc in 0.1 * np.arange(11)]
 gaussian_pulse_lookup_10 = {
     loc: GaussianPulse(loc=loc, scale=0.2) for loc in _gaussian_args_10
