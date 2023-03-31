@@ -7,7 +7,7 @@ import scipy.integrate
 
 
 def pulse_integrates_to_one(pulse: callable, epsilon: float=1e-6) -> bool:
-    """Raises an error if the pulse does not integrate up to 1.
+    """Raises an error if the pulse does not integrate up to 1. The integral is computed on the interval [0,1].
 
     Args:
         pulse (callable): The waveform which is to be checked.
