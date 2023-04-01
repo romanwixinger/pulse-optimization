@@ -30,12 +30,12 @@ relu_coefficients_lookup = {
 
 @pytest.mark.parametrize("coefficients", coefficients_lookup.values())
 def test_power_pulse_init(coefficients):
-    PowerPulse(coefficients, shift=0.1)
+    PowerPulse(coefficients=coefficients, shift=0.1)
 
 
 @pytest.mark.parametrize("coefficients", relu_coefficients_lookup.values())
 def test_relu_power_pulse_init(coefficients):
-    ReluPowerPulse(coefficients, shift=0.1)
+    ReluPowerPulse(coefficients=coefficients, shift=0.1)
 
 
 def test_power_pulse_input_validation_coefficients():
@@ -70,31 +70,31 @@ def test_relu_power_pulse_input_validation_trivial_pulse():
 
 @pytest.mark.parametrize("coefficients", coefficients_lookup.values())
 def test_power_pulse_integrates_to_one(coefficients):
-    pulse = PowerPulse(coefficients).get_pulse()
+    pulse = PowerPulse(coefficients=coefficients).get_pulse()
     pulse_integrates_to_one(pulse)
 
 
 @pytest.mark.parametrize("coefficients", relu_coefficients_lookup.values())
 def test_relu_power_pulse_integrates_to_one(coefficients):
-    pulse = ReluPowerPulse(coefficients).get_pulse()
+    pulse = ReluPowerPulse(coefficients=coefficients).get_pulse()
     pulse_integrates_to_one(pulse)
 
 
 @pytest.mark.parametrize("coefficients", coefficients_lookup.values())
 def test_power_pulse_parametrization_has_valid_endpoints(coefficients):
-    parametrization = PowerPulse(coefficients).get_parametrization()
+    parametrization = PowerPulse(coefficients=coefficients).get_parametrization()
     parametrization_has_valid_endpoints(parametrization)
 
 
 @pytest.mark.parametrize("coefficients", relu_coefficients_lookup.values())
 def test_relu_power_pulse_parametrization_has_valid_endpoints(coefficients):
-    parametrization = ReluPowerPulse(coefficients).get_parametrization()
+    parametrization = ReluPowerPulse(coefficients=coefficients).get_parametrization()
     parametrization_has_valid_endpoints(parametrization)
 
 
 @pytest.mark.parametrize("coefficients", coefficients_lookup.values())
 def test_relu_pulse_and_parametrization_are_compatible(coefficients):
-    power_pulse = PowerPulse(coefficients)
+    power_pulse = PowerPulse(coefficients=coefficients)
     pulse_and_parametrization_are_compatible(power_pulse.get_pulse(), power_pulse.get_parametrization())
 
 
@@ -109,7 +109,7 @@ def test_relu_pulse_and_parametrization_are_compatible(coefficients):
     [([1.0], lambda x: 1.0), ([0.0, 1.0], lambda x: 2 * x), ([0.0, 0.0, 1.0], lambda x: 3 * x ** 2)]
 )
 def test_power_pulse_waveform(coefficients, waveform):
-    pulse = PowerPulse(coefficients, shift=0.0).get_pulse()
+    pulse = PowerPulse(coefficients=coefficients, shift=0.0).get_pulse()
     grid = np.linspace(0.0, 1.0, 10)
     assert all((pytest.approx(pulse(x)) == waveform(x) for x in grid)), "Found error in pulse waveform."
 
@@ -119,7 +119,7 @@ def test_power_pulse_waveform(coefficients, waveform):
     [([1.0], lambda x: x), ([0.0, 1.0], lambda x: x ** 2), ([0.0, 0.0, 1.0], lambda x: x ** 3)]
 )
 def test_power_pulse_parametrization(coefficients, parametrization):
-    parametrization0 = PowerPulse(coefficients, shift=0.0).get_parametrization()
+    parametrization0 = PowerPulse(coefficients=coefficients, shift=0.0).get_parametrization()
     grid = np.linspace(0.0, 1.0, 10)
     assert all((pytest.approx(parametrization0(x)) == parametrization(x) for x in grid)), "Found error in pulse parametrization."
 
@@ -129,8 +129,23 @@ def test_power_pulse_parametrization(coefficients, parametrization):
     [([1.0], 0.3, lambda x: 1.0), ([0.0, 1.0], 0.25, lambda x: 4 * (x - 0.25))]
 )
 def test_power_pulse_shift(coefficients, shift, waveform):
-    pulse = PowerPulse(coefficients, shift).get_pulse()
+    pulse = PowerPulse(coefficients=coefficients, shift=shift).get_pulse()
     grid = np.linspace(0.0, 1.0, 10)
     assert all((pytest.approx(pulse(x)) == waveform(x) for x in grid)), \
         "Shift resulted in wrong waveform of PowerPulse."
 
+
+@pytest.mark.parametrize(
+    "coefficients,shift,waveform",
+    [
+        ([1.0], 0.0, lambda x: 1.0),
+        ([1.0], 0.3, lambda x: 1.0),
+        ([0.0, 1.0], 0.0, lambda x: 2*x),
+        ([0.0, 1.0], 0.25, lambda x: 0.0 if x < 0.25 else (x - 0.25) / (0.75 ** 2 / 2))
+    ]
+)
+def test_relu_power_pulse_shift(coefficients, shift, waveform):
+    pulse = ReluPowerPulse(coefficients=coefficients, shift=shift).get_pulse()
+    grid = np.linspace(0.0, 1.0, 10)
+    assert all((pytest.approx(pulse(x)) == waveform(x) for x in grid)), \
+        "Shift resulted in wrong waveform of ReluPowerPulse."

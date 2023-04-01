@@ -41,8 +41,8 @@ def main_shifted_power(plot_folder: str):
         "shifted_power_x_squared": PowerPulse(np.array([0, 0, 1]), shift=0.45),
         "shifted_power_x_minus_x_squared": PowerPulse(np.array([0, 1, -1]), shift=0.45),
     }
-    plot_pulses(shifted_power_pulse_lookup, f"{plot_folder}/power_pulse.pdf", "f(x-0.5) = ")
-    plot_parametrizations(shifted_power_pulse_lookup, f"{plot_folder}/shifted_power_parametrizations.pdf", "f(x) = ")
+    plot_pulses(shifted_power_pulse_lookup, f"{plot_folder}/shifted_power_pulse.pdf", "f(x-0.45) = ")
+    plot_parametrizations(shifted_power_pulse_lookup, f"{plot_folder}/shifted_power_parametrizations.pdf", "F(x-0.45) = ")
 
 
 def main_relu_power(plot_folder: str):
@@ -52,8 +52,19 @@ def main_relu_power(plot_folder: str):
         "relu_power_x": ReluPowerPulse(np.array([0, 1])),
         "relu_x_squared_minus_x": ReluPowerPulse(np.array([0.2, -1.0, 1.0])),
     }
-    plot_pulses(relu_power_pulse_lookup, f"{plot_folder}/power_pulse.pdf", "f(x) = ")
-    plot_parametrizations(relu_power_pulse_lookup, f"{plot_folder}/relu_power_parametrizations.pdf", "f(x) = ")
+    plot_pulses(relu_power_pulse_lookup, f"{plot_folder}/relu_power_pulse.pdf", "f(x) = ")
+    plot_parametrizations(relu_power_pulse_lookup, f"{plot_folder}/relu_power_parametrizations.pdf", "F(x) = ")
+
+
+def main_shifted_relu_power(plot_folder: str):
+    print("Relu power pulses")
+    relu_power_pulse_lookup = {
+        "relu_power_1_shifted_by_0.3": ReluPowerPulse(np.array([1]), 0.3),
+        "relu_power_x_shifted_by_0.3": ReluPowerPulse(np.array([0, 1]), 0.3),
+        "relu_x_squared_shifted_by_0.3": ReluPowerPulse(np.array([0.0, 0.0, 1.0]), 0.3),
+    }
+    plot_pulses(relu_power_pulse_lookup, f"{plot_folder}/shifted_relu_power_pulse.pdf", "f(x-0.3) = ")
+    plot_parametrizations(relu_power_pulse_lookup, f"{plot_folder}/shifted_relu_power_parametrizations.pdf", "F(x-0.3) = ")
 
 
 if __name__ == "__main__":
@@ -63,6 +74,7 @@ if __name__ == "__main__":
 
     # main_normal(plot_folder)
     # main_gaussian(plot_folder)
-    main_power(plot_folder)
+    # main_power(plot_folder)
     main_shifted_power(plot_folder)
     main_relu_power(plot_folder)
+    main_shifted_relu_power(plot_folder)
