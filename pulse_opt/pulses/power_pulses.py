@@ -7,13 +7,6 @@ import scipy.integrate
 import scipy.interpolate
 
 from quantum_gates.pulses import Pulse
-from .utilities import (
-    pulse_integrates_to_one,
-    pulse_is_non_negative,
-    parametrization_has_valid_endpoints,
-    parametrization_is_monotone,
-    pulse_and_parametrization_are_compatible,
-)
 
 
 class PowerPulse(Pulse):
@@ -115,7 +108,7 @@ class ReluPowerPulse(Pulse):
 
     def __init__(self, coefficients: np.array, shift: float=0.0, perform_checks: bool=False):
         # Input validation
-        PowerPulse._input_validation(coefficients, shift)
+        ReluPowerPulse._input_validation(coefficients, shift)
 
         # Construct pulse
         pulse, parametrization = self._construct_pulse_and_parametrization(coefficients, shift)
