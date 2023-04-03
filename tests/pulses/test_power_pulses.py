@@ -1,5 +1,8 @@
 import pytest
 import numpy as np
+import time
+
+from quantum_gates.integrators import Integrator
 
 from pulse_opt.pulses.power_pulses import (
     PowerPulse,
@@ -149,3 +152,72 @@ def test_relu_power_pulse_shift(coefficients, shift, waveform):
     grid = np.linspace(0.0, 1.0, 10)
     assert all((pytest.approx(pulse(x)) == waveform(x) for x in grid)), \
         "Shift resulted in wrong waveform of ReluPowerPulse."
+
+
+@pytest.mark.parametrize("samples", [1000])
+def test_power_pulse_speed_vs_relu_power_pulse_instantiation(samples: int):
+    power_time = relu_power_time = 0.0
+    for i in range(samples):
+        power_time -= time.time()
+        pulse = PowerPulse(coefficients=[0.1, 1.0, 2.0, 3.0], shift=0.1, perform_checks=False)
+        power_time += time.time()
+        relu_power_time -= time.time()
+        pulse = ReluPowerPulse(coefficients=[0.1, 1.0, 2.0, 3.0], shift=0.1, perform_checks=False)
+        relu_power_time += time.time()
+
+    assert False, f"Time for {samples} instantiations. Power: {power_time:4f} s, Relu Power: {relu_power_time:4f} s."
+
+
+@pytest.mark.parametrize("samples", [1000])
+def test_power_pulse_speed_vs_relu_power_pulse_sample_waveform(samples: int):
+    power_time = relu_power_time = 0.0
+    power_waveform = PowerPulse(coefficients=[0.1, 1.0, 2.0, 3.0], shift=0.1, perform_checks=False).get_pulse()
+    relu_power_waveform = ReluPowerPulse(coefficients=[0.1, 1.0, 2.0, 3.0], shift=0.1, perform_checks=False).get_pulse()
+
+    for x in np.linspace(0.0, 1.0, samples):
+        power_time -= time.time()
+        power_waveform(x)
+        power_time += time.time()
+        relu_power_time -= time.time()
+        relu_power_waveform(x)
+        relu_power_time += time.time()
+
+    assert False, f"Time for sampling {samples} waveform values. Power: {power_time:4f} s, Relu Power: {relu_power_time:4f} s."
+
+
+@pytest.mark.parametrize("samples", [1000])
+def test_power_pulse_speed_vs_relu_power_pulse_sample_parametrization(samples: int):
+    power_time = relu_power_time = 0.0
+    power_parametrization = PowerPulse(coefficients=[0.1, 1.0, 2.0, 3.0], shift=0.1, perform_checks=False)\
+        .get_parametrization()
+    relu_power_parametrization = ReluPowerPulse(coefficients=[0.1, 1.0, 2.0, 3.0], shift=0.1, perform_checks=False)\
+        .get_parametrization()
+
+    for x in np.linspace(0.0, 1.0, samples):
+        power_time -= time.time()
+        power_parametrization(x)
+        power_time += time.time()
+        relu_power_time -= time.time()
+        relu_power_parametrization(x)
+        relu_power_time += time.time()
+
+    assert False, f"Time for sampling {samples} parametrization values. Power: {power_time:4f} s, Relu Power: {relu_power_time:4f} s."
+
+
+@pytest.mark.parametrize("samples", [1000])
+def test_power_pulse_speed_vs_relu_power_pulse_sample_integral(samples: int):
+    power_time = relu_power_time = 0.0
+    power_pulse = PowerPulse(coefficients=[0.1, 1.0, 2.0, 3.0], shift=0.1, perform_checks=False)
+    relu_power_pulse = ReluPowerPulse(coefficients=[0.1, 1.0, 2.0, 3.0], shift=0.1, perform_checks=False)
+    power_integrator = Integrator(power_pulse)
+    relu_power_integrator = Integrator(relu_power_pulse)
+
+    for x in np.linspace(0.0, 1.0, samples):
+        power_time -= time.time()
+        power_integrator.integrate(integrand="sin(theta/a)**2", theta=x, a=1.0)
+        power_time += time.time()
+        relu_power_time -= time.time()
+        relu_power_integrator.integrate(integrand="sin(theta/a)**2", theta=x, a=1.0)
+        relu_power_time += time.time()
+
+    assert False, f"Time for sampling {samples} integral values. Power: {power_time:4f} s, Relu Power: {relu_power_time:4f} s."
