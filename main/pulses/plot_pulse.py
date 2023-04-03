@@ -6,6 +6,7 @@ import numpy as np
 from pulse_opt.pulses.linear_pulses import linear_pulse_lookup
 from pulse_opt.pulses.gaussian_pulses import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
 from pulse_opt.pulses.power_pulses import PowerPulse, ReluPowerPulse
+from pulse_opt.pulses.basis import PowerFactory, FourierFactory
 from pulse_opt.pulses.visualizations import plot_pulses, plot_parametrizations
 
 
@@ -67,6 +68,19 @@ def main_shifted_relu_power(plot_folder: str):
     plot_parametrizations(relu_power_pulse_lookup, f"{plot_folder}/shifted_relu_power_parametrizations.pdf", "F(x-0.3) = ")
 
 
+def main_basis(plot_folder: str):
+
+    pf = PowerFactory(shift=0.5, n=10, perform_checks=True)
+    ff = FourierFactory(shift=0.0, n=10, perform_checks=True)
+
+    lookup = {
+        "pf_default": pf.sample(coefficients=pf.basis.default_coefficients),
+        "ff_default": ff.sample(coefficients=ff.basis.default_coefficients)
+    }
+    plot_pulses(lookup, f"{plot_folder}/basis_pulse.pdf", "f(x-0.5) = ")
+    plot_parametrizations(lookup, f"{plot_folder}/basis_parametrizations.pdf", "F(x-0.5) = ")
+
+
 if __name__ == "__main__":
 
     # Folder
@@ -75,6 +89,8 @@ if __name__ == "__main__":
     # main_normal(plot_folder)
     # main_gaussian(plot_folder)
     # main_power(plot_folder)
-    main_shifted_power(plot_folder)
-    main_relu_power(plot_folder)
-    main_shifted_relu_power(plot_folder)
+    # main_shifted_power(plot_folder)
+    # main_relu_power(plot_folder)
+    # main_shifted_relu_power(plot_folder)
+
+    main_basis(plot_folder)
