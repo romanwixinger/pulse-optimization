@@ -23,6 +23,7 @@ class Basis(object):
             defined by scipy.optimize.minimize.
         default_coefficients (np.array): Starting point for the optimization. Only the lowest order coefficient is
             non-zero and scaled such that the resulting waveform is normalized.
+        number_of_functions (int): Number of functions in the basis.
     """
 
     def __init__(self,
@@ -34,6 +35,7 @@ class Basis(object):
         self.integrals = integrals
         self.shift = shift
         self.bounds = bounds
+        self.number_of_functions = len(functions)
 
     @property
     def constraints(self) -> dict:
@@ -108,9 +110,16 @@ class Basis(object):
     def coefficient_are_valid(self, coefficients):
         """ Returns whether or not the coefficients produce a normalized pulse.
         """
+        if len(coefficients) != self.number_of_functions:
+            print(f"Expected length of coefficients {len(coefficients)} to match basis {self.number_of_functions}, but found otherwise.")
+            return False
+
         area = self.area_of_waveform(coefficients=coefficients, areas=self.areas)
-        print(f"Total area: {area}, coefficients: {coefficients}, areas: {self.areas}")
-        return abs(area - 1.0) < 1e-6
+        if abs(area - 1.0) > 1e-6:
+            print(f"Expected coefficients to be such that the area is 1.0 but found {area}.")
+            return False
+
+        return True
 
     @property
     def default_coefficients(self) -> np.array:
@@ -149,8 +158,7 @@ class PulseFactory(object):
             The user is responsible for giving coefficients such that the pulse is normalized. In scipy.optimize.minimize
                 this is possible via the constraint that is accessible in self.basis.constraints.
         """
-        if self.perform_checks:
-            self._verify_coefficients(coefficients)
+        self._verify_coefficients(coefficients)
         return Pulse(
             pulse=self._get_waveform(coefficients),
             parametrization=self._get_parametrization(coefficients),
