@@ -186,6 +186,7 @@ class PowerFactory(PulseFactory):
                 integrals=[(lambda x, power=i: (x ** (power + 1))/(power + 1)) for i in range(n+1)],
                 shift=self.shift,
                 bounds=[(1e-3, None)] + [(None, None) for i in range(self.n)]
+                bounds=PowerFactory.get_bounds(n)
             ),
             perform_checks=perform_checks)
 
@@ -214,9 +215,15 @@ class PowerFactory(PulseFactory):
         """
         return [(lambda x, power=i: (x ** (power + 1))/(power + 1)) for i in range(n+1)]
 
+    @staticmethod
+    def get_bounds(n: int) -> list[tuple]:
+        """ Generates the bounds on the function coeffcients. """
+        return [(1e-3, None)] + [(None, None) for i in range(n)]
+
 
 class FourierFactory(PulseFactory):
     """Constructs pulses based on the fourier series, namely sin (odd) and cos (even) functions.
+    """Constructs pulses based on the Fourier series, namely sin (odd) and cos (even) functions.
 
     Args:
         n (int): Maximum number of zero crossings -> Creates 2(n + 1) basis functions.
@@ -232,6 +239,7 @@ class FourierFactory(PulseFactory):
                 integrals=FourierFactory.get_integrals(n),
                 shift=self.shift,
                 bounds=[(1e-3, None), (1e-3, None)] + [(None, None) for i in range(2 * self.n)]
+                bounds=FourierFactory.get_bounds(n)
             ),
             perform_checks=perform_checks)
 
@@ -268,3 +276,9 @@ class FourierFactory(PulseFactory):
             lambda x, j=i: np.sin(x * (j//2+1) * (np.pi/2)) - 0.0 if j % 2 == 0
             else -np.cos(x * (j//2+1) * np.pi/2) + 1.0
         ) for i in range(2*(n+1))]
+
+    @staticmethod
+    def get_bounds(n):
+        """ Generates the bounds on the function coeffcients. """
+        return [(1e-3, None), (1e-3, None)] + [(None, None) for i in range(2 * n)]
+
