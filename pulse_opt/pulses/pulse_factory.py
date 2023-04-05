@@ -1,6 +1,8 @@
 """ Creates pulses for a basis.
 """
 
+from quantum_gates.pulses import Pulse
+
 from .basis import Basis
 
 

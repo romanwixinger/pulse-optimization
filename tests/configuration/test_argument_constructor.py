@@ -1,5 +1,5 @@
 import pytest
-from main.utilities.argument_constructor import construct_args
+from pulse_opt.configuration.argument_constructor import construct_args
 
 
 def test_construct_args_single_variable_arg():
