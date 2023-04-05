@@ -27,6 +27,8 @@ class Loss(object):
         weights (np.array): Weight we give each Ito integral in the loss, defaults to np.ones(8).
         theta (float): Upper limit of the integration, total area of the pulse.
         a (float): Scaling parameter in the Ito integrals.
+        default_coefficients (np.array): Simplest coefficients possible, possible start for the optimization.
+        bounds (list[tuple]): Bounds for the optimization.
 
     Example:
         .. code:: python
@@ -61,12 +63,28 @@ class Loss(object):
         self.weights = weights
         self.theta = theta
         self.a = a
+        self.default_coefficients = self.factory.basis.default_coefficients
+        self.bounds = self.factory.basis.bounds
+        self.constraints = self.factory.basis.constraints
+        self.default_value = self.__call__(coefficients=self.default_coefficients)
 
     def __call__(self, coefficients: np.array):
         print("Coefficients: ", coefficients)
         pulse = self.factory.sample(coefficients)
         integrator = Integrator(pulse=pulse)
         return sum((integrator.integrate(integrand, theta=self.theta, a=self.a) for integrand in integrands))
+
+    @property
+    def relative_loss(self, coefficients: np.array):
+        """ Computes the ratio between the loss for specific coefficients over the loss for the default coefficients.
+
+        Args:
+            coefficients (np.array): Coefficients for which the relative loss is computed.
+
+        Returns
+            Fraction loss(coeff) / loss(default_coeff).
+        """
+        return self.__call__(coefficients=coefficients) / self.default_value
 
 
 class PowerLoss(Loss):

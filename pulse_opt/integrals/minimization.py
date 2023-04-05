@@ -6,9 +6,10 @@ import numpy as np
 import scipy.optimize
 
 
-def optimization(loss: callable, start_coeff: np.array):
+def optimization(loss: callable, start_coeff: np.array, constraints: dict or list, bounds: np.array):
     """ Minimizes the loss with the first coefficient bigger than 0.
     """
-    bounds = [(None, None) for i in start_coeff]
-    bounds[0] = (1e-3, None)
-    return scipy.optimize.minimize(loss, start_coeff, bounds=bounds)
+    print(f"Start optimization with start coefficients {start_coeff}.")
+    res = scipy.optimize.minimize(fun=loss, x0=start_coeff, method='trust-constr', constraints=constraints, bounds=bounds)
+    print(f"Finish optimization with result {res}.")
+    return res
