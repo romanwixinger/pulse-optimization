@@ -3,7 +3,7 @@
     "description": "Configuration to test the Power Pulses with differents shifts and n for Ito integrals up to theta.",
     "content":
     {
-        "loss": "FourierLoss",
+        "loss": "PowerLoss",
         "loss_path": "pulse_opt.integrals.loss_functions",
         "variable_args":
         {
