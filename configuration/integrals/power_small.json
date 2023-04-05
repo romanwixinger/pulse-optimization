@@ -1,0 +1,28 @@
+{
+    "name": "power_small",
+    "description": "Configuration to test the Power Pulses with differents shifts and n for Ito integrals up to theta.",
+    "content":
+    {
+        "loss": "PowerLoss",
+        "loss_path": "pulse_opt.integrals.loss_functions",
+        "variable_args":
+        {
+            "shift": [0.5],
+            "n": [1],
+            "theta": [1.57079632679]
+        },
+        "static_args": {
+            "weights": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "a": 1.0
+        }
+    }
+}
