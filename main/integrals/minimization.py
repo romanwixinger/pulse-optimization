@@ -188,7 +188,17 @@ def flatten_dict(d, parent_key='', sep='.'):
 
 if __name__ == "__main__":
 
-    runs = ['power_small', 'power', 'fourier', 'gaussian']
+    runs = [
+        'power_test',
+        'fourier_test',
+        'gaussian_test',
+        'power_small',
+        'fourier_small',
+        'gaussian_small',
+        'power',
+        'fourier',
+        'gaussian'
+    ]
     all_results = [None for run in runs]
 
     for i, run in enumerate(runs):

@@ -1,9 +1,9 @@
 {
-    "name": "power_small",
-    "description": "Configuration to test the Power Pulses with differents shifts and n for Ito integrals up to theta.",
+    "name": "fourier",
+    "description": "Configuration to test the Fourier Pulses with differents shifts and n for Ito integrals up to theta.",
     "content":
     {
-        "loss": "PowerLoss",
+        "loss": "FourierLoss",
         "loss_path": "pulse_opt.integrals.loss_functions",
         "variable_args":
         {
