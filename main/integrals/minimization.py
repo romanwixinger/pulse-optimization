@@ -5,6 +5,8 @@ import os
 import importlib
 import multiprocessing
 import json
+import numpy as np
+import pandas as pd
 
 from quantum_gates.utilities import load_config
 
@@ -53,6 +55,13 @@ def main(run: str):
             print("Saved results", flush=True)
             results.append(res_lookup)
 
+    # Convert to dataframe
+    df = create_table(results=results, config=config)
+
+    # Save dataframe
+    df.to_csv(f"results/integrals/{run}/results.csv")
+    df.to_pickle(f"results/integrals/{run}/results.pkl")
+
     return results
 
 
@@ -94,6 +103,15 @@ def simulation(loss_arg, LossClass) -> dict:
     return {"res": res, "loss_arg": loss_arg}
 
 
+class CustomEncoder(json.JSONEncoder):
+    """Custom JSON encoder that can deal with np.arrays by converting them to list.
+    """
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return json.JSONEncoder.default(self, obj)
+
+
 def save_result(res_lookup: dict, config: dict, variable_args: list):
     """ Saves the result of the simulation in a single json files.
 
@@ -124,12 +142,48 @@ def save_result(res_lookup: dict, config: dict, variable_args: list):
     folder = f"results/integrals/{config['name']}"
     if not os.path.exists(folder):
         os.makedirs(folder)
+    subfolder = f"results/integrals/{config['name']}/raw"
+    if not os.path.exists(subfolder):
+        os.makedirs(subfolder)
 
     # Save json
-    with open(f"{folder}/{filename}", "w") as f:
-        json.dump(res_lookup, f)
+    with open(f"{subfolder}/{filename}", "w") as f:
+        json.dump(res_lookup, f, cls=CustomEncoder)
 
     return
+
+
+def create_table(results: list[dict], config) -> pd.DataFrame:
+    """ Create a list of result dicts, flattens them, and return a pandas data frame with the data.
+
+    Args:
+        results (list[dict]): List of results of the simulation.
+        config (dict): Configuration file loaded in main.
+    """
+
+    config_info = {
+        'name': config['name'],
+        'description': config['description'],
+        'loss': config['content']['loss'],
+        'loss_path': config['content']['loss_path'],
+    }
+    flattened_dicts = [
+        config_info | flatten_dict(res_lookup['loss_arg']) | flatten_dict(res_lookup['res']) for res_lookup in results
+    ]
+    return pd.DataFrame(flattened_dicts)
+
+
+def flatten_dict(d, parent_key='', sep='.'):
+    """Flattens a dictionary that may contain nested dictionaries with recursion.
+    """
+    items = []
+    for k, v in d.items():
+        new_key = parent_key + sep + k if parent_key else k
+        if isinstance(v, dict):
+            items.extend(flatten_dict(v, new_key, sep=sep).items())
+        else:
+            items.append((new_key, v))
+    return dict(items)
 
 
 if __name__ == "__main__":
