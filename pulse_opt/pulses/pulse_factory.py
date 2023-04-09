@@ -14,6 +14,8 @@ class PulseFactory(object):
         perform_check (bool): Whether the constructed pulse should be verified.
     """
 
+    abs_error = 1e-2  # Allowed deviation of pulse area.
+
     def __init__(self, basis: Basis, perform_checks: bool=True):
         self.basis = basis
         self.perform_checks = perform_checks
@@ -41,5 +43,5 @@ class PulseFactory(object):
     def _verify_coefficients(self, coefficients):
         """ Raises an exception if the coefficients are not valid.
         """
-        if not self.basis.coefficient_are_valid(coefficients):
+        if not self.basis.coefficient_are_valid(coefficients, abs_error=self.abs_error):
             raise ValueError(f"Expected valid coefficients, but found otherwise. Coefficients: {coefficients}.")

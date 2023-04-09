@@ -104,7 +104,7 @@ class Basis(object):
 
         return parametrization
 
-    def coefficient_are_valid(self, coefficients):
+    def coefficient_are_valid(self, coefficients, abs_error: float=1e-6):
         """ Returns whether or not the coefficients produce a normalized pulse.
         """
         if len(coefficients) != self.number_of_functions:
@@ -112,7 +112,7 @@ class Basis(object):
             return False
 
         area = self.area_of_waveform(coefficients=coefficients, areas=self.areas)
-        if abs(area - 1.0) > 1e-6:
+        if abs(area - 1.0) > abs_error:
             print(f"Expected coefficients to be such that the area is 1.0 but found {area}.")
             return False
 
