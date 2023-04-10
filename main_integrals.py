@@ -22,5 +22,5 @@ if __name__ == "__main__":
 
     for i, run in enumerate(runs):
         logger.info(f"Start run with {run} configuration.")
-        results = main(run=run, use_multiprocessing=False)
+        results = main(run=run, use_multiprocessing=True)
         all_results[i] = results
