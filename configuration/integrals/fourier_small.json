@@ -1,5 +1,5 @@
 {
-    "name": "fourier",
+    "name": "fourier_small",
     "description": "Configuration to test the Fourier Pulses with differents shifts and n for Ito integrals up to theta.",
     "content":
     {
