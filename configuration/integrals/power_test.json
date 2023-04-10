@@ -4,7 +4,7 @@
   "content":
   {
     "loss": "PowerLoss",
-    "loss_path": "pulse_opt.integrals.loss_functions",
+    "loss_path": "pulse_opt.integrals.losses",
     "variable_args":
     {
       "shift": [0.5],
