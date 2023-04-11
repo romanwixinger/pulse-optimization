@@ -4,8 +4,8 @@
 import numpy as np
 
 from pulse_opt.pulses.linear_pulses import linear_pulse_lookup
-from pulse_opt.pulses.gaussian_pulses import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
-from pulse_opt.pulses.power_pulses import PowerPulse, ReluPowerPulse
+from pulse_opt.pulses.gaussian_factory import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
+from pulse_opt.pulses.legacy_pulses import PowerPulse, ReluPowerPulse
 from pulse_opt.pulses.basis import PowerFactory, FourierFactory
 from pulse_opt.pulses.visualizations import plot_pulses, plot_parametrizations
 
