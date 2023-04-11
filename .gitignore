@@ -135,8 +135,5 @@ dmypy.json
 # IDE
 *IDEA*
 
-# Results
-*results/*
-
 # Plots
 *plots/*
