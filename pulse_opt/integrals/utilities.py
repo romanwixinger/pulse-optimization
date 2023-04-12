@@ -25,7 +25,7 @@ integrand_lookup = {
     "sin(theta/(2*a))**2": lambda theta, a=1.0: np.sin(theta/(2*a))**2,
     "cos(theta/a)**2": lambda theta, a=1.0: np.cos(theta/a)**2,
     "sin(theta/a)*cos(theta/a)": lambda theta, a=1.0: np.sin(theta/a)*np.cos(theta/a),
-    "sin(theta/a)":  lambda theta, a=1.0: np.sin(theta/a),
+    "sin(theta/a)": lambda theta, a=1.0: np.sin(theta/a),
     "cos(theta/(2*a))**2": lambda theta, a=1.0: np.cos(theta/(2*a))**2,
 }
 
