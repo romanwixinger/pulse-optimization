@@ -136,4 +136,5 @@ dmypy.json
 *IDEA*
 
 # Plots
-*plots/*
+*plots/gates/*
+*plots/pulses/*
