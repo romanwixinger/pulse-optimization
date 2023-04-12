@@ -1,4 +1,4 @@
-""" Creates pulses for a basis.
+"""Creates a factory for pulses from a basis.
 """
 
 from quantum_gates.pulses import Pulse

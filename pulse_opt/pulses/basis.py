@@ -139,3 +139,11 @@ class Basis(object):
         raise Exception(
             f"Could not generate default coefficient, as all basis functions have vanishing areas: {self.areas}."
         )
+
+    @property
+    def random_coefficients(self) -> np.array:
+        """ Generates valid but randomly distributed coefficients.
+        """
+        prototype = np.random.uniform(low=-1, high=1, size=(self.number_of_functions,))
+        norm = self.area_of_waveform(coefficients=prototype, areas=self.areas)
+        return self.random_coefficients if abs(norm) < 1e-9 else prototype / norm

@@ -7,9 +7,9 @@ from quantum_gates.integrators import Integrator
 
 from .utilities import integrands
 from ..pulses.pulse_factory import PulseFactory
-from ..pulses.power_pulses import PowerFactory
-from ..pulses.fourier_pulses import FourierFactory
-from ..pulses.gaussian_pulses import GaussianFactory
+from ..pulses.power_factory import PowerFactory
+from ..pulses.fourier_factory import FourierFactory
+from ..pulses.gaussian_factory import GaussianFactory
 
 
 class Loss(object):

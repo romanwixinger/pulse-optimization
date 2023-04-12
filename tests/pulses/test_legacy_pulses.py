@@ -4,15 +4,10 @@ import time
 
 from quantum_gates.integrators import Integrator
 
-from pulse_opt.pulses.power_pulses import (
-    PowerPulse,
-    ReluPowerPulse,
-)
+from pulse_opt.pulses.legacy_pulses import PowerPulse, ReluPowerPulse
 from pulse_opt.pulses.utilities import (
-    pulse_is_non_negative,
     pulse_integrates_to_one,
     pulse_and_parametrization_are_compatible,
-    parametrization_is_monotone,
     parametrization_has_valid_endpoints
 )
 

@@ -10,7 +10,7 @@ from pulse_opt.integrals.visualizations import (
     plot_integral_sum_for_parametrized_pulses,
 )
 from pulse_opt.integrals.utilities import integrands
-from pulse_opt.pulses.gaussian_pulses import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
+from pulse_opt.pulses.gaussian_factory import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
 
 
 def main_heatmaps():

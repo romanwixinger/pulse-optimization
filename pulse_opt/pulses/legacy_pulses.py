@@ -1,15 +1,20 @@
-"""Implements a pulse based on a truncated Power series.
-"""
+""" Legacy versions of the pulses, including PowerPulse, ReluPowerPulse and GaussianPulse.
 
+Attributes:
+
+    gaussian_pulse_lookup_10 (dict): Lookup with the pulse name (str) as key and the pulse (Pulse) as value. Contains
+        the Gaussian pulses with scale=0.25 and location parameter in [0.0, 0.1, ..., 1.0].
+
+    gaussian_pulse_lookup_100 (dict): Lookup with the pulse name (str) as key and the pulse (Pulse) as value. Contains
+        the Gaussian pulses with scale=0.25 and location parameter in [0.0, 0.01, ..., 1.0].
+
+    gaussian_pulse_lookup (dict): Lookup of the two other lookups.
+"""
 
 import numpy as np
 import scipy.integrate
-import scipy.interpolate
 
-from quantum_gates.pulses import Pulse
-
-from .basis import Basis
-from .pulse_factory import PulseFactory
+from quantum_gates import Pulse, GaussianPulse
 
 
 class PowerPulse(Pulse):
@@ -171,52 +176,18 @@ class ReluPowerPulse(Pulse):
         return pulse, parametrization
 
 
-class PowerFactory(PulseFactory):
-    """Constructs pulses based on the power series.
+_gaussian_args_10 = [round(loc, 2) for loc in 0.1 * np.arange(11)]
+gaussian_pulse_lookup_10 = {
+    loc: GaussianPulse(loc=loc, scale=0.2) for loc in _gaussian_args_10
+}
 
-    Args:
-        n (int): Degree of the polynomial to be used.
-        shift (float): Number by which the basis functions should be shifted.
-    """
+_gaussian_args_100 = [round(loc, 2) for loc in 0.01 * np.arange(101)]
+gaussian_pulse_lookup_100 = {
+    loc: GaussianPulse(loc=loc, scale=0.2) for loc in _gaussian_args_100
+}
 
-    def __init__(self, shift: float=0.5, n: int=3, perform_checks=True):
-        self.shift = shift
-        self.n = n
-        super(PowerFactory, self).__init__(
-            basis=Basis(
-                functions=[(lambda x, power=i: x ** power) for i in range(n+1)],
-                integrals=[(lambda x, power=i: (x ** (power + 1))/(power + 1)) for i in range(n+1)],
-                shift=self.shift,
-                bounds=PowerFactory.get_bounds(n)
-            ),
-            perform_checks=perform_checks)
 
-    @staticmethod
-    def get_functions(n: int) -> list[callable]:
-        """ Generates a list of sin and cos functions that form the basis.
-
-        Args:
-            n (int): Degree of the polynomial to be used.
-
-        Returns:
-            Basis functions, polynomials up to degree n.
-        """
-
-        return [(lambda x, power=i: x ** power) for i in range(n+1)]
-
-    @staticmethod
-    def get_integrals(n: int) -> list[callable]:
-        """Generates a list of antiderivatives of the functions returned by the get_functions() method.
-
-        Args:
-            n (int): Degree of the polynomial to be used.
-
-        Returns:
-            Integrals of the basis functions.
-        """
-        return [(lambda x, power=i: (x ** (power + 1))/(power + 1)) for i in range(n+1)]
-
-    @staticmethod
-    def get_bounds(n: int) -> list[tuple]:
-        """ Generates the bounds on the function coeffcients. """
-        return [(1e-3, None)] + [(None, None) for i in range(n)]
+gaussian_pulse_lookup = {
+    "gaussian_pulses_10": gaussian_pulse_lookup_10,
+    "gaussian_pulses_100": gaussian_pulse_lookup_100,
+}
