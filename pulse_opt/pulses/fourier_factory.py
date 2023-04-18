@@ -44,8 +44,8 @@ class FourierFactory(PulseFactory):
                 function pair has i zero crossing, where i is an index (starts at 0).
         """
         return [(
-            lambda x, j=i: np.cos(x * (j//2+1) * (np.pi/2)) * (np.pi/2) if j % 2 == 0
-            else np.sin(x * (j//2+1) * (np.pi/2)) * (np.pi/2)
+            lambda x, j=i: np.cos(x * (j//2+1) * (np.pi/2)) * (j//2+1) * (np.pi/2) if j % 2 == 0
+            else np.sin(x * (j//2+1) * (np.pi/2)) * (j//2+1) * (np.pi/2)
         ) for i in range(2*(n+1))]
 
     @staticmethod
