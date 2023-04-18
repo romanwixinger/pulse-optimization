@@ -14,7 +14,7 @@ from pulse_opt.pulses.utilities import (
 epsilon = 1e-6
 
 
-def test_power_factory_init():
+def test_fourier_factory_init():
     factory = FourierFactory(n=3, shift=0.5, perform_checks=False)
 
 
