@@ -12,6 +12,7 @@ from pulse_opt.integrals.utilities import (
     save_result_as_json,
     save_table_as_csv,
     save_table_as_pickle,
+    construct_filename,
     run_with_multiprocessing,
     run_without_multiprocessing,
 )
@@ -77,8 +78,28 @@ def test_save_table_as_pickle(tmp_path):
     filepath.unlink()
 
 
-def test_construct_filename(tmp_path):
-    pass
+def test_construct_filename():
+    expected = 'default-loss_param1_1_param2_2.json'
+    loss = 'default-loss'
+    variable_args = ['param1', 'param2']
+    loss_args = {'param1': 1, 'param2': 2}
+    result = construct_filename(loss, variable_args, loss_args)
+    assert result == expected, \
+        f"Expected {expected} for loss={loss}, variable_args={variable_args}, loss_arg={loss_args} but found {result}."
+
+
+def test_construct_filename_with_special_filetype():
+    expected = 'default-loss_param1_1_param2_2.csv'
+    loss = 'default-loss'
+    variable_args = ['param1', 'param2']
+    loss_args = {'param1': 1, 'param2': 2}
+    result = construct_filename(loss, variable_args, loss_args, "csv")
+    assert result == expected, \
+        f"Expected {expected} for loss={loss}, variable_args={variable_args}, loss_arg={loss_args} but found {result}."
+
+
+def test_construct_filename_no_args():
+    assert construct_filename('default-loss', [], {}) == 'default-loss.json'
 
 
 def test_run_with_multiprocessing():

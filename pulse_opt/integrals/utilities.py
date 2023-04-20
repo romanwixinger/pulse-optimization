@@ -256,7 +256,7 @@ def construct_filename(loss: str, variable_args: list, loss_arg: dict, filetype:
         filetype (str): Ending of the filename.
     """
     variable_args_as_key_value_pairs = '_'.join([f'{key}_{loss_arg[key]}' for key in variable_args])
-    filename = f"{loss}_{variable_args_as_key_value_pairs}.{filetype}"
+    filename = f"{loss}{'_' if variable_args_as_key_value_pairs else ''}{variable_args_as_key_value_pairs}.{filetype}"
     return filename
 
 
