@@ -9,6 +9,8 @@ from pulse_opt.integrals.utilities import (
     load_function_or_class,
     create_table,
     setup_logging,
+    save_table_as_csv,
+    save_table_as_pickle,
     run_with_multiprocessing,
     run_without_multiprocessing,
 )
@@ -48,6 +50,8 @@ def main(run: str, use_multiprocessing: bool=True):
     )
 
     # Setup arguments
+    loss_arg_list = construct_args(static_args=content["static_args"], variable_args=content["variable_args"])
+    items = [(loss_arg, loss_class, optimizer) for loss_arg in loss_arg_list]
 
     # Execute simulation
     runner = run_with_multiprocessing if use_multiprocessing else run_without_multiprocessing
@@ -57,6 +61,9 @@ def main(run: str, use_multiprocessing: bool=True):
     df = create_table(results=results, config=config)
 
     # Save dataframe
+    save_table_as_csv(df, run)
+    save_table_as_pickle(df, run)
+    logger.info(f"Saved results of run {run}")
     return results
 
 
@@ -122,3 +129,4 @@ if __name__ == "__main__":
 
     for i, run in enumerate(runs):
         logger.info(f"Start run with {run} configuration.")
+        main(run=run, use_multiprocessing=False)
