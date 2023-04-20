@@ -21,55 +21,6 @@ set_matplotlib_style()
 activate_latex()
 
 
-def heatmaps_of_gaussian(locs: list, scales: list, integrands: list, theta: float=np.pi, a: float=1.0):
-    """Visualizes the nine Ito integrals for Gaussian pulses and creates a heatmap from the results.
-
-    Takes a list of parameters for GaussianPulse (locs, scales) and evaluates the integrands at pi. Then creates
-    a heatmap (x: loc, y: scale) for each integrand.
-
-    Args:
-        locs (list[float]): Location parameter options for the Gaussian pulses.
-        scales (list[float]): Scale parameter options for the Gaussian pulses.
-        integrands (list[str]): Name of the integrands of the Ito integrals.
-        theta (float): Upper limit of the integration.
-        a (float): Parameter of the integrand.
-    """
-    res = np.zeros((len(locs), len(scales)))
-    res_lookup = {integrand: np.zeros_like(res) for integrand in integrands}
-
-    for i, loc in enumerate(locs):
-        for j, scale in enumerate(scales):
-            integrator = Integrator(pulse=GaussianPulse(loc, scale))
-            for integrand in integrands:
-                res_lookup[integrand][i,j] = integrator.integrate(integrand, theta, a)
-
-    for integrand in integrands:
-        # Result
-        res = res_lookup[integrand]
-
-        fig, ax = plt.subplots()
-        im = ax.imshow(res,  cmap="Wistia", vmin=0.0, vmax=1.0)
-        plt.xlabel('scale')
-        plt.ylabel('loc')
-
-        # Show all ticks and label them with the respective list entries
-        ax.set_yticks(np.arange(len(locs)), labels=["%.2f" % loc for loc in locs])
-        ax.set_xticks(np.arange(len(scales)), labels=["%.2f" % scale for scale in scales])
-
-        # Rotate the tick labels and set their alignment.
-        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
-
-        # Loop over data dimensions and create text annotations.
-        for i in range(len(locs)):
-            for j in range(len(scales)):
-                ax.text(j, i, "%.2f" % res[i, j], ha="center", va="center", color="w")
-
-        ax.set_title(f"Integration result of {integrand} for GaussianPulse.")
-        fig.tight_layout()
-        plt.show()
-    return
-
-
 def plot_integral_results_for_parametrized_pulses(pulses: list,
                                                   parameters: list,
                                                   parameter_name: str,
@@ -161,7 +112,3 @@ def plot_integration_result_for_theta_values(pulse, pulse_name: str, thetas: np.
     plt.title(f"Integration results for {pulse_name} as a function of Θ.")
     plt.legend()
     plt.show()
-
-
-
-
