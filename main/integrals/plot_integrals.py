@@ -5,22 +5,11 @@ We compute the nine Ito integrals for various pulses to understand their relatio
 import numpy as np
 
 from pulse_opt.integrals.visualizations import (
-    heatmaps_of_gaussian,
     plot_integral_results_for_parametrized_pulses,
     plot_integral_sum_for_parametrized_pulses,
 )
 from pulse_opt.integrals.utilities import integrands
 from pulse_opt.pulses.legacy_pulses import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
-
-
-def main_heatmaps():
-    """Create the heatmaps for Gaussian pulses.
-    """
-    # Heatmaps of integrals for Gaussian pulse
-    locs = np.linspace(0.0, 1.0, 5)
-    scales = np.linspace(0.1, 0.5, 5)
-    heatmaps_of_gaussian(locs, scales, integrands)
-    return
 
 
 def main_sum():
