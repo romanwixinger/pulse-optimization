@@ -16,8 +16,6 @@ def main(run: str):
     df2 = load_table_from_pickle(config)
 
 
-
-
 if __name__ == "__main__":
 
     runs = [
