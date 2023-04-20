@@ -337,3 +337,25 @@ def run_without_multiprocessing(simulation: callable, items: list, config: dict)
         results.append(res_lookup)
     logger.info("Finished optimization.")
     return results
+
+
+def create_folder(path):
+    """ Creates folders and subfolders defined by a given path.
+
+    Note:
+        The path must start at the current path of the calling function. Using 'C:...' does not work.
+
+    Args:
+        path (str): Path defining the folders.
+    """
+    # Input validation
+    if os.path.isabs(path):
+        raise Exception(f"Expected relative path but found absolute path {path}.")
+
+    # Create paths
+    folders = path.split('/')
+    current_path = ''
+    for folder in folders:
+        current_path += folder + '/'
+        if not os.path.exists(current_path):
+            os.makedirs(current_path)
