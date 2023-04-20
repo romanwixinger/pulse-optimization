@@ -1,2 +1,2 @@
 from . import utilities
-from . import visualizations
+from . import integral_visualizations
