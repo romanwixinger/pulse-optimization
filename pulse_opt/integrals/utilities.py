@@ -16,6 +16,7 @@ import logging
 import numpy as np
 import multiprocessing
 import datetime
+import importlib
 
 
 integrand_lookup = {
@@ -36,11 +37,25 @@ markers = [".", "^", "o", "2", "*", "D", "x", "X", "+"]
 logger = logging.getLogger()
 
 
+def load_function_or_class(module_name: str, name: str):
+    """ Imports and returns a lossClass.
+
+    Args:
+        module_name (str): Name of the module.
+        name (str): Name of the function or class.
+
+    Returns:
+        The function or class at {module_name}.{name}.
+    """
+    obj = getattr(importlib.import_module(module_name), name)
+    return obj
+
+
 def flatten_dict(d, parent_key='', sep='.'):
     """Flattens a dictionary that may contain nested dictionaries with recursion.
     """
     if d is None:
-        logging.WARN("Encountered d=None in flatten_dict function.")
+        logging.warning("Encountered d=None in flatten_dict function.")
         return {}
     items = []
     for k, v in d.items():
@@ -81,7 +96,6 @@ class CustomEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 
-def save_result(res_lookup: dict, config: dict, variable_args: list):
     """ Saves the result of the simulation in a single json files.
 
     Uses the information in loss_arg and content to create the filename of the json as follows:
@@ -100,9 +114,6 @@ def save_result(res_lookup: dict, config: dict, variable_args: list):
         f"Expected all variable args {variable_args} to come up in the results but found otherwise: {loss_arg}."
 
     # Construct filename
-    loss = config["content"]['loss']
-    variable_args_as_key_value_pairs = '_'.join([f'{key}_{loss_arg[key]}' for key in variable_args])
-    filename = f"{loss}_{variable_args_as_key_value_pairs}.json"
 
     # Construct folder
     folder = f"results/integrals/{config['name']}"
@@ -162,7 +173,6 @@ def run_with_multiprocessing(simulation: callable, items: list, config: dict) ->
     with multiprocessing.Pool(processes=processes) as pool:
         result = pool.starmap_async(simulation, items, chunksize=10)
         for res_lookup in result.get():
-            save_result(
                 res_lookup=res_lookup,
                 config=config,
                 variable_args=list(config["content"]["variable_args"].keys())
@@ -187,7 +197,6 @@ def run_without_multiprocessing(simulation: callable, items: list, config: dict)
     results = []
     for item in items:
         res_lookup = simulation(*item)
-        save_result(
             res_lookup=res_lookup,
             config=config,
             variable_args=list(config["content"]["variable_args"].keys())
