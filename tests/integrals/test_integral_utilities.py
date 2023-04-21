@@ -1,43 +1,18 @@
 import pytest
 import os
 import pandas as pd
-import json
 
 
 from pulse_opt.integrals.utilities import (
-    create_table,
     save_result_as_json,
     save_table_as_csv,
     save_table_as_pickle,
+    load_table_from_csv,
+    load_table_from_pickle,
     construct_filename,
     run_with_multiprocessing,
     run_without_multiprocessing,
 )
-from pulse_opt.utilities.helpers import flatten_dict, add_prefix, setup_logging
-
-
-def test_flatten_dict_none():
-    assert flatten_dict(None) == {}, f"Expected None input to result in trivial dict, but got {flatten_dict(None)} instead."
-
-
-def test_flatten_dict_trivial():
-    assert flatten_dict({"key": "value"}) == {"key": "value"}, \
-        f"Expected flat dict to be not modified at all, but found otherwise."
-
-
-def test_flatten_dict_with_hierarchy():
-    dict_with_hierarchy = {"top1": {"child1": "value11", "child2": "value12"}, "top2": "value2"}
-    expected = {"top1.child1": "value11", "top1.child2": "value12", "top2": "value2"}
-    assert flatten_dict(dict_with_hierarchy) == expected, \
-        f"Expected {expected} but found flatten_dict(input) from the input {dict_with_hierarchy} to flatten_dict()."
-
-
-def test_create_table():
-    pass
-
-
-def test_add_prefix():
-    assert add_prefix({"key": "value"}, "prefix.") == {"prefix.key": "value"}, "Expected different result."
 
 
 # Todo: Fix the setup such that it can be tested.
@@ -74,6 +49,24 @@ def test_save_table_as_pickle(tmp_path):
     filepath = tmp_path / "results.pkl"
     assert os.path.isfile(filepath), f"Expected to find file at {filepath} but it was not the case."
     filepath.unlink()
+
+
+def test_load_table_from_csv(tmp_path):
+    df = pd.DataFrame([{"column": "value"}])
+    run = "test_run"
+    save_table_as_csv(df=df, run=run, folder_path=tmp_path)
+    df_reloaded = load_table_from_csv(run=run, folder_path=tmp_path)
+    assert df.equals(df_reloaded), \
+        f"Assumed original df to be the same as the reloaded one, but found {df} and {df_reloaded}."
+
+
+def test_load_table_from_pickle(tmp_path):
+    df = pd.DataFrame([{"column": "value"}])
+    run = "test_run"
+    save_table_as_pickle(df=df, run=run, folder_path=tmp_path)
+    df_reloaded = load_table_from_pickle(run=run, folder_path=tmp_path)
+    assert df.equals(df_reloaded), \
+        f"Assumed original df to be the same as the reloaded one, but found {df} and {df_reloaded}."
 
 
 def test_construct_filename():

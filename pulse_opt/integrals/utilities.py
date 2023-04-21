@@ -62,7 +62,7 @@ def save_table_as_csv(df: pd.DataFrame, run: str, folder_path: str=None):
     folder_path = f"results/integrals/{run}" if folder_path is None else folder_path
     if not os.path.exists(folder_path):
         raise Exception(f"Tried to save table to a folder {folder_path} that does not exist.")
-    df.to_csv(f"{folder_path}/results.csv")
+    df.to_csv(f"{folder_path}/results.csv", index=False)
     return
 
 
