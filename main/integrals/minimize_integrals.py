@@ -6,14 +6,13 @@ import logging
 from quantum_gates.utilities import load_config
 
 from pulse_opt.integrals.utilities import (
-    load_function_or_class,
     create_table,
-    setup_logging,
     save_table_as_csv,
     save_table_as_pickle,
     run_with_multiprocessing,
     run_without_multiprocessing,
 )
+from pulse_opt.utilities.helpers import load_function_or_class, setup_logging
 from pulse_opt.configuration.argument_constructor import construct_args
 
 logger = logging.getLogger()

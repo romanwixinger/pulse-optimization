@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from pulse_opt.pulses.power_factory import PowerFactory
 from pulse_opt.pulses.fourier_factory import FourierFactory
 from pulse_opt.pulses.gaussian_factory import GaussianFactory
-from pulse_opt.integrals.utilities import create_folder
+from pulse_opt.utilities.helpers import create_folder
 from pulse_opt.configuration.plotting_parameters import set_matplotlib_style
 set_matplotlib_style()
 
@@ -91,7 +91,7 @@ def plot_optimized_parametrizations(
     plt.title(f"Optimized pulse parametrizations with {run_name} ansatz")
 
     # Saving
-    _add_color_map(fig, ax)
+    add_color_map(fig, ax)
     create_folder(f"plots/integrals/{run}")
     plt.savefig(f"plots/integrals/{run}/optimized_parametrization_theta_{theta}.pdf")
     plt.show()

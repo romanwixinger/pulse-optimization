@@ -10,7 +10,7 @@ import numpy as np
 
 from quantum_gates.integrators import Integrator
 
-from .utilities import integrands
+from ..integrands.utilities import integrands
 from ..pulses.pulse_factory import PulseFactory
 from ..pulses.power_factory import PowerFactory
 from ..pulses.fourier_factory import FourierFactory

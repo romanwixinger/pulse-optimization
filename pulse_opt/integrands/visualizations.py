@@ -1,19 +1,11 @@
 """ Visualize the integrands of the Ito integrals.
-
-Attributes:
-    equal_weight_lookup (dict): Weight lookup which assigns weight 1.0 to each integrand.
 """
 
 import numpy as np
 import matplotlib.pyplot as plt
 
-from pulse_opt.integrals.utilities import (
-    integrand_lookup,
-    create_folder,
-)
-
-
-equal_weight_lookup = {key: 1.0 for key in integrand_lookup.keys()}
+from pulse_opt.integrands.utilities import integrand_lookup
+from pulse_opt.utilities.helpers import create_folder
 
 
 def plot_integrands(lower: float, upper: float):
@@ -34,8 +26,7 @@ def plot_integrands(lower: float, upper: float):
     plt.title(r"It\^o integral integrands on the region of interest")
     plt.xlabel(r"$\theta$")
     plt.ylabel("value of integrand")
-    plt.legend()
-    create_folder(f"plots/integrands")
+    create_folder(f"plots/integrals/integrands")
     plt.savefig(f"plots/integrands/ito_integral_integrands_pi.pdf")
     plt.show()
 
@@ -70,7 +61,7 @@ def plot_sum(lower: float, upper: float, weight_lookup: dict, use_absolute: bool
     x = np.linspace(lower, upper, 1000)
     weighted_sum_calculator = get_weighted_sum_of_absolute_values if use_absolute else get_weighted_sum
     y = np.array([weighted_sum_calculator(s, weight_lookup) for s in x])
-    plt.plot(x, y, label="Weighted sum")
+    plt.plot(x, y)
     plt.title(f"Weighted sum of{' absolute' if use_absolute else ''} It\\^o integral integrands")
     plt.xlabel(r"$\theta$")
     plt.ylabel("Weighted sum")

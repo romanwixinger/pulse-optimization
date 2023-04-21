@@ -2,69 +2,19 @@
 
 This script defines pulses and makes them available through lookup. The key is either the name of the pulse or the
 name plus a parameteter in the case of parametrized pulses.
-
-Attributes:
-    integrands (list): List of integrands used in the Ito integrals of the quantum-gates library.
-
-    markers (list): List of matplotlib.pyplot markers used for visualizing the integration values.
 """
 
 import os
 import pandas as pd
 import json
 import logging
-import numpy as np
 import multiprocessing
-import datetime
-import importlib
 
-
-integrand_lookup = {
-    "sin(theta/a)**2": lambda theta, a=1.0: np.sin(theta/a)**2,
-    "sin(theta/(2*a))**4": lambda theta, a=1.0: np.sin(theta/(2*a))**4,
-    "sin(theta/a)*sin(theta/(2*a))**2": lambda theta, a=1.0: np.sin(theta/a)*np.sin(theta/(2*a))**2,
-    "sin(theta/(2*a))**2": lambda theta, a=1.0: np.sin(theta/(2*a))**2,
-    "cos(theta/a)**2": lambda theta, a=1.0: np.cos(theta/a)**2,
-    "sin(theta/a)*cos(theta/a)": lambda theta, a=1.0: np.sin(theta/a)*np.cos(theta/a),
-    "sin(theta/a)":  lambda theta, a=1.0: np.sin(theta/a),
-    "cos(theta/(2*a))**2": lambda theta, a=1.0: np.cos(theta/(2*a))**2,
-}
-
-integrands = list(integrand_lookup.keys())
+from pulse_opt.utilities.helpers import flatten_dict, add_prefix, CustomEncoder
 
 markers = [".", "^", "o", "2", "*", "D", "x", "X", "+"]
 
 logger = logging.getLogger()
-
-
-def load_function_or_class(module_name: str, name: str):
-    """ Imports and returns a lossClass.
-
-    Args:
-        module_name (str): Name of the module.
-        name (str): Name of the function or class.
-
-    Returns:
-        The function or class at {module_name}.{name}.
-    """
-    obj = getattr(importlib.import_module(module_name), name)
-    return obj
-
-
-def flatten_dict(d, parent_key='', sep='.'):
-    """Flattens a dictionary that may contain nested dictionaries with recursion.
-    """
-    if d is None:
-        logging.warning("Encountered d=None in flatten_dict function.")
-        return {}
-    items = []
-    for k, v in d.items():
-        new_key = parent_key + sep + k if parent_key else k
-        if isinstance(v, dict):
-            items.extend(flatten_dict(v, new_key, sep=sep).items())
-        else:
-            items.append((new_key, v))
-    return dict(items)
 
 
 def create_table(results: list[dict], config) -> pd.DataFrame:
@@ -92,15 +42,6 @@ def create_table(results: list[dict], config) -> pd.DataFrame:
         for res_lookup in results
     ]
     return pd.DataFrame(flattened_dicts)
-
-
-def add_prefix(flat_lookup: dict, prefix: str):
-    """ Adds a prefix to each of the keys of the dictionary.
-    """
-    assert isinstance(prefix, str), f"Assumed prefix to be of type str but found {type(prefix)}."
-    assert all((isinstance(key, str) for key in flat_lookup.keys())), \
-        "Assumed keys of lookup to be of type str but found otherwise."
-    return {(prefix + key): value for key, value in flat_lookup.items()}
 
 
 def save_table_as_csv(df: pd.DataFrame, run: str, folder_path: str=None):
@@ -197,15 +138,6 @@ def load_table_from_pickle(run: str, folder_path: str=None) -> pd.DataFrame:
     return df
 
 
-class CustomEncoder(json.JSONEncoder):
-    """Custom JSON encoder that can deal with np.arrays by converting them to list.
-    """
-    def default(self, obj):
-        if isinstance(obj, np.ndarray):
-            return obj.tolist()
-        return json.JSONEncoder.default(self, obj)
-
-
 def save_result_as_json(res_lookup: dict, config: dict, variable_args: list):
     """ Saves the result of the simulation in a single json files.
 
@@ -260,33 +192,6 @@ def construct_filename(loss: str, variable_args: list, loss_arg: dict, filetype:
     return filename
 
 
-def setup_logging(run: str):
-    """ Sets up log file and prepares the logging module.
-
-    Note:
-        The log files are saved at 'logs/integrals/{run}.log'
-    """
-    # Setup folder
-    if not os.path.exists("logs"):
-        os.makedirs("logs")
-    if not os.path.exists("logs/integrals"):
-        os.makedirs("logs/integrals")
-    if not os.path.exists(f"logs/integrals/{run}"):
-        os.makedirs(f"logs/integrals/{run}")
-
-    # Set up logging configuration
-    now = datetime.datetime.now()
-    logging.basicConfig(
-        filename=f"logs/integrals/{run}/{run}_{now.strftime('%Y-%m-%d_%H-%M-%S')}.log",
-        level=logging.DEBUG,
-        format='%(asctime)s:%(levelname)s:%(message)s'
-    )
-
-    # Start logging
-    logger.info("Start logging.")
-    return
-
-
 def run_with_multiprocessing(simulation: callable, items: list, config: dict) -> list:
     """Runs the simulation on the items with parallel processing, and saves each result as json.
 
@@ -339,23 +244,3 @@ def run_without_multiprocessing(simulation: callable, items: list, config: dict)
     return results
 
 
-def create_folder(path):
-    """ Creates folders and subfolders defined by a given path.
-
-    Note:
-        The path must start at the current path of the calling function. Using 'C:...' does not work.
-
-    Args:
-        path (str): Path defining the folders.
-    """
-    # Input validation
-    if os.path.isabs(path):
-        raise Exception(f"Expected relative path but found absolute path {path}.")
-
-    # Create paths
-    folders = path.split('/')
-    current_path = ''
-    for folder in folders:
-        current_path += folder + '/'
-        if not os.path.exists(current_path):
-            os.makedirs(current_path)

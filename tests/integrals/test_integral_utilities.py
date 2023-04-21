@@ -5,10 +5,7 @@ import json
 
 
 from pulse_opt.integrals.utilities import (
-    flatten_dict,
     create_table,
-    add_prefix,
-    setup_logging,
     save_result_as_json,
     save_table_as_csv,
     save_table_as_pickle,
@@ -16,6 +13,7 @@ from pulse_opt.integrals.utilities import (
     run_with_multiprocessing,
     run_without_multiprocessing,
 )
+from pulse_opt.utilities.helpers import flatten_dict, add_prefix, setup_logging
 
 
 def test_flatten_dict_none():

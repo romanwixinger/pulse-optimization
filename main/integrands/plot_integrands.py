@@ -6,11 +6,11 @@ Todo:
 
 import numpy as np
 
-from pulse_opt.integrals.integrand_visualizations import (
+from pulse_opt.integrands.visualizations import (
     plot_integrands,
     plot_sum,
-    equal_weight_lookup,
 )
+from pulse_opt.integrands.utilities import equal_weight_lookup
 
 
 if __name__ == "__main__":

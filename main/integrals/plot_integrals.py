@@ -8,7 +8,6 @@ from pulse_opt.integrals.integral_visualizations import (
     plot_integration_values,
     plot_integration_sum,
 )
-from pulse_opt.integrals.utilities import integrands
 from pulse_opt.pulses.legacy_pulses import gaussian_pulse_lookup_10 as gaussian_pulse_lookup
 
 
