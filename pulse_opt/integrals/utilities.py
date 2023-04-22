@@ -5,10 +5,12 @@ name plus a parameteter in the case of parametrized pulses.
 """
 
 import os
+import numpy as np
 import pandas as pd
 import json
 import logging
 import multiprocessing
+import ast
 
 from pulse_opt.utilities.helpers import flatten_dict, add_prefix, CustomEncoder
 
@@ -29,12 +31,7 @@ def create_table(results: list[dict], config) -> pd.DataFrame:
         config (dict): Configuration file loaded in main.
     """
 
-    config_info = {
-        'name': config['name'],
-        'description': config['description'],
-        'loss': config['content']['loss'],
-        'loss_path': config['content']['loss_path'],
-    }
+    config_info = flatten_dict(config)
     flattened_dicts = [
         add_prefix(config_info, "config")
         | add_prefix(flatten_dict(res_lookup['loss_arg']), "args")
@@ -42,6 +39,31 @@ def create_table(results: list[dict], config) -> pd.DataFrame:
         for res_lookup in results
     ]
     return pd.DataFrame(flattened_dicts)
+
+
+def serialize_table(df: pd.DataFrame) -> pd.DataFrame:
+    """ Converts the arrays in a dataframe to lists.
+
+    This make it possible to save the dataframe as csv file.
+    """
+    df_copy = df.copy()
+    for col in df_copy.columns:
+        if isinstance(df_copy[col].iloc[0], np.ndarray):
+            df_copy[col] = df_copy[col].apply(lambda x: np.array2string(x))
+    return df_copy
+
+
+def deserialize_table(df: pd.DataFrame) -> pd.DataFrame:
+    """ Converts the lists in a dataframe to arrays.
+
+    This can be done after loading a table from a csv file.
+    """
+    df_copy = df.copy()
+    for col in df_copy.columns:
+        first_value = df[col].iloc[0]
+        if isinstance(first_value, str) and first_value.startswith('['):
+            df_copy[col] = df_copy[col].apply(lambda x: np.array(ast.literal_eval(x)))
+    return df_copy
 
 
 def save_table_as_csv(df: pd.DataFrame, run: str, folder_path: str=None):
@@ -62,7 +84,8 @@ def save_table_as_csv(df: pd.DataFrame, run: str, folder_path: str=None):
     folder_path = f"results/integrals/{run}" if folder_path is None else folder_path
     if not os.path.exists(folder_path):
         raise Exception(f"Tried to save table to a folder {folder_path} that does not exist.")
-    df.to_csv(f"{folder_path}/results.csv", index=False)
+    serialized_df = serialize_table(df)
+    serialized_df.to_csv(f"{folder_path}/results.csv", index=False)
     return
 
 
@@ -88,7 +111,8 @@ def load_table_from_csv(run: str, folder_path: str=None) -> pd.DataFrame:
     if not os.path.isfile(filepath):
         raise Exception(f"Expected to find the file {filepath} but it was not there.")
     df = pd.read_csv(filepath_or_buffer=filepath)
-    return df
+    deserialized_df = deserialize_table(df)
+    return deserialized_df
 
 
 def save_table_as_pickle(df: pd.DataFrame, run: str, folder_path: str=None):

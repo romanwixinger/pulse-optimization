@@ -27,7 +27,7 @@ factory_lookup = {
 }
 
 
-def plot_optimized_waveform(
+def plot_optimized_waveforms(
         run: str,
         pulses: list,
         funs: list[float],
