@@ -99,8 +99,13 @@ class Basis(object):
     def coefficient_are_valid(self, coefficients, abs_error: float=1e-6):
         """ Returns whether or not the coefficients produce a normalized pulse.
         """
-        if len(coefficients) != self.number_of_functions:
-            print(f"Expected length of coefficients {len(coefficients)} to match basis {self.number_of_functions}, but found otherwise.")
+        if not (isinstance(coefficients, np.ndarray) or isinstance(coefficients, list)):
+            print(f"Expected coefficients to be of type np.array or list, but found {type(coefficients)}.")
+            return False
+
+        len_coeff = len(coefficients) if isinstance(coefficients, list) else coefficients.shape[0]
+        if len_coeff != self.number_of_functions:
+            print(f"Expected length of coefficients {len_coeff} to match basis {self.number_of_functions}, but found otherwise.")
             return False
 
         area = self.area_of_waveform(coefficients=coefficients, areas=self.areas)

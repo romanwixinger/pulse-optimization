@@ -229,9 +229,9 @@ def run_with_multiprocessing(simulation: callable, items: list, config: dict) ->
     """
     logging.info("Start multiprocessing.")
     results = []
-    processes = max(2, os.cpu_count() // 4)
+    processes = max(2, os.cpu_count() // 2)
     with multiprocessing.Pool(processes=processes) as pool:
-        result = pool.starmap_async(simulation, items, chunksize=10)
+        result = pool.starmap_async(simulation, items, chunksize=1)
         for res_lookup in result.get():
             save_result_as_json(
                 res_lookup=res_lookup,
