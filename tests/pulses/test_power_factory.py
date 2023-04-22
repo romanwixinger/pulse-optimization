@@ -18,9 +18,12 @@ def test_power_factory_init():
     factory = PowerFactory(n=3, shift=0.5, perform_checks=False)
 
 
-def test_power_factory_sample():
-    factory = PowerFactory(n=3, shift=0.5, perform_checks=False)
-    coefficients = [1.0, 0.5, 0.0, 0.0]
+@pytest.mark.parametrize(
+    "n,coefficients",
+    [(1, [1.0]), (2, [1.0, 1.0]), (3, [1.0, 1.0, 0.0])]
+)
+def test_power_factory_sample(n, coefficients):
+    factory = PowerFactory(n=n, shift=0.5, perform_checks=False)
     pulse = factory.sample(coefficients)
     assert isinstance(pulse, Pulse), f"Expected to get a pulse of type Pulse, but received {type(pulse)}."
 

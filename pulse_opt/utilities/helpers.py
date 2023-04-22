@@ -42,13 +42,13 @@ def flatten_dict(d, parent_key='', sep='.'):
     return dict(items)
 
 
-def add_prefix(flat_lookup: dict, prefix: str):
+def add_prefix(flat_lookup: dict, prefix: str, sep: str="."):
     """ Adds a prefix to each of the keys of the dictionary.
     """
     assert isinstance(prefix, str), f"Assumed prefix to be of type str but found {type(prefix)}."
     assert all((isinstance(key, str) for key in flat_lookup.keys())), \
         "Assumed keys of lookup to be of type str but found otherwise."
-    return {(prefix + key): value for key, value in flat_lookup.items()}
+    return {(prefix + sep + key): value for key, value in flat_lookup.items()}
 
 
 class CustomEncoder(json.JSONEncoder):

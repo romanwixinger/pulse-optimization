@@ -29,8 +29,16 @@ def test_flatten_dict_with_hierarchy():
         f"Expected {expected} but found flatten_dict(input) from the input {dict_with_hierarchy} to flatten_dict()."
 
 
+def test_flatten_dict_does_not_modify_original_dict():
+    before_func = {"top1": {"child1": "value11"}, "top2": "value2"}
+    after_func = {"top1": {"child1": "value11"}, "top2": "value2"}
+    _ = flatten_dict(after_func)
+    assert before_func == after_func, \
+        f"Expected no modification of the original dict, but found {before_func} and {after_func}."
+
+
 def test_add_prefix():
-    assert add_prefix({"key": "value"}, "prefix.") == {"prefix.key": "value"}, "Expected different result."
+    assert add_prefix({"key": "value"}, "prefix") == {"prefix.key": "value"}, "Expected different result."
 
 
 def test_custom_encoder(tmp_path):

@@ -12,7 +12,7 @@ class Basis(object):
     Args:
         functions (list): Basis functions f_i.
         integrals (list): Antiderivatives F_i of the functions, d/dx F_i = f_i
-        shift (list): Constant by which the basis function and integrals are shifted, f_shifted(x) = f(x - shift)
+        shift (float): Constant by which the basis function and integrals are shifted, f_shifted(x) = f(x - shift)
         bounds (list): List of bounds as defined for use in scipy.optimize.minimize.
 
     Attributes:
