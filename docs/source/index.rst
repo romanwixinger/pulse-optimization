@@ -21,6 +21,12 @@ Welcome to Pulse Optimization's documentation!
 
 .. toctree::
    :maxdepth: 2
+   :caption: Integrands
+
+   integrands
+
+.. toctree::
+   :maxdepth: 2
    :caption: Integrals
 
    integrals
@@ -37,6 +43,11 @@ Welcome to Pulse Optimization's documentation!
 
    algorithms
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Utilities
+
+   utilities
 
 .. toctree::
    :maxdepth: 2

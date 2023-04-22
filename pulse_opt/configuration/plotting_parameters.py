@@ -1,4 +1,7 @@
 """Sets the style of matplotlib.
+
+Attributes:
+    markers (list): List of matplotlib.pyplot markers used for visualizing the integration values.
 """
 
 import matplotlib as mpl
@@ -68,3 +71,6 @@ def activate_latex(preamble_list: list[str]=[]):
     }
     mpl.rcParams.update(pgf_with_latex)
     return
+
+
+markers = [".", "^", "o", "2", "*", "D", "x", "X", "+"]

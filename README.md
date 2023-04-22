@@ -1,18 +1,8 @@
 # Pulse Optimization with Noisy Quantum Gates
 This repository contains a collection of experiments to understand and leverage the effect of the pulse shape on quantum computations. The main tools in this investigation are the [quantum-gates](https://pypi.org/project/quantum-gates/) library for generating the noisy quantum gates for specific pulse shapes, and Qiskit for creating for the quantum circuits, and IBMQ for experiments on real hardware. The aim is to leverage the findings for improving the Noisy Gates approach, enabling device- and circuit-specific optimizations, and find new Quantum Error Mitigation schemes.
 
-
-## Overview
-At the moment, we plan to conduct three main experiments to answer the following research question: 
-
-### A) Does the pulse shape in the Noisy Gates approach change the outcome of the simulation? 
-
-On a high level, we simply have to run circuits and see if the result changes according to the pulse shape. More precicely, we will simulate a sequence of gates which are involutions (X, SX, CNOT, H) with varying depth with various pulse shapes (constant, Gaussian, sin**2, linear), and compare the results to the noisy free solution. For parametrizated pulses, we can then plot the matrix elements as a function of the parameters. 
-
-### B) Does the accuracy of simulating real hardware improve when the same pulses are used? 
-
-To answer this question, we repeat the simulation done to answer question A) on real hardware. Then we can set up a matrix $M_ij = H(p_i^{SIM}, p_j^{REAL})$ for pulse shapes i, j which represents the Hellinger distances between simulation results and real hardware for various choices for the pulses on each. In case that the diagonal has lower values than the off-diagonal, this is an indication that the pulses are accurately described in the Noisy Gates approach, and that the resulting differences are at least partly physical.
-
+## Documentation
+Check the latest version of the [documentation](https://pulse-optimization.readthedocs.io/en/latest/) made with Sphinx. 
 
 ## How to use
 Here we explain how to create and activate a virtual environment for the project, install the dependencies, and validate the installation. 
