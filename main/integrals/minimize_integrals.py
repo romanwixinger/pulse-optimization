@@ -1,4 +1,8 @@
 """ Minimizes the Ito integrals by finding the optimal coefficient of the parametrized pulses.
+
+Note:
+    Before executing this script, one has to create a configuration file 'configuration/integrals/{run}.json' for each
+    of the runs that should be performed.
 """
 
 import logging

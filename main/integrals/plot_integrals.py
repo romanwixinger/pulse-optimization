@@ -1,5 +1,4 @@
-"""
-We compute the nine Ito integrals for various pulses to understand their relation.
+"""Computs the nine Ito integrals for various pulses to understand their relation.
 """
 
 import numpy as np
@@ -24,7 +23,6 @@ def main_sum():
         theta=np.pi/2,
         filename=f"{plot_folder}/integration_sum_parametrized_gaussians_pi_half.pdf"
     )
-
     plot_integration_sum(
         pulses=list(gaussian_pulse_lookup.values()),
         parameters=list(gaussian_pulse_lookup.keys()),

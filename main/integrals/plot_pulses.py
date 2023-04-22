@@ -1,20 +1,16 @@
 """Visualizes the optimized pulses.
+
+Note:
+    Before executing this script, one has to run 'main/integrals/minimize_integrals.py' with a valid 'run' that
+    corresponds to a file 'configuration/integrals/{run}.json'.
 """
 from collections import defaultdict
 
 from quantum_gates.utilities import load_config
 
-from pulse_opt.integrals.utilities import (
-    load_table_from_csv,
-    load_table_from_pickle,
-)
-from pulse_opt.integrals.pulse_visualizations import (
-    plot_optimized_waveforms,
-    plot_optimized_parametrizations,
-)
-from pulse_opt.utilities.helpers import (
-    load_function_or_class,
-)
+from pulse_opt.integrals.utilities import load_table_from_pickle
+from pulse_opt.integrals.pulse_visualizations import plot_optimized_waveforms, plot_optimized_parametrizations
+from pulse_opt.utilities.helpers import load_function_or_class
 
 
 def main(run: str):
