@@ -31,7 +31,8 @@ def plot_optimized_waveforms(
         run: str,
         pulses: list,
         funs: list[float],
-        theta: float):
+        theta: float,
+        ansatz_name: str):
     """ Visualized the optimized pulse waveforms and annotates their loss with the color.
 
     Args:
@@ -39,6 +40,7 @@ def plot_optimized_waveforms(
         pulses (list[Pulse]): List of the optimized pulses.
         funs (list[float]): List of the loss of each pulse after the optimization.
         theta (float): Total area of each pulse.
+        ansatz_name (str): Name of the pulse ansatz, i.e. 'Power series' for the PowerFactory.
     """
 
     # Plotting
@@ -52,8 +54,7 @@ def plot_optimized_waveforms(
     # Styling
     plt.xlabel('Parametrization variable t')
     plt.ylabel(r"Waveform")
-    run_name = "(run name to fix)"
-    plt.title(f"Optimized pulses with {run_name} ansatz")
+    plt.title(f"Optimized pulses with {ansatz_name} ansatz")
     add_color_map(fig, ax)
 
     # Saving
@@ -66,14 +67,16 @@ def plot_optimized_parametrizations(
         run: str,
         pulses: list,
         funs: list[float],
-        theta: float):
+        theta: float,
+        ansatz_name: str):
     """ Visualized the optimized pulse parametrizations and annotates their loss with the color.
 
     Args:
-    run (str): Name of the run
-    pulses (list[Pulse]): List of the optimized pulses.
-    funs (list[float]): List of the loss of each pulse after the optimization.
-    theta (float): Total area of each pulse.
+        run (str): Name of the run
+        pulses (list[Pulse]): List of the optimized pulses.
+        funs (list[float]): List of the loss of each pulse after the optimization.
+        theta (float): Total area of each pulse.
+        ansatz_name (str): Name of the pulse ansatz, i.e. 'Power series' for the PowerFactory.
     """
 
     # Plotting
@@ -88,7 +91,7 @@ def plot_optimized_parametrizations(
     plt.xlabel('Parametrization variable t')
     plt.ylabel(r"Parametrization $\theta$(t)")
     run_name = "(run name to fix)"
-    plt.title(f"Optimized pulse parametrizations with {run_name} ansatz")
+    plt.title(f"Optimized pulse parametrizations with {ansatz_name} ansatz")
 
     # Saving
     add_color_map(fig, ax)

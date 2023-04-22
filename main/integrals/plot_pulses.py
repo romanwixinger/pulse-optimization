@@ -25,14 +25,17 @@ def main(run: str):
     content = config["content"]
     df = load_table_from_pickle(run=run)
 
-    # Extract values
-    variable_args = config["content"]["variable_args"]
+    # Extract global values
+    variable_args = content["variable_args"]
     thetas = variable_args["theta"]
     factory_args = content["factory_args"]
     factory_class = load_function_or_class(
-        module_name=config["content"]["factory_path"],
-        name=config["content"]["factory"]
+        module_name=content["factory_path"],
+        name=content["factory"]
     )
+    ansatz_name = content["ansatz_name"]
+
+    # Extract pulse-wise values
     pulse_lookup = defaultdict(list)
     fun_lookup = defaultdict(list)
     for index, row in df.iterrows():
@@ -53,13 +56,15 @@ def main(run: str):
             run=run,
             pulses=pulse_lookup[theta],
             funs=fun_lookup[theta],
-            theta=theta
+            theta=theta,
+            ansatz_name=ansatz_name
         )
         plot_optimized_parametrizations(
             run=run,
             pulses=pulse_lookup[theta],
             funs=fun_lookup[theta],
-            theta=theta
+            theta=theta,
+            ansatz_name=ansatz_name
         )
 
 
