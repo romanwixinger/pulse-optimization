@@ -62,7 +62,7 @@ def test_power_pulse_input_validation_trivial_pulse():
 
 
 def test_relu_power_pulse_input_validation_trivial_pulse():
-    with pytest.raises(AssertionError, match=r"Expected coefficients such that the total integral"):
+    with pytest.raises(AssertionError, match=r"Expected at least one non-zero coefficient"):
         ReluPowerPulse(coefficients=np.array([0.0]), shift=0.0)
 
 
