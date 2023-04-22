@@ -1,18 +1,22 @@
 """ Minimizes the Ito integrals by finding the optimal coefficient of the parametrized pulses.
+
+Note:
+    Before executing this script, one has to create a configuration file 'configuration/integrals/{run}.json' for each
+    of the runs that should be performed.
 """
 
-import importlib
 import logging
 
 from quantum_gates.utilities import load_config
 
-from pulse_opt.integrals.optimizers import optimize_with_hard_constraint, optimize_with_penalty_constraint
 from pulse_opt.integrals.utilities import (
     create_table,
-    setup_logging,
+    save_table_as_csv,
+    save_table_as_pickle,
     run_with_multiprocessing,
     run_without_multiprocessing,
 )
+from pulse_opt.utilities.helpers import load_function_or_class, setup_logging
 from pulse_opt.configuration.argument_constructor import construct_args
 
 logger = logging.getLogger()
@@ -41,17 +45,16 @@ def main(run: str, use_multiprocessing: bool=True):
     # Set up logging
     setup_logging(run)
 
-    # Load loss class
-    module_name = content["loss_path"]
-    class_name = content["loss"]
-    LossClass = getattr(importlib.import_module(module_name), class_name)
-    optimizer = optimize_with_hard_constraint
+    # Load functions and classes dynamically
+    loss_class = load_function_or_class(module_name=content["loss_path"], name=content["loss"])
+    optimizer = load_function_or_class(
+        module_name="pulse_opt.integrals.optimizers",
+        name="optimize_with_hard_constraint"
+    )
 
     # Setup arguments
-    static_args = content["static_args"]
-    variable_args = content["variable_args"]
-    loss_arg_list = construct_args(static_args=static_args, variable_args=variable_args)
-    items = [(loss_arg, LossClass, optimizer) for loss_arg in loss_arg_list]
+    loss_arg_list = construct_args(static_args=content["static_args"], variable_args=content["variable_args"])
+    items = [(loss_arg, loss_class, optimizer) for loss_arg in loss_arg_list]
 
     # Execute simulation
     runner = run_with_multiprocessing if use_multiprocessing else run_without_multiprocessing
@@ -61,9 +64,9 @@ def main(run: str, use_multiprocessing: bool=True):
     df = create_table(results=results, config=config)
 
     # Save dataframe
-    df.to_csv(f"results/integrals/{run}/results.csv")
-    df.to_pickle(f"results/integrals/{run}/results.pkl")
-    logger.info("Saved results.")
+    save_table_as_csv(df, run)
+    save_table_as_pickle(df, run)
+    logger.info(f"Saved results of run {run}")
     return results
 
 
@@ -115,9 +118,6 @@ def simulation(loss_arg, LossClass, optimizer: callable) -> dict:
     except Exception as e:
         logger.error(f"Encountered Exception: {e}")
         return {"res": None, "loss_arg": loss_arg, "successful": False}
-    except:
-        import traceback
-        traceback.print_exc()
     result_lookup = {"res": res, "loss_arg": loss_arg, "successful": True}
     return result_lookup
 
@@ -128,16 +128,8 @@ if __name__ == "__main__":
         'power_test',
         'fourier_test',
         'gaussian_test',
-        'power_small',
-        'fourier_small',
-        'gaussian_small',
-        'power',
-        'fourier',
-        'gaussian'
     ]
-    all_results = [None for run in runs]
 
     for i, run in enumerate(runs):
         logger.info(f"Start run with {run} configuration.")
-        results = main(run=run, use_multiprocessing=False)
-        all_results[i] = results
+        main(run=run, use_multiprocessing=False)

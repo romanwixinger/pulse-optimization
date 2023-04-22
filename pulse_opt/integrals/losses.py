@@ -1,11 +1,16 @@
 """ Computes the loss as total variance of the Ito integrals for a pulse parametrization.
+
+Todo:
+ * Add an option that makes it possible to compute the weighted sum of the absolute values of the integrands. As the
+   values come up in different matrix elements, it does NOT make perfect sense to simply trade them off against each
+   other.
 """
 
 import numpy as np
 
 from quantum_gates.integrators import Integrator
 
-from .utilities import integrands
+from ..integrands.utilities import integrands
 from ..pulses.pulse_factory import PulseFactory
 from ..pulses.power_factory import PowerFactory
 from ..pulses.fourier_factory import FourierFactory

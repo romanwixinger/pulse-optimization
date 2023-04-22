@@ -136,10 +136,10 @@ class ReluPowerPulse(Pulse):
         Raises:
             AssertionError
         """
-        if coefficients[0] <= 0:
-            print("Warning, using non-positive first coefficient ")
         assert isinstance(coefficients, np.ndarray) or isinstance(coefficients, list), \
             f"Expected coefficients to be of type np.ndarray or list but found {type(coefficients)}."
+        if coefficients[0] <= 0:
+            print("Warning, using non-positive first coefficient ")
         assert isinstance(shift, float), \
             f"Expected shift to be of type float but found {type(shift)}."
         assert isinstance(coefficients, np.ndarray) or isinstance(coefficients, list), \

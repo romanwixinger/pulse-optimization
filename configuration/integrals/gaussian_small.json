@@ -3,6 +3,10 @@
   "description": "Configuration to test the Gaussian Pulses with differents shifts and n for Ito integrals up to theta.",
   "content":
   {
+    "factory": "GaussianFactory",
+    "factory_path": "pulse_opt.pulses.gaussian_factory",
+    "factory_args": ["scale", "n"],
+    "ansatz_name": "Gaussian superposition",
     "loss": "GaussianLoss",
     "loss_path": "pulse_opt.integrals.losses",
     "variable_args":

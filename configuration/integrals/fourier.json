@@ -3,6 +3,10 @@
     "description": "Configuration to test the Fourier Pulses with differents shifts and n for Ito integrals up to theta.",
     "content":
     {
+        "factory": "FourierFactory",
+        "factory_path": "pulse_opt.pulses.fourier_factory",
+        "factory_args": ["shift", "n"],
+        "ansatz_name": "Fourier series",
         "loss": "FourierLoss",
         "loss_path": "pulse_opt.integrals.losses",
         "variable_args":

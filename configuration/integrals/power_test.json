@@ -3,6 +3,10 @@
   "description": "Configuration to test the Power Pulses with differents shifts and n for Ito integrals up to theta.",
   "content":
   {
+    "factory": "PowerFactory",
+    "factory_path": "pulse_opt.pulses.power_factory",
+    "factory_args": ["shift", "n"],
+    "ansatz_name": "Power series",
     "loss": "PowerLoss",
     "loss_path": "pulse_opt.integrals.losses",
     "variable_args":
