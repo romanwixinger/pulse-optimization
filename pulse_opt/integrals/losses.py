@@ -20,12 +20,19 @@ from ..pulses.gaussian_factory import GaussianFactory
 class Loss(object):
     """ Acts as a loss function, with the sum of all Ito integrals as loss.
 
+    Defines how much each of the integrands should contribute to the loss in two ways. First, a function norm() is
+    applied to the result of the Ito integrals. Reasonable options for norm are L1, L2, relu, identity. Second, a
+    weighted sum is calculated. This is then the final result that serves as loss. As the loss depends on the
+    coefficients used to generate the pulse, we can try to minimize the loss and thus find the optimal pulse.
+
     Args:
         factoryClass (PulseFactory): Class of the factory that creates pulses with specific coefficients.
         factoryArgs (dict): Lookup of the extra arguments that the factoryClass needs to setup an instance.
         weights (np.array): Weight we give each Ito integral in the loss, defaults to np.ones(8).
         theta (float): Upper limit of the integration, total area of the pulse.
         a (float): Scaling parameter in the Ito integrals.
+        norm (callable): Scalar function norm: R -> R, x_i -> norm(x_i) that is applied to each Integral x_i before the
+            weighted sum. The default option is the identity, which is not really a norm, but the naming is easy to get.
 
     Attributes:
         factory (PulseFactory): Instance of the factoryClass setup with the factoryArgs.
@@ -40,14 +47,17 @@ class Loss(object):
 
             import numpy as np
             from pulse_opt.integrals.loss_functions import Loss
-            from pulse_opt.pulses.basis import PowerFactory
+            from pulse_opt.pulses.power_factory import PowerFactory
+
+            norm_l2 = lambda x: x ** 2
 
             loss = Loss(
                 factoryClass=PowerFactory,
                 factoryArgs={"shift": 0.5, "n": 3, "perform_checks": False},
                 weights=np.ones(8),
                 theta=np.pi/2,
-                a=1.0
+                a=1.0,
+                norm=norm_l2
             )
 
             coeff = [1.0, 0.0, 0.0, 0.0]
@@ -63,11 +73,13 @@ class Loss(object):
                  factoryArgs: dict,
                  weights: np.array=np.ones(8),
                  theta: float=np.pi/2,
-                 a: float=1.0):
+                 a: float=1.0,
+                 norm: callable=lambda x: x):
         self.factory = factoryClass(**factoryArgs)
         self.weights = weights
         self.theta = theta
         self.a = a
+        self.norm = norm
         self.default_coefficients = self.factory.basis.default_coefficients
         self.bounds = self.factory.basis.bounds
         self.constraints = self.factory.basis.constraints
@@ -90,7 +102,11 @@ class Loss(object):
         """
         pulse = self.factory.sample(coefficients)
         integrator = Integrator(pulse=pulse)
-        return sum((integrator.integrate(integrand, theta=self.theta, a=self.a) for integrand in integrands))
+        loss = 0
+        for integrand, weight in zip(integrands, self.weights):
+            integration_result = integrator.integrate(integrand, theta=self.theta, a=self.a)
+            loss += weight * self.norm(integration_result)
+        return loss
 
     def relative_loss(self, coefficients: np.array):
         """ Computes the ratio between the loss for specific coefficients over the loss for the default coefficients.
@@ -101,7 +117,7 @@ class Loss(object):
         Returns
             Fraction loss(coeff) / loss(default_coeff).
         """
-        return self.__call__(coefficients=coefficients) / self.default_loss
+        return self.absolute_loss(coefficients=coefficients) / self.default_loss
 
 
 class PowerLoss(Loss):
@@ -113,6 +129,8 @@ class PowerLoss(Loss):
         weights (np.array): Weight we give each Ito integral in the loss, defaults to np.ones(8).
         theta (float): Upper limit of the integration, total area of the pulse, defaults to np.pi/2.
         a (float): Scaling parameter in the Ito integrals, defaults to 1.0
+        norm (callable): Scalar function norm: R -> R, x_i -> norm(x_i) that is applied to each Integral x_i before the
+            weighted sum. The default option is the identity, which is not really a norm, but the naming is easy to get.
 
     Example:
         .. code:: python
@@ -125,13 +143,20 @@ class PowerLoss(Loss):
             print(f"The sum of all Ito integrals for a FourierPulse with coefficients {coeff} is {loss(coeff)}.")
     """
 
-    def __init__(self, shift: float=0.5, n: int=3, weights: np.array=np.ones(8), theta: float=np.pi/2, a: float=1.0):
+    def __init__(self,
+                 shift: float=0.5,
+                 n: int=3,
+                 weights: np.array=np.ones(8),
+                 theta: float=np.pi/2,
+                 a: float=1.0,
+                 norm: callable=lambda x: x):
         super(PowerLoss, self).__init__(
             factoryClass=PowerFactory,
             factoryArgs={"shift": shift, "n": n, "perform_checks": False},
             weights=weights,
             theta=theta,
-            a=a
+            a=a,
+            norm=norm
         )
 
 
@@ -144,7 +169,8 @@ class FourierLoss(Loss):
         weights (np.array): Weight we give each Ito integral in the loss, defaults to np.ones(8).
         theta (float): Upper limit of the integration, total area of the pulse, defaults to np.pi/2.
         a (float): Scaling parameter in the Ito integrals, defaults to 1.0
-
+        norm (callable): Scalar function norm: R -> R, x_i -> norm(x_i) that is applied to each Integral x_i before the
+            weighted sum. The default option is the identity, which is not really a norm, but the naming is easy to get.
 
     Example:
         .. code:: python
@@ -157,13 +183,20 @@ class FourierLoss(Loss):
             print(f"The sum of all Ito integrals for a FourierPulse with coefficients {coeff} is {loss(coeff)}.")
     """
 
-    def __init__(self, shift: float=0.5, n: int=3, weights: np.array=np.ones(8), theta: float=np.pi/2, a: float=1.0):
+    def __init__(self,
+                 shift: float=0.5,
+                 n: int=3,
+                 weights: np.array=np.ones(8),
+                 theta: float=np.pi/2,
+                 a: float=1.0,
+                 norm: callable=lambda x: x):
         super(FourierLoss, self).__init__(
             factoryClass=FourierFactory,
             factoryArgs={"shift": shift, "n": n, "perform_checks": False},
             weights=weights,
             theta=theta,
-            a=a
+            a=a,
+            norm=norm,
         )
 
 
@@ -176,6 +209,8 @@ class GaussianLoss(Loss):
         weights (np.array): Weight we give each Ito integral in the loss, defaults to np.ones(8).
         theta (float): Upper limit of the integration, total area of the pulse, defaults to np.pi/2.
         a (float): Scaling parameter in the Ito integrals, defaults to 1.0
+        norm (callable): Scalar function norm: R -> R, x_i -> norm(x_i) that is applied to each Integral x_i before the
+            weighted sum. The default option is the identity, which is not really a norm, but the naming is easy to get.
 
     Example:
         .. code:: python
@@ -188,11 +223,18 @@ class GaussianLoss(Loss):
             print(f"The sum of all Ito integrals for a GaussianPulse with coefficients {coeff} is {loss(coeff)}.")
     """
 
-    def __init__(self, scale: float=0.25, n: int=3, weights: np.array=np.ones(8), theta: float=np.pi/2, a: float=1.0):
+    def __init__(self,
+                 scale: float=0.25,
+                 n: int=3,
+                 weights: np.array=np.ones(8),
+                 theta: float=np.pi/2,
+                 a: float=1.0,
+                 norm: callable=lambda x: x):
         super(GaussianLoss, self).__init__(
             factoryClass=GaussianFactory,
             factoryArgs={"scale": scale, "n": n, "perform_checks": False},
             weights=weights,
             theta=theta,
-            a=a
+            a=a,
+            norm=norm
         )
