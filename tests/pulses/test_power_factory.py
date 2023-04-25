@@ -20,7 +20,7 @@ def test_power_factory_init():
 
 @pytest.mark.parametrize(
     "n,coefficients",
-    [(1, [1.0]), (2, [1.0, 1.0]), (3, [1.0, 1.0, 0.0])]
+    [(0, [1.0]), (1, [1.0, 1.0]), (2, [1.0, 1.0, 0.0])]
 )
 def test_power_factory_sample(n, coefficients):
     factory = PowerFactory(n=n, shift=0.5, perform_checks=False)

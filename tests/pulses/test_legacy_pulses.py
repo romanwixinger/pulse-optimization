@@ -149,6 +149,7 @@ def test_relu_power_pulse_shift(coefficients, shift, waveform):
         "Shift resulted in wrong waveform of ReluPowerPulse."
 
 
+@pytest.mark.skip("Fails on purpose to benchmark the speed.")
 @pytest.mark.parametrize("samples", [1000])
 def test_power_pulse_speed_vs_relu_power_pulse_instantiation(samples: int):
     power_time = relu_power_time = 0.0
@@ -163,6 +164,7 @@ def test_power_pulse_speed_vs_relu_power_pulse_instantiation(samples: int):
     assert False, f"Time for {samples} instantiations. Power: {power_time:4f} s, Relu Power: {relu_power_time:4f} s."
 
 
+@pytest.mark.skip("Fails on purpose to benchmark the speed.")
 @pytest.mark.parametrize("samples", [1000])
 def test_power_pulse_speed_vs_relu_power_pulse_sample_waveform(samples: int):
     power_time = relu_power_time = 0.0
@@ -180,6 +182,7 @@ def test_power_pulse_speed_vs_relu_power_pulse_sample_waveform(samples: int):
     assert False, f"Time for sampling {samples} waveform values. Power: {power_time:4f} s, Relu Power: {relu_power_time:4f} s."
 
 
+@pytest.mark.skip("Fails on purpose to benchmark the speed.")
 @pytest.mark.parametrize("samples", [1000])
 def test_power_pulse_speed_vs_relu_power_pulse_sample_parametrization(samples: int):
     power_time = relu_power_time = 0.0
@@ -199,6 +202,7 @@ def test_power_pulse_speed_vs_relu_power_pulse_sample_parametrization(samples: i
     assert False, f"Time for sampling {samples} parametrization values. Power: {power_time:4f} s, Relu Power: {relu_power_time:4f} s."
 
 
+@pytest.mark.skip("Fails on purpose to benchmark the speed.")
 @pytest.mark.parametrize("samples", [1000])
 def test_power_pulse_speed_vs_relu_power_pulse_sample_integral(samples: int):
     power_time = relu_power_time = 0.0
