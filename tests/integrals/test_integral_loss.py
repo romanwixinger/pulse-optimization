@@ -1,5 +1,5 @@
 import pytest
-
+import numpy as np
 
 from pulse_opt.integrals.losses import (
     Loss,
@@ -7,8 +7,8 @@ from pulse_opt.integrals.losses import (
     FourierLoss,
     GaussianLoss,
 )
-import numpy as np
 from pulse_opt.pulses.power_factory import PowerFactory
+from pulse_opt.integrands.weights import lookup
 
 
 def test_loss_init():
@@ -17,7 +17,7 @@ def test_loss_init():
     loss = Loss(
         factoryClass=PowerFactory,
         factoryArgs={"shift": 0.5, "n": 3, "perform_checks": False},
-        weights=np.ones(8),
+        weights='deterministic',
         theta=np.pi/2,
         a=1.0,
         norm=norm_l2
@@ -26,13 +26,12 @@ def test_loss_init():
 
 
 def test_loss_trivial_weights():
-    weights = np.zeros(8)
     norm_l2 = lambda x: x ** 2
     coeff = [1.0, 0.0, 0.0, 0.0]
     loss = Loss(
         factoryClass=PowerFactory,
         factoryArgs={"shift": 0.5, "n": 3, "perform_checks": False},
-        weights=weights,
+        weights='zero',
         theta=np.pi/2,
         a=1.0,
         norm=norm_l2
@@ -48,7 +47,7 @@ def test_loss_trivial_norm():
     loss = Loss(
         factoryClass=PowerFactory,
         factoryArgs={"shift": 0.5, "n": 3, "perform_checks": False},
-        weights=np.ones(8),
+        weights='equal',
         theta=np.pi/2,
         a=1.0,
         norm=norm
@@ -59,9 +58,9 @@ def test_loss_trivial_norm():
 
 @pytest.mark.parametrize(
     "weights,expected_loss",
-    [(np.ones(8), 8.0),
-     (0.5 * np.ones(8), 4.0),
-     (np.array([3.14, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), 3.14)]
+    [('equal', 8.0),
+     ('zero', 0.0),
+     ('deterministic', 3.0)]
 )
 def test_loss_weigths_work_when_using_constant_norm_of_1(weights: np.array, expected_loss: float):
     norm = lambda x: 1.0

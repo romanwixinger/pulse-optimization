@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 from quantum_gates.integrators import Integrator
 
-from pulse_opt.integrands.utilities import integrands
+from pulse_opt.integrands.definitions import integrands
 from pulse_opt.configuration.plotting_parameters import set_matplotlib_style, activate_latex, markers
 
 set_matplotlib_style()

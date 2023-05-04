@@ -4,7 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from pulse_opt.integrands.utilities import integrand_lookup
+from pulse_opt.integrands.definitions import integrand_lookup
 from pulse_opt.utilities.helpers import create_folder
 
 
