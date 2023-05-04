@@ -13,19 +13,10 @@
     {
       "shift": [0.5],
       "n": [1],
-      "theta": [1.57079632679]
+      "theta": [1.57079632679],
+      "weights": ["equal", "covariance", "variance", "deterministic", "variance_plus_deterministic"]
     },
     "static_args": {
-      "weights": [
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0
-      ],
       "a": 1.0
     }
   }
