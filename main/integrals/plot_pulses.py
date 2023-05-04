@@ -3,6 +3,9 @@
 Note:
     Before executing this script, one has to run 'main/integrals/minimize_integrals.py' with a valid 'run' that
     corresponds to a file 'configuration/integrals/{run}.json'.
+
+Todo:
+    Separate the plots, one for each loss.
 """
 from collections import defaultdict
 
@@ -11,6 +14,7 @@ from quantum_gates.utilities import load_config
 from pulse_opt.integrals.utilities import load_table_from_pickle
 from pulse_opt.integrals.pulse_visualizations import plot_optimized_waveforms, plot_optimized_parametrizations
 from pulse_opt.utilities.helpers import load_function_or_class
+from pulse_opt.pulses.combined_factory import CombinedFactory
 
 
 def main(run: str):
@@ -24,42 +28,40 @@ def main(run: str):
     # Extract global values
     variable_args = content["variable_args"]
     thetas = variable_args["theta"]
-    factory_args = content["factory_args"]
-    factory_class = load_function_or_class(
-        module_name=content["factory_path"],
-        name=content["factory"]
-    )
+    weights = variable_args["weights"]
+    theta_weight_pairs = [(theta, weight) for theta in thetas for weight in weights]
     ansatz_name = content["ansatz_name"]
 
-    # Extract pulse-wise values
+    # Extract pulse-wise values and create pulses
     pulse_lookup = defaultdict(list)
     fun_lookup = defaultdict(list)
     for index, row in df.iterrows():
 
         # Extract from row
-        factory = factory_class(**{arg: row[f"args.{arg}"] for arg in factory_args}, perform_checks=False)
-        coefficients = row["results.x"]
-        pulse = factory.sample(coefficients)
+        pulse = CombinedFactory.create_pulse(row)
         fun = row["results.fun"]
         theta = row["args.theta"]
+        weight = row["args.weights"]
 
         # Save to lookup
-        pulse_lookup[theta].append(pulse)
-        fun_lookup[theta].append(fun)
+        pulse_lookup[(theta, weight)].append(pulse)
+        fun_lookup[(theta, weight)].append(fun)
 
-    for theta in thetas:
+    for theta, weight in theta_weight_pairs:
         plot_optimized_waveforms(
             run=run,
-            pulses=pulse_lookup[theta],
-            funs=fun_lookup[theta],
+            pulses=pulse_lookup[(theta, weight)],
+            funs=fun_lookup[(theta, weight)],
             theta=theta,
+            weight=weight,
             ansatz_name=ansatz_name
         )
         plot_optimized_parametrizations(
             run=run,
-            pulses=pulse_lookup[theta],
-            funs=fun_lookup[theta],
+            pulses=pulse_lookup[(theta, weight)],
+            funs=fun_lookup[(theta, weight)],
             theta=theta,
+            weight=weight,
             ansatz_name=ansatz_name
         )
 

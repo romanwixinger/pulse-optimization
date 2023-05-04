@@ -13,7 +13,7 @@ class CombinedFactory(object):
     factories = ["PowerFactory", "FourierFactory", "GaussianFactory"]
 
     @classmethod
-    def create_pulse_from_row(cls, row: pd.DataFrame):
+    def create_pulse(cls, row: pd.DataFrame):
         """ Takes a row of the results dataframe an creates the corresponding optimized pulse.
         """
         # Input validation
@@ -37,4 +37,4 @@ class CombinedFactory(object):
     def __call__(cls, row: pd.DataFrame):
         """ Constructs a pulse from a row of the results table.
         """
-        return cls.create_pulse_from_row(row)
+        return cls.create_pulse(row)
