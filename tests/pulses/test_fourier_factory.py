@@ -9,6 +9,7 @@ from pulse_opt.pulses.utilities import (
     parametrization_has_valid_endpoints,
     pulse_and_parametrization_are_compatible,
 )
+from tests.pulses.test_basis import do_test_basis_for_three_constraints
 
 
 epsilon = 1e-6
@@ -81,3 +82,11 @@ def test_fourier_factory_get_parametrization():
     expected_parametrization = lambda x: np.sin(x*np.pi/2)
     assert(all(abs(parametrization(x) - expected_parametrization(x)) < epsilon) for x in np.linspace(0.0, 1.0, 10)), \
         "Expected another parametrization."
+
+
+@pytest.mark.parametrize("n,shift", [(n, shift) for n in range(1, 10) for shift in [0.0, 0.1, 0.2]])
+def test_fourier_factory_get_special_coefficients(n, shift):
+    factory = FourierFactory(n=n, shift=shift, perform_checks=False)
+    coeff = factory.basis.special_coefficients
+    basis = factory.basis
+    do_test_basis_for_three_constraints(basis=basis, coefficients=coeff)

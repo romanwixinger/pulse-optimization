@@ -15,9 +15,11 @@ class FourierFactory(PulseFactory):
     Args:
         n (int): Maximum number of zero crossings -> Creates 2(n + 1) basis functions.
         shift (float): Number by which the basis functions should be shifted.
+        has_vanishing_endpoints (bool): Tells if there should be a constraint that the waveform vanishes at 0 and 1.
+        perform_checks (bool): Should the resulting pulse be verified.
     """
 
-    def __init__(self, shift: float=0.5, n: int=3, perform_checks=True):
+    def __init__(self, shift: float=0.5, n: int=3, has_vanishing_endpoints: bool=False, perform_checks=True):
         self.shift = shift
         self.n = n
         super(FourierFactory, self).__init__(
@@ -25,7 +27,8 @@ class FourierFactory(PulseFactory):
                 functions=FourierFactory.get_functions(n),
                 integrals=FourierFactory.get_integrals(n),
                 shift=self.shift,
-                bounds=FourierFactory.get_bounds(n)
+                bounds=FourierFactory.get_bounds(n),
+                has_vanishing_endpoints=has_vanishing_endpoints,
             ),
             perform_checks=perform_checks)
 
