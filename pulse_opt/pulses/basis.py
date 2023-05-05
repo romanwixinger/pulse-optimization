@@ -1,8 +1,4 @@
 """ Stores the basis functions, their integrals and constraints for use in the pulses.
-
-Todo:
- * Update PowerFactory, FourierFactory, GaussianFactory.
- * Note that the new constraint only works for PowerFactory for n>=2, FourierFactory (always), GaussianFactory n>= 3.
 """
 
 import numpy as np

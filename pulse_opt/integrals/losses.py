@@ -1,9 +1,4 @@
 """ Computes the loss as total variance of the Ito integrals for a pulse parametrization.
-
-Todo:
- * Add an option that makes it possible to compute the weighted sum of the absolute values of the integrands. As the
-   values come up in different matrix elements, it does NOT make perfect sense to simply trade them off against each
-   other.
 """
 
 import numpy as np
@@ -32,6 +27,7 @@ class Loss(object):
             describing how the the integrands should be weighted in the loss.
         theta (float): Upper limit of the integration, total area of the pulse.
         a (float): Scaling parameter in the Ito integrals.
+        has_vanishing_endpoints (bool): Should the waveform be constrained to have f(0) = f(1) = 0.
         norm (callable): Scalar function norm: R -> R, x_i -> norm(x_i) that is applied to each Integral x_i before the
             weighted sum. The default option is the identity, which is not really a norm, but the naming is easy to get.
 
@@ -73,11 +69,13 @@ class Loss(object):
                  weights: str='equal',
                  theta: float=np.pi/2,
                  a: float=1.0,
+                 has_vanishing_endpoints: bool=False,
                  norm: callable=lambda x: x):
         self.factory = factoryClass(**factoryArgs)
         self.weights = weights
         self.theta = theta
         self.a = a
+        self.has_vanishing_endpoints = has_vanishing_endpoints
         self.norm = norm
         self.default_coefficients = self.factory.basis.default_coefficients
         self.bounds = self.factory.basis.bounds
@@ -130,6 +128,7 @@ class PowerLoss(Loss):
             describing how the the integrands should be weighted in the loss.
         theta (float): Upper limit of the integration, total area of the pulse, defaults to np.pi/2.
         a (float): Scaling parameter in the Ito integrals, defaults to 1.0
+        has_vanishing_endpoints (bool): Should the waveform be constrained to have f(0) = f(1) = 0.
         norm (callable): Scalar function norm: R -> R, x_i -> norm(x_i) that is applied to each Integral x_i before the
             weighted sum. The default option is the identity, which is not really a norm, but the naming is easy to get.
 
@@ -150,13 +149,20 @@ class PowerLoss(Loss):
                  weights: str='equal',
                  theta: float=np.pi/2,
                  a: float=1.0,
+                 has_vanishing_endpoints: bool=False,
                  norm: callable=lambda x: x):
         super(PowerLoss, self).__init__(
             factoryClass=PowerFactory,
-            factoryArgs={"shift": shift, "n": n, "perform_checks": False},
+            factoryArgs={
+                "shift": shift,
+                "n": n,
+                "perform_checks": False,
+                "has_vanishing_endpoints": has_vanishing_endpoints
+            },
             weights=weights,
             theta=theta,
             a=a,
+            has_vanishing_endpoints=has_vanishing_endpoints,
             norm=norm
         )
 
@@ -171,6 +177,7 @@ class FourierLoss(Loss):
             describing how the the integrands should be weighted in the loss.
         theta (float): Upper limit of the integration, total area of the pulse, defaults to np.pi/2.
         a (float): Scaling parameter in the Ito integrals, defaults to 1.0
+        has_vanishing_endpoints (bool): Should the waveform be constrained to have f(0) = f(1) = 0.
         norm (callable): Scalar function norm: R -> R, x_i -> norm(x_i) that is applied to each Integral x_i before the
             weighted sum. The default option is the identity, which is not really a norm, but the naming is easy to get.
 
@@ -191,13 +198,20 @@ class FourierLoss(Loss):
                  weights: str='equal',
                  theta: float=np.pi/2,
                  a: float=1.0,
+                 has_vanishing_endpoints: bool=False,
                  norm: callable=lambda x: x):
         super(FourierLoss, self).__init__(
             factoryClass=FourierFactory,
-            factoryArgs={"shift": shift, "n": n, "perform_checks": False},
+            factoryArgs={
+                "shift": shift,
+                "n": n,
+                "perform_checks": False,
+                "has_vanishing_endpoints": has_vanishing_endpoints
+            },
             weights=weights,
             theta=theta,
             a=a,
+            has_vanishing_endpoints=has_vanishing_endpoints,
             norm=norm,
         )
 
@@ -212,6 +226,7 @@ class GaussianLoss(Loss):
             describing how the the integrands should be weighted in the loss.
         theta (float): Upper limit of the integration, total area of the pulse, defaults to np.pi/2.
         a (float): Scaling parameter in the Ito integrals, defaults to 1.0
+        has_vanishing_endpoints (bool): Should the waveform be constrained to have f(0) = f(1) = 0.
         norm (callable): Scalar function norm: R -> R, x_i -> norm(x_i) that is applied to each Integral x_i before the
             weighted sum. The default option is the identity, which is not really a norm, but the naming is easy to get.
 
@@ -232,12 +247,19 @@ class GaussianLoss(Loss):
                  weights: str='equal',
                  theta: float=np.pi/2,
                  a: float=1.0,
+                 has_vanishing_endpoints: bool=False,
                  norm: callable=lambda x: x):
         super(GaussianLoss, self).__init__(
             factoryClass=GaussianFactory,
-            factoryArgs={"scale": scale, "n": n, "perform_checks": False},
+            factoryArgs={
+                "scale": scale,
+                "n": n,
+                "perform_checks": False,
+                "has_vanishing_endpoints": has_vanishing_endpoints
+            },
             weights=weights,
             theta=theta,
             a=a,
+            has_vanishing_endpoints=has_vanishing_endpoints,
             norm=norm
         )

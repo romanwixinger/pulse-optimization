@@ -21,7 +21,14 @@ def test_basis_init():
 def test_basis_constraints(factoryClass):
     factory = factoryClass(n=5)
     assert isinstance(factory.basis.constraints, list), "Assumed constraints to be of type list."
-    assert len(factory.basis.constraints), "Assumed that there is exactly one constraint."
+    assert len(factory.basis.constraints) == 1, "Assumed that there is exactly one constraint."
+
+
+@pytest.mark.parametrize("factoryClass", [PowerFactory, FourierFactory, GaussianFactory])
+def test_basis_constraints_with_has_vanishing_endpoints(factoryClass):
+    factory = factoryClass(n=5, has_vanishing_endpoints=True)
+    assert isinstance(factory.basis.constraints, list), "Assumed constraints to be of type list."
+    assert len(factory.basis.constraints) == 3, "Assumed that there are three constraints."
 
 
 @pytest.mark.parametrize("factoryClass", [PowerFactory, FourierFactory, GaussianFactory])
