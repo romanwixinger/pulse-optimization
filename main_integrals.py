@@ -16,11 +16,17 @@ if __name__ == "__main__":
         'gaussian_small',
         'power',
         'fourier',
-        'gaussian'
+        'gaussian',
+        'power_constrained',
+        'fourier_constrained',
+        'gaussian_constrained',
     ]
-    all_results = [None for run in runs]
 
     for i, run in enumerate(runs):
         logger.info(f"Start run with {run} configuration.")
-        results = main(run=run, use_multiprocessing=True)
-        all_results[i] = results
+        try:
+            main(run=run, use_multiprocessing=True)
+        except Exception as e:
+            print(f"Exception: {e}")
+            logger.info(f"Running {run} failed, proceeding with next run.")
+            logger.info(f"The exception as {e}.")
