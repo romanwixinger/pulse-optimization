@@ -126,10 +126,13 @@ if __name__ == "__main__":
 
     runs = [
         'power_test',
-        'fourier_test',
-        'gaussian_test',
     ]
 
     for i, run in enumerate(runs):
         logger.info(f"Start run with {run} configuration.")
-        main(run=run, use_multiprocessing=False)
+        try:
+            main(run=run, use_multiprocessing=True)
+        except Exception as e:
+            print(f"Exception: {e}")
+            logger.info(f"Running {run} failed, proceeding with next run.")
+            logger.info(f"The exception as {e}.")

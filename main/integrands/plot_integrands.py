@@ -10,7 +10,7 @@ from pulse_opt.integrands.visualizations import (
     plot_integrands,
     plot_sum,
 )
-from pulse_opt.integrands.definitions import (
+from pulse_opt.integrands.weights import (
     equal_weight_lookup,
     variance_weight_lookup,
     covariance_weight_lookup,

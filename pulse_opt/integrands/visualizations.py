@@ -24,7 +24,7 @@ def plot_integrands(lower: float, upper: float, weight_lookup: dict, selection: 
     y = np.array([get_weighted_sum(s, weight_lookup) for s in x])
     plt.plot(x, y, label="$sum$")
     for name, integrand in integrand_lookup.items():
-        if weight_lookup[name]:
+        if name in weight_lookup:
             y = np.array([integrand(s) for s in x])
             plt.plot(x, y, label="$" + name.replace('theta', r'\theta').replace('**', '^') + "$")
     plt.title(f"{selection[0].upper() + selection[1:]} It\^o integral integrands")
@@ -83,7 +83,7 @@ def get_weighted_sum(s: float, weight_lookup: dict=None):
         Uses uniform weight of 1.0 if the lookup is None.
     """
     weight_lookup = {key: 1.0 for key in integrand_lookup.keys()} if weight_lookup is None else weight_lookup
-    return sum((weight_lookup[name] * integrand(s) for name, integrand in integrand_lookup.items()))
+    return sum((weight_lookup[name] * integrand(s) for name, integrand in integrand_lookup.items() if name in weight_lookup))
 
 
 def get_weighted_sum_of_absolute_values(s: float, weight_lookup: dict=None):
@@ -93,7 +93,7 @@ def get_weighted_sum_of_absolute_values(s: float, weight_lookup: dict=None):
         Uses uniform weight of 1.0 if the lookup is None.
     """
     weight_lookup = {key: 1.0 for key in integrand_lookup.keys()} if weight_lookup is None else weight_lookup
-    return sum((weight_lookup[name] * abs(integrand(s)) for name, integrand in integrand_lookup.items()))
+    return sum((weight_lookup[name] * abs(integrand(s)) for name, integrand in integrand_lookup.items() if name in weight_lookup))
 
 
 def angle_to_str(theta: float) -> str:
