@@ -12,7 +12,7 @@
         "variable_args":
         {
             "shift": [0.0, 0.5, 1.0],
-            "n": [5, 7, 10, 15],
+            "n": [4, 8, 16, 32],
             "theta": [0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359],
             "weights": ["equal", "covariance", "variance", "deterministic", "variance_plus_deterministic"]
         },
