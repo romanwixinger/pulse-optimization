@@ -1,5 +1,5 @@
 {
-    "name": "power_small",
+    "name": "power_small_constrained",
     "description": "Configuration to test the Power Pulses with differents shifts and n for Ito integrals up to theta.",
     "content":
     {

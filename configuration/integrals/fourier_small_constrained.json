@@ -1,5 +1,5 @@
 {
-    "name": "fourier_small",
+    "name": "fourier_small_constrained",
     "description": "Configuration to test the Fourier Pulses with constraints but fast.",
     "content":
     {

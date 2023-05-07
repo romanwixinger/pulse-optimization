@@ -1,5 +1,5 @@
 {
-  "name": "gaussian_small",
+  "name": "gaussian_small_constrained",
   "description": "Configuration to test the Gaussian Pulses with constraints but fast.",
   "content":
   {
