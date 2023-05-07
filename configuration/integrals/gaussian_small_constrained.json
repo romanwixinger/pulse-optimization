@@ -1,0 +1,24 @@
+{
+  "name": "gaussian_small",
+  "description": "Configuration to test the Gaussian Pulses with constraints but fast.",
+  "content":
+  {
+    "factory": "GaussianFactory",
+    "factory_path": "pulse_opt.pulses.gaussian_factory",
+    "factory_args": ["scale", "n", "has_vanishing_endpoints"],
+    "ansatz_name": "Gaussian superposition",
+    "loss": "GaussianLoss",
+    "loss_path": "pulse_opt.integrals.losses",
+    "variable_args":
+    {
+      "scale": [0.3],
+      "n": [5, 7],
+      "theta": [0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359],
+      "weights": ["equal", "covariance", "variance", "deterministic", "variance_plus_deterministic"]
+    },
+    "static_args": {
+      "a": 1.0,
+      "has_vanishing_endpoints": true
+    }
+  }
+}
