@@ -6,7 +6,7 @@ import json
 from quantum_gates.utilities import load_config
 
 from configuration.device_parameters.lookup import device_param_lookup
-from pulse_opt.pulses.legacy_pulses import gaussian_pulse_lookup_100 as gaussian_pulse_lookup
+from pulse_opt.pulses.legacy_pulses import gaussian_pulse_lookup
 from pulse_opt.gates.experiments import simulate_gate
 from pulse_opt.gates.utilities import gate_args_constructor_lookup
 from pulse_opt.gates.factories import factory_class_lookup
