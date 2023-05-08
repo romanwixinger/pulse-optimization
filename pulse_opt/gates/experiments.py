@@ -120,7 +120,7 @@ def _gate_experiment(pulse_lookup: dict,
         result_lookup[name] = {
             "mean": np.mean(flattened_gates, axis=0),
             "std": np.std(flattened_gates, axis=0),
-            "std over sqrt(n)": np.std(flattened_gates, axis=0) / np.sqrt(n)
+            "std over sqrt(n)": np.std(flattened_gates, axis=0) / np.sqrt(samples)
         }
 
     return result_lookup

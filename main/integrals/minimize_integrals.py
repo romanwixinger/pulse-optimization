@@ -6,6 +6,7 @@ Note:
 """
 
 import logging
+import os
 
 from quantum_gates.utilities import load_config
 
@@ -62,6 +63,11 @@ def main(run: str, use_multiprocessing: bool=True):
 
     # Convert to dataframe
     df = create_table(results=results, config=config)
+
+    # Create folder for saving
+    result_folder = f"results/integrals/{run}"
+    if not os.path.isdir(result_folder):
+        os.makedirs(result_folder)
 
     # Save dataframe
     save_table_as_csv(df, run)
