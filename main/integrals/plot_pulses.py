@@ -69,9 +69,9 @@ def main(run: str):
 if __name__ == "__main__":
 
     runs = [
-        'power_test',
-        'fourier_test',
-        'gaussian_test',
+        'power_small_constrained',
+        'fourier_small_constrained',
+        'gaussian_small_constrained',
     ]
 
     for run in runs:

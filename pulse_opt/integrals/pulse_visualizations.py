@@ -31,11 +31,12 @@ def plot_optimized_waveforms(
 
     # Plotting
     fig, ax = plt.subplots()
+    minimum = -2
+    maximum = 5
     for pulse, fun in zip(pulses, funs):
         x = np.linspace(0.0, 1.0, 100)
         waveform = pulse.get_pulse()
         y = np.array([theta * waveform(s) for s in x])
-        minimum, maximum = (0.0, 5.0) if weight != 'covariance' else (-2.0, 3.0)
         color = convert_value_to_color(fun, minimum=minimum, maximum=maximum)
         plt.plot(x, y, color=color)
 
@@ -43,7 +44,7 @@ def plot_optimized_waveforms(
     plt.xlabel('Parametrization variable t')
     plt.ylabel(r"Waveform")
     plt.title(f"Optimized pulses with {ansatz_name} ansatz and {weight} loss")
-    add_color_map(fig, ax)
+    add_color_map(fig, ax, vmin=minimum, vmax=maximum)
 
     # Saving
     create_folder(f"plots/integrals/{run}")
@@ -71,11 +72,12 @@ def plot_optimized_parametrizations(
 
     # Plotting
     fig, ax = plt.subplots()
+    minimum = -2
+    maximum = 5
     for pulse, fun in zip(pulses, funs):
         x = np.linspace(0.0, 1.0, 100)
         parametrization = pulse.get_parametrization()
         y = np.array([theta * parametrization(s) for s in x])
-        minimum, maximum = (0.0, 5.0) if weight != 'covariance' else (-2.0, 3.0)
         color = convert_value_to_color(fun, minimum=minimum, maximum=maximum)
         plt.plot(x, y, color=color)
 
