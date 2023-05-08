@@ -1,4 +1,8 @@
-"""Creates a factory for pulses from a basis.
+""" Parent class for pulse factories that take basis functions and sample pulses based on given coefficients.
+
+Note:
+    Refer to the child classes PowerFactory, FourierFactory and GaussianFactory for the implementation and to
+    CombinedFactory for having an unified interface to create pulses from their optimized coefficients.
 """
 
 from quantum_gates.pulses import Pulse
@@ -11,10 +15,10 @@ class PulseFactory(object):
 
     Args:
         basis (Basis): Object representing the basis functions for the pulse.
-        perform_check (bool): Whether the constructed pulse should be verified.
+        perform_checks (bool): Whether the constructed pulse should be verified.
     """
 
-    abs_error = 1e-2  # Allowed deviation of pulse area.
+    abs_error = 1e-2
 
     def __init__(self, basis: Basis, perform_checks: bool=True):
         self.basis = basis

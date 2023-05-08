@@ -10,8 +10,8 @@ Basis for Pulses
    :undoc-members:
 
 
-Factory for Pulses
-------------------
+Parent class for Pulse Factories
+--------------------------------
 
 .. automodule:: pulse_opt.pulses.pulse_factory
    :members:
@@ -37,6 +37,14 @@ Gaussian Pulses
 ---------------
 
 .. automodule:: pulse_opt.pulses.gaussian_factory
+   :members:
+   :undoc-members:
+
+
+Factory for all Pulses
+----------------------
+
+.. automodule:: pulse_opt.pulses.combined_factory
    :members:
    :undoc-members:
 
