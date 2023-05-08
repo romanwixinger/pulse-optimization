@@ -10,10 +10,24 @@ from pulse_opt.integrands.visualizations import (
     plot_integrands,
     plot_sum,
 )
-from pulse_opt.integrands.utilities import equal_weight_lookup
+from pulse_opt.integrands.weights import (
+    equal_weight_lookup,
+    variance_weight_lookup,
+    covariance_weight_lookup,
+    deterministic_weight_lookup,
+)
 
 
 if __name__ == "__main__":
-    plot_integrands(lower=-np.pi, upper=np.pi)
-    plot_sum(lower=-2*np.pi, upper=2*np.pi, weight_lookup=equal_weight_lookup)
-    plot_sum(lower=-2*np.pi, upper=2*np.pi, weight_lookup=equal_weight_lookup, use_absolute=True)
+
+    lookup = {
+        "all": equal_weight_lookup,
+        "variance": variance_weight_lookup,
+        "covariance": covariance_weight_lookup,
+        "deterministic": deterministic_weight_lookup,
+    }
+
+    for selection, weight_lookup in lookup.items():
+        plot_integrands(lower=-np.pi, upper=np.pi, weight_lookup=weight_lookup, selection=selection)
+        plot_sum(lower=-2*np.pi, upper=2*np.pi, weight_lookup=weight_lookup, selection=selection)
+        plot_sum(lower=-2*np.pi, upper=2*np.pi, weight_lookup=weight_lookup, selection=selection, use_absolute=True)

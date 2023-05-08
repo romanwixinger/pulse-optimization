@@ -10,6 +10,7 @@ from pulse_opt.pulses.utilities import (
     parametrization_has_valid_endpoints,
     pulse_and_parametrization_are_compatible,
 )
+from tests.pulses.test_basis import do_test_basis_for_three_constraints
 
 
 epsilon = 1e-6
@@ -84,3 +85,11 @@ def test_gaussian_factory_get_parametrization():
     expected_parametrization = lambda x: (norm.cdf(x, loc=0.5, scale=0.3) - norm.cdf(0.0, loc=0.5, scale=0.3)) / normalization
     assert(all(abs(parametrization(x) - expected_parametrization(x)) < epsilon) for x in np.linspace(0.0, 1.0, 10)), \
         "Expected another parametrization."
+
+
+@pytest.mark.parametrize("n,scale", [(n, scale) for n in range(3, 20) for scale in [0.2, 0.3, 0.4]])
+def test_gaussian_factory_get_special_coefficients(n, scale):
+    factory = GaussianFactory(n=n, scale=scale, perform_checks=False)
+    coeff = factory.basis.special_coefficients
+    basis = factory.basis
+    do_test_basis_for_three_constraints(basis=basis, coefficients=coeff)

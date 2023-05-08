@@ -6,33 +6,18 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from pulse_opt.pulses.power_factory import PowerFactory
-from pulse_opt.pulses.fourier_factory import FourierFactory
-from pulse_opt.pulses.gaussian_factory import GaussianFactory
 from pulse_opt.utilities.helpers import create_folder
 from pulse_opt.configuration.plotting_parameters import set_matplotlib_style
 set_matplotlib_style()
 
 
-factory_lookup = {
-    'power_test': PowerFactory,
-    'fourier_test': FourierFactory,
-    'gaussian_test': GaussianFactory,
-    'power_small': PowerFactory,
-    'fourier_small': FourierFactory,
-    'gaussian_small': GaussianFactory,
-    'power': PowerFactory,
-    'fourier': FourierFactory,
-    'gaussian': GaussianFactory
-}
-
-
 def plot_optimized_waveforms(
-        run: str,
-        pulses: list,
-        funs: list[float],
-        theta: float,
-        ansatz_name: str):
+    run: str,
+    pulses: list,
+    funs: list[float],
+    theta: float,
+    weight: str,
+    ansatz_name: str):
     """ Visualized the optimized pulse waveforms and annotates their loss with the color.
 
     Args:
@@ -40,6 +25,7 @@ def plot_optimized_waveforms(
         pulses (list[Pulse]): List of the optimized pulses.
         funs (list[float]): List of the loss of each pulse after the optimization.
         theta (float): Total area of each pulse.
+        weight (str): Name of the weights item, for example 'equal' or 'variance'.
         ansatz_name (str): Name of the pulse ansatz, i.e. 'Power series' for the PowerFactory.
     """
 
@@ -49,26 +35,29 @@ def plot_optimized_waveforms(
         x = np.linspace(0.0, 1.0, 100)
         waveform = pulse.get_pulse()
         y = np.array([theta * waveform(s) for s in x])
-        plt.plot(x, y, color=convert_value_to_color(fun))
+        minimum, maximum = (0.0, 5.0) if weight != 'covariance' else (-2.0, 3.0)
+        color = convert_value_to_color(fun, minimum=minimum, maximum=maximum)
+        plt.plot(x, y, color=color)
 
     # Styling
     plt.xlabel('Parametrization variable t')
     plt.ylabel(r"Waveform")
-    plt.title(f"Optimized pulses with {ansatz_name} ansatz")
+    plt.title(f"Optimized pulses with {ansatz_name} ansatz and {weight} loss")
     add_color_map(fig, ax)
 
     # Saving
     create_folder(f"plots/integrals/{run}")
-    plt.savefig(f"plots/integrals/{run}/optimized_waveform_theta_{theta}.pdf")
+    plt.savefig(f"plots/integrals/{run}/optimized_waveform_theta_{theta}_weight_{weight}.pdf")
     plt.show()
 
 
 def plot_optimized_parametrizations(
-        run: str,
-        pulses: list,
-        funs: list[float],
-        theta: float,
-        ansatz_name: str):
+    run: str,
+    pulses: list,
+    funs: list[float],
+    theta: float,
+    weight: str,
+    ansatz_name: str):
     """ Visualized the optimized pulse parametrizations and annotates their loss with the color.
 
     Args:
@@ -76,6 +65,7 @@ def plot_optimized_parametrizations(
         pulses (list[Pulse]): List of the optimized pulses.
         funs (list[float]): List of the loss of each pulse after the optimization.
         theta (float): Total area of each pulse.
+        weight (str): Name of the weights item, for example 'equal' or 'variance'.
         ansatz_name (str): Name of the pulse ansatz, i.e. 'Power series' for the PowerFactory.
     """
 
@@ -85,18 +75,19 @@ def plot_optimized_parametrizations(
         x = np.linspace(0.0, 1.0, 100)
         parametrization = pulse.get_parametrization()
         y = np.array([theta * parametrization(s) for s in x])
-        plt.plot(x, y, color=convert_value_to_color(fun))
+        minimum, maximum = (0.0, 5.0) if weight != 'covariance' else (-2.0, 3.0)
+        color = convert_value_to_color(fun, minimum=minimum, maximum=maximum)
+        plt.plot(x, y, color=color)
 
     # Styling
     plt.xlabel('Parametrization variable t')
     plt.ylabel(r"Parametrization $\theta$(t)")
-    run_name = "(run name to fix)"
-    plt.title(f"Optimized pulse parametrizations with {ansatz_name} ansatz")
+    plt.title(f"Optimized parametrizations with {ansatz_name} ansatz and {weight} loss")
 
     # Saving
-    add_color_map(fig, ax)
+    add_color_map(fig, ax, vmin=minimum, vmax=maximum)
     create_folder(f"plots/integrals/{run}")
-    plt.savefig(f"plots/integrals/{run}/optimized_parametrization_theta_{theta}.pdf")
+    plt.savefig(f"plots/integrals/{run}/optimized_parametrization_theta_{theta}_weight_{weight}.pdf")
     plt.show()
 
 
@@ -153,7 +144,7 @@ def convert_value_to_color(value: float, minimum: float=0, maximum: float=5, rev
     assert minimum <= maximum, \
         f"Expected minimum to be smaller than maximum, but found {minimum} > {maximum}."
     if value < minimum or value > maximum:
-        raise ValueError(f"Value must be between {minimum} and {maximum}.")
+        raise ValueError(f"Value must be between {minimum} and {maximum} but found {value}.")
     colormap = plt.cm.get_cmap('RdYlBu_r') if reversed else plt.cm.get_cmap('RdYlBu')
     norm_value = value / (maximum - minimum)
     color = colormap(norm_value)

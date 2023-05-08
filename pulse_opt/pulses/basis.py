@@ -13,25 +13,43 @@ class Basis(object):
         integrals (list): Antiderivatives F_i of the functions, d/dx F_i = f_i
         shift (float): Constant by which the basis function and integrals are shifted, f_shifted(x) = f(x - shift)
         bounds (list): List of bounds as defined for use in scipy.optimize.minimize.
+        has_vanishing_endpoints (bool): Tells if there is a constraint that the pulse waveform vanishes at 0 and 1.
     """
 
     def __init__(self,
                  functions: list,
                  integrals: list,
                  shift: float,
-                 bounds: list):
+                 bounds: list,
+                 has_vanishing_endpoints: bool=False):
         self.functions = functions
         self.integrals = integrals
         self.shift = shift
         self.bounds = bounds
         self.number_of_functions = len(functions)
+        self.has_vanishing_endpoints = has_vanishing_endpoints
 
     @property
-    def constraints(self) -> dict:
+    def constraints(self) -> list[dict]:
         """ Constructs the constraint that the waveform has total area of 1.0, which is used in the minimization.
+
+        Also adds the constraint that the waveform vanishes at the endpoints, f(0) = f(1) = 0, if the flag is set.
+
+        Returns:
+            Constraints as accepted by scipy.optimize.minimize in the form of a list of dicts.
         """
-        fun_to_vanish = lambda coefficients: Basis.area_of_waveform(coefficients=coefficients, areas=self.areas) - 1.0
-        return {"type": "eq", "fun": fun_to_vanish}
+        # Condition that the total area is one.
+        vanishes_if_total_area_is_one = lambda coefficients: Basis.area_of_waveform(coefficients=coefficients, areas=self.areas) - 1.0
+        prototype = [{"type": "eq", "fun": vanishes_if_total_area_is_one}]
+
+        # Condition that the waveform vanishes at 0 and 1.]
+        if self.has_vanishing_endpoints:
+            vanishes_at_0 = lambda coefficients: self.waveform(coefficients=coefficients)(0) - 0.0
+            vanishes_at_1 = lambda coefficients: self.waveform(coefficients=coefficients)(1) - 0.0
+            prototype.append({"type": "eq", "fun": vanishes_at_0})
+            prototype.append({"type": "eq", "fun": vanishes_at_1})
+
+        return prototype
 
     @cached_property
     def areas(self) -> np.array:
@@ -119,15 +137,32 @@ class Basis(object):
     def default_coefficients(self) -> np.array:
         """ Generates reasonable coefficients for the starting point of an optimization.
 
+        Note:
+            Depending on the constraint 'vanishes_at_endpoints' for the waveform, this function returns wildy different
+            coefficients.
+
+        Case 1: has_vanishing_endpoints is True
+            Returns the special coefficients.
+
+        Case 2: has_vanishing_endpoints is False
+            Returns a coeffficient with just contains one non-zero entry. The index of this entry is the index of the
+            first basis function which has a positive area.
+
         Returns:
-             A coefficient which just contains one non-zero entry. The index of this entry is the index of the first
-                basis function which has a positive area.
+             Valid coeffficients given the current constraints.
         """
+        # Case 1
+        if self.has_vanishing_endpoints:
+            return self.special_coefficients
+
+        # Case 2
         prototype_coeff = np.zeros_like(self.areas)
         for i, area in enumerate(self.areas):
             if abs(area) > 1e-3:
                 prototype_coeff[i] = 1.0 / area
                 return prototype_coeff
+
+        # Failure
         raise Exception(
             f"Could not generate default coefficient, as all basis functions have vanishing areas: {self.areas}."
         )
@@ -135,7 +170,58 @@ class Basis(object):
     @property
     def random_coefficients(self) -> np.array:
         """ Generates valid but randomly distributed coefficients.
+
+        Note: This method only works
         """
+        if self.has_vanishing_endpoints:
+            raise Exception("This method can only be used if the constraint 'has valid endpoints' is not used.")
         prototype = np.random.uniform(low=-1, high=1, size=(self.number_of_functions,))
         norm = self.area_of_waveform(coefficients=prototype, areas=self.areas)
         return self.random_coefficients if abs(norm) < 1e-9 else prototype / norm
+
+    @property
+    def special_coefficients(self) -> np.array:
+        """ Generates reasonable coefficients which also fulfill all three constraints.
+
+        Constraints:
+        - Wavefunction vanishes at 0: f(0) = 0.0
+        - Wavefunction vanishes at 1: f(1) = 1.0
+        - Total area is equal to 1: F(1) - F(0) = 1.0
+
+        Mathematical problem: Ax = b for A = 3 x n matrix, x = n vector, b = 3 vector. Then x represents the n
+        coefficients, three rows of A represent the three constraints, and b represents the result of the constraints.
+
+        Note:
+            We try to find valid coefficients by solving a set of linear equations. A result does not always exist and it
+            is also not unique.
+
+        Returns:
+            Valid coefficients fulfilling all three constraints.
+
+        Raises:
+            To check.
+        """
+
+        # Build matrices
+        n = self.number_of_functions
+        b = np.array([0.0, 0.0, 1.0])
+        A = np.zeros((3, n))
+        for i, (f_i, F_i) in enumerate(zip(self.functions, self.integrals)):
+            A[0, i] = f_i(0.0 - self.shift)
+            A[1, i] = f_i(1.0 - self.shift)
+            A[2, i] = F_i(1.0 - self.shift) - F_i(0.0 - self.shift)
+
+        # Solve the systems of equations
+        try:
+            x, residuals, rank, s = np.linalg.lstsq(A, b, rcond=None)
+            residual_1d = np.sum(np.abs(np.array(residuals)))
+            if residual_1d > 1e-6:
+                raise Exception(
+                    f"Could not find coefficients that fulfill all three constraints. Final residual is {residual_1d}."
+                )
+            return x
+
+        except Exception as e:
+            raise Exception(
+                f"Could not generate default coefficient, the following exception occured: {e}."
+            )

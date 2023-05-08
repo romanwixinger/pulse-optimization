@@ -1,8 +1,8 @@
-""" Defines the integrands in lookups.
+""" Defines the integrand function and makes them available in a lookup.
 
 Attributes:
+    integrand_lookup (dict): Lookup with integrand names (str) as keys and the corresponding functions as value.
     integrands (list): List of integrands used in the Ito integrals of the quantum-gates library.
-    equal_weight_lookup (dict): Weight lookup which assigns weight 1.0 to each integrand.
 """
 
 import numpy as np
@@ -19,5 +19,3 @@ integrand_lookup = {
     "cos(theta/(2*a))**2": lambda theta, a=1.0: np.cos(theta/(2*a))**2,
 }
 integrands = list(integrand_lookup.keys())
-
-equal_weight_lookup = {key: 1.0 for key in integrand_lookup.keys()}

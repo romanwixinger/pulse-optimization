@@ -1,23 +1,24 @@
 {
-    "name": "fourier",
-    "description": "Configuration to test the Fourier Pulses with differents shifts and n for Ito integrals up to theta.",
+    "name": "fourier_constrained",
+    "description": "Configuration to test the Fourier Pulses with constrained pulses f(0) = 0, f(1) = 0.",
     "content":
     {
         "factory": "FourierFactory",
         "factory_path": "pulse_opt.pulses.fourier_factory",
-        "factory_args": ["shift", "n"],
+        "factory_args": ["shift", "n", "has_vanishing_endpoints"],
         "ansatz_name": "Fourier series",
         "loss": "FourierLoss",
         "loss_path": "pulse_opt.integrals.losses",
         "variable_args":
         {
             "shift": [0.0, 0.25, 0.5, 0.75, 1.0],
-            "n": [1, 2, 4, 8, 16],
+            "n": [2, 4, 8, 16],
             "theta": [0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359],
             "weights": ["equal", "covariance", "variance", "deterministic", "variance_plus_deterministic"]
         },
         "static_args": {
-            "a": 1.0
+            "a": 1.0,
+            "has_vanishing_endpoints": true
         }
     }
 }

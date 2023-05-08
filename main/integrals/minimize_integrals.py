@@ -6,6 +6,7 @@ Note:
 """
 
 import logging
+import os
 
 from quantum_gates.utilities import load_config
 
@@ -62,6 +63,11 @@ def main(run: str, use_multiprocessing: bool=True):
 
     # Convert to dataframe
     df = create_table(results=results, config=config)
+
+    # Create folder for saving
+    result_folder = f"results/integrals/{run}"
+    if not os.path.isdir(result_folder):
+        os.makedirs(result_folder)
 
     # Save dataframe
     save_table_as_csv(df, run)
@@ -126,10 +132,13 @@ if __name__ == "__main__":
 
     runs = [
         'power_test',
-        'fourier_test',
-        'gaussian_test',
     ]
 
     for i, run in enumerate(runs):
         logger.info(f"Start run with {run} configuration.")
-        main(run=run, use_multiprocessing=False)
+        try:
+            main(run=run, use_multiprocessing=True)
+        except Exception as e:
+            print(f"Exception: {e}")
+            logger.info(f"Running {run} failed, proceeding with next run.")
+            logger.info(f"The exception as {e}.")

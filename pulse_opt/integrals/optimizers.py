@@ -10,7 +10,7 @@ def optimize_with_hard_constraint(loss: callable, start_coeff: np.array, constra
     """ Minimizes the loss with the trust-constr method of scipy.optimize.minimize.
 
     This method only input values to the loss function which are close to fulfilling the constraint with
-    epsillon ~ 1e-8.
+    epsillon ~ 1e-8. We overwrite this to accept ~ 1e-5.
 
     Note:
         The constraints need to be twice-differentiable functions with f(c) = 0 when c fulfulls the constraints.
@@ -20,7 +20,7 @@ def optimize_with_hard_constraint(loss: callable, start_coeff: np.array, constra
         x0=start_coeff,
         method='trust-constr',
         constraints=constraints,
-        bounds=bounds
+        tol=1e-4,
     )
     return res
 
