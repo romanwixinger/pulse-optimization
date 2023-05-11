@@ -1,9 +1,8 @@
+import numpy as np
 import pandas as pd
 
 from quantum_gates.integrators import Integrator
-from quantum_gates.gates import Gates
 
-from pulse_opt.pulses.combined_factory import CombinedFactory
 from pulse_opt.integrands.weights import (
     equal_weight_lookup,
     variance_weight_lookup,
@@ -79,7 +78,7 @@ def hellinger_metric_01(df: pd.DataFrame, pulses: list):
         df (pd.DataFrame): Table of the optimization results.
         pulses (list): Pulses corresponding to the optimized pulses in the results table.
     """
-    return range(len(df))
+    return np.zeros(len(df))
 
 
 def hellinger_metric_10(df: pd.DataFrame, pulses: list):
@@ -91,7 +90,7 @@ def hellinger_metric_10(df: pd.DataFrame, pulses: list):
         df (pd.DataFrame): Table of the optimization results.
         pulses (list): Pulses corresponding to the optimized pulses in the results table.
     """
-    return range(len(df))
+    return np.zeros(len(df))
 
 
 metric_lookup = {

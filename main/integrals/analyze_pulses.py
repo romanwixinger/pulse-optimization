@@ -21,7 +21,9 @@ def main(run: str):
 
     # Enrich by computing metrics
     enricher = ResultEnricher(metric_lookup=metric_lookup)
-    enriched_df = enricher.enrich(df)
+    df = enricher.enrich(df)
+    df = enricher.enrich_default(df)
+    enricher.report(df)
 
     # Save
     pass
