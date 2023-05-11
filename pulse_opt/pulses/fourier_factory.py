@@ -1,6 +1,4 @@
-"""Creaes pulses based on a truncated Fourier series.
-
-Maybe we can use this source: https://docs.sympy.org/latest/modules/series/fourier.html
+"""Creates pulses based on a truncated Fourier series.
 """
 
 import numpy as np
