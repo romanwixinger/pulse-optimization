@@ -3,7 +3,8 @@
 
 import pandas as pd
 
-from .metrics import metric_lookup
+from pulse_opt.integrals.metrics import metric_lookup
+from pulse_opt.pulses.combined_factory import CombinedFactory
 
 
 class ResultEnricher(object):
@@ -28,6 +29,13 @@ class ResultEnricher(object):
         Args:
             df (pd.DataFrame): The result dataframe created with minimize_integrals.py.
         """
+        pulses = self.get_pulses(df=df)
         for name, metric in self.metric_lookup.items():
-            df[f"metric.{name}"] = metric(df)
+            df[f"metric.{name}"] = metric(df, pulses)
         return df
+
+    def get_pulses(self, df: pd.DataFrame):
+        """ Takes the table and results the corresponding optimized pulses.
+        """
+        cf = CombinedFactory()
+        return [cf.create_pulse(row=row) for index, row in df.iterrows()]

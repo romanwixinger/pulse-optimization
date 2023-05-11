@@ -39,8 +39,14 @@ class CombinedFactory(object):
     factories = ["PowerFactory", "FourierFactory", "GaussianFactory"]
 
     @classmethod
-    def create_pulse(cls, row: pd.DataFrame):
+    def create_pulse(cls, row: pd.Series):
         """ Takes a row of the results dataframe an creates the corresponding optimized pulse.
+
+        Args:
+            row (pd.Series): A row of the results dataframe that contains the optimized pulses.
+
+        Returns:
+            The optimized pulse object.
         """
         # Input validation
         factory = row["config.content.factory"]

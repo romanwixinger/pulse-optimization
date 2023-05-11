@@ -17,7 +17,6 @@ def main(run: str):
     """
     # Load data
     config = load_config(f"integrals/{run}.json")
-    content = config["content"]
     df = load_table_from_pickle(run=run)
 
     # Enrich by computing metrics
@@ -25,16 +24,13 @@ def main(run: str):
     enriched_df = enricher.enrich(df)
 
     # Save
-    print(enriched_df)
-    print("Dummy save")
+    pass
 
 
 if __name__ == "__main__":
 
     runs = [
         'power_test',
-        'fourier_test',
-        'gaussian_test',
     ]
 
     for run in runs:
