@@ -179,6 +179,11 @@ class ReluPowerPulse(Pulse):
         return pulse, parametrization
 
 
+_gaussian_args_2 = [0.0, 1.0]
+gaussian_pulse_lookup_2 = {
+    loc: GaussianPulse(loc=loc, scale=0.2) for loc in _gaussian_args_2
+}
+
 _gaussian_args_10 = [round(loc, 2) for loc in 0.1 * np.arange(11)]
 gaussian_pulse_lookup_10 = {
     loc: GaussianPulse(loc=loc, scale=0.2) for loc in _gaussian_args_10
@@ -196,6 +201,7 @@ gaussian_pulse_lookup_100 = {
 
 
 gaussian_pulse_lookup = {
+    "gaussian_pulses_2": gaussian_pulse_lookup_2,
     "gaussian_pulses_10": gaussian_pulse_lookup_10,
     "gaussian_pulses_20": gaussian_pulse_lookup_20,
     "gaussian_pulses_100": gaussian_pulse_lookup_100,
