@@ -6,7 +6,7 @@
         "runs": 2,
         "device_parameters": "20230305",
         "noise_scaling": 1.0,
-        "pulse_lookup": "gaussian_pulses_20",
+        "pulse_lookup": "gaussian_pulses_2",
         "gates": ["X", "SX", "CR", "CNOT", "CNOT_inv"],
         "extra_gate_args": {
             "X": {"phi":  0.0},
