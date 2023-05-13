@@ -31,8 +31,7 @@ def plot_optimized_waveforms(
 
     # Plotting
     fig, ax = plt.subplots()
-    minimum = -2
-    maximum = 5
+    minimum, maximum = weight_to_min_max[weight]
     for pulse, fun in zip(pulses, funs):
         x = np.linspace(0.0, 1.0, 100)
         waveform = pulse.get_pulse()
@@ -72,8 +71,7 @@ def plot_optimized_parametrizations(
 
     # Plotting
     fig, ax = plt.subplots()
-    minimum = -2
-    maximum = 5
+    minimum, maximum = weight_to_min_max[weight]
     for pulse, fun in zip(pulses, funs):
         x = np.linspace(0.0, 1.0, 100)
         parametrization = pulse.get_parametrization()
@@ -161,3 +159,12 @@ def add_color_map(fig, ax, vmin=0, vmax=5, label='Loss'):
     sm = plt.cm.ScalarMappable(norm=norm, cmap=cmap)
     sm.set_array([])
     fig.colorbar(sm, ax=ax, label=label)
+
+
+weight_to_min_max = {
+    "equal": (0.5, 3.5),
+    "variance": (0.0, 3.0),
+    "covariance": (-1.5, 1.5),
+    "deterministic": (-1.0, 2.0),
+    "variance_plus_deterministic": (0.5, 3.5),
+}

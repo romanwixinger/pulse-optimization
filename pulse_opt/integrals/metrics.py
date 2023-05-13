@@ -22,11 +22,7 @@ def loss_metric(df: pd.DataFrame, pulses: list, weight_lookup: dict):
     """
     losses = []
     for pulse, (index, row) in zip(pulses, df.iterrows()):
-        loss = 0.0
-        integrator = Integrator(pulse=pulse)
-        for integrand, weight in weight_lookup.items():
-            integration_result = integrator.integrate(integrand, theta=row["args.theta"], a=row["args.a"])
-            loss += weight * integration_result
+        loss = calculate_loss(pulse=pulse, theta=row["args.theta"], a=row["args.a"], weight_lookup=weight_lookup)
         losses.append(loss)
     return losses
 
@@ -91,6 +87,20 @@ def hellinger_metric_10(df: pd.DataFrame, pulses: list):
         pulses (list): Pulses corresponding to the optimized pulses in the results table.
     """
     return np.zeros(len(df))
+
+
+def calculate_loss(pulse, theta: float, a: float, weight_lookup: dict):
+    """ Returns the loss of a given pulse for a specific configuration.
+
+    Note:
+        Does not support different norms at the moment.
+    """
+    loss = 0.0
+    integrator = Integrator(pulse=pulse)
+    for integrand, weight in weight_lookup.items():
+        integration_result = integrator.integrate(integrand, theta=theta, a=a)
+        loss += weight * integration_result
+    return loss
 
 
 metric_lookup = {
