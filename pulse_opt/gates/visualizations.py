@@ -1,15 +1,12 @@
 """Visualizes the results of the experiments on gate level.
 
-Note that we usually use the noiseless gate as reference gate. This way, the plots display the deviation from the
-noiseless case for different pulses.
-
-Todo:
-    * Add a reference gate to be compatible with the new forms of the results.
+Note:
+    Usually, we use the noiseless gate as reference gate. This way, the plots display the deviation from the
+    noiseless case for different pulses.
 """
 
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.colors as colors
 
 from pulse_opt.gates.utilities import (
     hellinger_distance,
@@ -22,24 +19,23 @@ set_matplotlib_style()
 activate_latex()
 
 
-def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
+def plot_gates_mean(result_lookup: dict, folder: str, filename: str, reference_gate: np.array, gate_name: str):
     """Visualize the gates with the matrix elements as x-axis.
 
-        Takes the result as lookup table with the pulse names as keys and the result as dict with keys x_mean, x_unc
-        that represent the mean and uncertainty of the mean of the result for this pulse.
+    Takes the result as lookup table with the pulse names as keys and the result as dict with keys x_mean, x_unc
+    that represent the mean and uncertainty of the mean of the result for this pulse.
 
-        Plots the mean with error bars if the folder and filename are not None.
-        As x axis, indices of the matrix elements are uses, so 0: Re(arr[0,0]),..., 7: Im(arr[1,1])
+    Plots the mean with error bars if the folder and filename are not None.
+    As x axis, indices of the matrix elements are uses, so 0: Re(arr[0,0]),..., 7: Im(arr[1,1])
 
-        Args:
-            result_lookup (dict): Aggregated results which should be visualized, should be generated with the
-                aggregate_results() method. Represents a lookup table with the pulse names as keys and the result as dict
-                with keys x_mean, x_unc that represent the mean and uncertainty of the mean of the result for this pulse.
-            folder (str): Folder in which the visualization should be saved.
-            filename (str): Filename which should be used in the saving.
-
-        Todo:
-            * Add a reference gate to be compatible with the new forms of the results.
+    Args:
+        result_lookup (dict): Aggregated results which should be visualized, should be generated with the
+            aggregate_results() method. Represents a lookup table with the pulse names as keys and the result as dict
+            with keys x_mean, x_unc that represent the mean and uncertainty of the mean of the result for this pulse.
+        folder (str): Folder in which the visualization should be saved.
+        filename (str): Filename which should be used in the saving.
+        reference_gate (np.array): Reference gate which is subtracted from the result before plotting.
+        gate_name (str): Name of the gate.
     """
 
     plt.figure()
@@ -51,19 +47,19 @@ def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
     for i, (name, result) in enumerate(result_lookup.items()):
         plt.errorbar(
             x=range(len(result["mean(mean)"])),
-            y=result["mean(mean)"],
+            y=result["mean(mean)"] - reference_gate,
             yerr=result["std(mean) over sqrt(n)"],
             label=get_label(i, name),
             capsize=10,
             color=plasma(i/color_num)
         )
-        is_x_gate = len(result["mean(mean)"]) == 8
+        is_single_qubit_gate = len(result["mean(mean)"]) == 8
 
-    if is_x_gate:
-        plt.title("Deviation of X gate matrix elements from noiseless result.")
+    if is_single_qubit_gate:
+        plt.title(f"Deviation of {gate_name} gate matrix elements")
         plt.xlabel("Re(X[0][0]),..., Im(X[1][1])")
     else:
-        plt.title("Deviation of CNOT gate matrix elements from noiseless result.")
+        plt.title(f"Deviation of {gate_name} gate matrix elements")
         plt.xlabel("Re(X[0][0]),..., Im(X[3][3])")
     plt.ylabel("Mean [1]")
     plt.legend()
@@ -75,7 +71,7 @@ def plot_gates_mean(result_lookup: dict, folder: str, filename: str):
     plt.close()
 
 
-def plot_gates_std(result_lookup: dict, folder: str, filename: str):
+def plot_gates_std(result_lookup: dict, folder: str, filename: str, gate_name: str):
     """Visualize the empirical standard deviation of the gates with the matrix elements as x-axis.
 
     Plots the std with error bars if the folder and filename are not None.
@@ -87,6 +83,7 @@ def plot_gates_std(result_lookup: dict, folder: str, filename: str):
             with keys x_mean, x_unc that represent the mean and uncertainty of the mean of the result for this pulse.
         folder (str): Folder in which the visualization should be saved.
         filename (str): Filename which should be used in the saving.
+        gate_name (str): Name of the gate.
     """
     plt.figure()
     color_num = max(1, len(result_lookup.keys()) - 1)
@@ -102,13 +99,13 @@ def plot_gates_std(result_lookup: dict, folder: str, filename: str):
             label=get_label(i, name),
             color=plasma(i/color_num)
         )
-        is_x_gate = len(result["mean(std)"]) == 8
+        is_single_qubit_gate = len(result["mean(std)"]) == 8
 
-    if is_x_gate:
-        plt.title("Standard deviation of X gate matrix elements")
+    if is_single_qubit_gate:
+        plt.title(f"Standard deviation of {gate_name} gate matrix elements")
         plt.xlabel("Re(X[0][0]),..., Im(X[1][1])")
     else:
-        plt.title("Standard deviation of CNOT gate matrix elements")
+        plt.title(f"Standard deviation of {gate_name} gate matrix elements")
         plt.xlabel("Re(X[0][0]),..., Im(X[3][3])")
     plt.ylabel("Standard deviation [1]")
     plt.tight_layout()
@@ -121,20 +118,19 @@ def plot_gates_std(result_lookup: dict, folder: str, filename: str):
     plt.close()
 
 
-def plot_gates_mean_reverse(result_lookup: dict, folder: str, filename):
+def plot_gates_mean_reverse(result_lookup: dict, folder: str, filename, reference_gate: np.array, gate_name: str):
     """Visualize the gate matrix elements as a function of the pulse parametrization with error bars.
 
-        In the case of Gaussian pulses, the x-axis would be the scale or location parameter of the Gaussian pulse.
+    In the case of Gaussian pulses, the x-axis would be the scale or location parameter of the Gaussian pulse.
 
-        Args:
-            result_lookup (dict): Aggregated results which should be visualized, should be generated with the
-                aggregate_results() method. Represents a lookup table with the pulse names as keys and the result as dict
-                with keys x_mean, x_unc that represent the mean and uncertainty of the mean of the result for this pulse.
-            folder (str): Folder in which the visualization should be saved.
-            filename (str): Filename which should be used in the saving.
-
-        Todo:
-            * Add a reference gate to be compatible with the new forms of the results.
+    Args:
+        result_lookup (dict): Aggregated results which should be visualized, should be generated with the
+            aggregate_results() method. Represents a lookup table with the pulse names as keys and the result as dict
+            with keys x_mean, x_unc that represent the mean and uncertainty of the mean of the result for this pulse.
+        folder (str): Folder in which the visualization should be saved.
+        filename (str): Filename which should be used in the saving.
+        reference_gate (np.array): Reference of the noiseless result which is subtracted before plotting.
+        gate_name (str): Name of the gate.
     """
     names = result_lookup.keys()
     x = [float(name) for name in names]
@@ -147,16 +143,16 @@ def plot_gates_mean_reverse(result_lookup: dict, folder: str, filename):
 
     plt.figure()
     for i in range(n_elements):
-        y = [result_lookup[name]["mean(mean)"][i] for name in names]
+        y = np.array([result_lookup[name]["mean(mean)"][i] for name in names])
         yerr = [result_lookup[name]["std(mean) over sqrt(n)"][i] for name in names]
         plt.errorbar(
-            x=x + 0.01*np.random.rand(len(x)) - 0.01*np.random.rand(len(x)),
-            y=y,
+            x=x,
+            y=y - reference_gate[i],
             yerr=yerr,
             label=label_lookup[i],
             alpha=0.5
         )
-    plt.title(f"Deviation of the {'X' if n_elements == 8 else 'CNOT'} gate matrix elements.")
+    plt.title(f"Deviation of the {gate_name} gate matrix elements")
     plt.xlabel("Gaussian location parameter [1]")
     plt.ylabel("Deviation from noiseless case [1]")
     plt.grid()
@@ -173,20 +169,18 @@ def plot_gates_mean_reverse(result_lookup: dict, folder: str, filename):
     plt.close()
 
 
-def plot_gates_std_reverse(result_lookup: dict, folder: str, filename):
+def plot_gates_std_reverse(result_lookup: dict, folder: str, filename, gate_name: str):
     """Visualize the standard deviation of the gate matrix elements as a function of the pulse param with error bars.
 
-        In the case of Gaussian pulses, the x-axis would be the scale or location parameter of the Gaussian pulse.
+    In the case of Gaussian pulses, the x-axis would be the scale or location parameter of the Gaussian pulse.
 
-        Args:
-            result_lookup (dict): Aggregated results which should be visualized, should be generated with the
-                aggregate_results() method. Represents a lookup table with the pulse names as keys and the result as dict
-                with keys x_mean, x_unc that represent the mean and uncertainty of the mean of the result for this pulse.
-            folder (str): Folder in which the visualization should be saved.
-            filename (str): Filename which should be used in the saving.
-
-        Todo:
-            * Add a reference gate to be compatible with the new forms of the results.
+    Args:
+        result_lookup (dict): Aggregated results which should be visualized, should be generated with the
+            aggregate_results() method. Represents a lookup table with the pulse names as keys and the result as dict
+            with keys x_mean, x_unc that represent the mean and uncertainty of the mean of the result for this pulse.
+        folder (str): Folder in which the visualization should be saved.
+        filename (str): Filename which should be used in the saving.
+        gate_name (str): Name of the gate.
     """
     names = result_lookup.keys()
     x = [float(name) for name in names]
@@ -201,14 +195,14 @@ def plot_gates_std_reverse(result_lookup: dict, folder: str, filename):
         y = [result_lookup[name]["mean(std)"][i] for name in names]
         yerr = [result_lookup[name]["std(std) over sqrt(n)"][i] for name in names]
         plt.errorbar(
-            x=x + 0.01*np.random.rand(len(x)) - 0.01*np.random.rand(len(x)),
+            x=x,
             y=y,
             yerr=yerr,
             label=label_lookup[i],
             alpha=0.5
         )
 
-    plt.title(f"Standard deviation of the {'X' if n_elements == 8 else 'CNOT'} gate matrix elements.")
+    plt.title(f"Standard deviation of the {gate_name} gate matrix elements.")
     plt.xlabel("Gaussian location parameter [1]")
     plt.ylabel("Standard deviation [1]")
     plt.grid()
@@ -227,17 +221,17 @@ def plot_gates_std_reverse(result_lookup: dict, folder: str, filename):
 def plot_gates_mean_confidence_interval(result_lookup: dict, folder: str, filename):
     """Visualize the gate matrix elements as a function of the pulse parametrization with confidence intervals.
 
-        In the case of Gaussian pulses, the x-axis would be the scale or location parameter of the Gaussian pulse.
+    In the case of Gaussian pulses, the x-axis would be the scale or location parameter of the Gaussian pulse.
 
-        Args:
-            result_lookup (dict): Aggregated results which should be visualized, should be generated with the
-                aggregate_results() method. Represents a lookup table with the pulse names as keys and the result as dict
-                with keys x_mean, x_unc that represent the mean and uncertainty of the mean of the result for this pulse.
-            folder (str): Folder in which the visualization should be saved.
-            filename (str): Filename which should be used in the saving.
+    Args:
+        result_lookup (dict): Aggregated results which should be visualized, should be generated with the
+            aggregate_results() method. Represents a lookup table with the pulse names as keys and the result as dict
+            with keys x_mean, x_unc that represent the mean and uncertainty of the mean of the result for this pulse.
+        folder (str): Folder in which the visualization should be saved.
+        filename (str): Filename which should be used in the saving.
 
-        Todo:
-            * Add a reference gate to be compatible with the new forms of the results.
+    Todo:
+        * Add a reference gate to be compatible with the new forms of the results.
     """
     names = result_lookup.keys()
     x = [float(name) for name in names]
@@ -273,17 +267,17 @@ def plot_gates_mean_confidence_interval(result_lookup: dict, folder: str, filena
 def plot_gates_std_confidence_interval(result_lookup: dict, folder: str, filename):
     """Visualize the standard deviation of the gate matrix elements as a function of the pulse with conf intervals.
 
-        In the case of Gaussian pulses, the x-axis would be the scale or location parameter of the Gaussian pulse.
+    In the case of Gaussian pulses, the x-axis would be the scale or location parameter of the Gaussian pulse.
 
-        Args:
-            result_lookup (dict): Aggregated results which should be visualized, should be generated with the
-                aggregate_results() method. Represents a lookup table with the pulse names as keys and the result as dict
-                with keys x_mean, x_unc that represent the mean and uncertainty of the mean of the result for this pulse.
-            folder (str): Folder in which the visualization should be saved.
-            filename (str): Filename which should be used in the saving.
+    Args:
+        result_lookup (dict): Aggregated results which should be visualized, should be generated with the
+            aggregate_results() method. Represents a lookup table with the pulse names as keys and the result as dict
+            with keys x_mean, x_unc that represent the mean and uncertainty of the mean of the result for this pulse.
+        folder (str): Folder in which the visualization should be saved.
+        filename (str): Filename which should be used in the saving.
 
-        Todo:
-            * Add a reference gate to be compatible with the new forms of the results.
+    Todo:
+        * Add a reference gate to be compatible with the new forms of the results.
     """
     names = result_lookup.keys()
     x = [float(name) for name in names]
@@ -325,32 +319,26 @@ def plot_hellinger(result_lookup: dict,
                    psi_name: str="|0>"):
     """Visualizes the Hellinger distance of the simulated gate to the noise free result.
 
-        Plots the Hellinger distance H(P,Q) of the probability distributions:
-        P = abs(noisy-gate * psi) ** 2
-        Q = abs(noise-free-gate * psi) ** 2
-        for psi as given. This is an application of the Born rule.
+    Plots the Hellinger distance H(P,Q) of the probability distributions:
+    P = abs(noisy-gate * psi) ** 2
+    Q = abs(noise-free-gate * psi) ** 2
+    for psi as given. This is an application of the Born rule.
 
-        Args:
-            result_lookup (dict):
-            folder (str): Folder in which the visualization should be saved.
-            filename (str): Filename which should be used in the saving.
-             noise_free_gate (np.array): Reference gate from the noise free case.
-             psi (np.array): Statevector on which the gate is applied.
-             gate_name (str): Human-readable name of the gate used for plotting.
-             psi_name (str): Human-readable name of the statevector used for plotting.
-
-        Todo:
-            * Add a reference gate to be compatible with the new forms of the results.
+    Args:
+        result_lookup (dict):
+        folder (str): Folder in which the visualization should be saved.
+        filename (str): Filename which should be used in the saving.
+        noise_free_gate (np.array): Reference gate from the noise free case.
+        psi (np.array): Statevector on which the gate is applied.
+        gate_name (str): Human-readable name of the gate used for plotting.
+        psi_name (str): Human-readable name of the statevector used for plotting.
     """
 
     h_lookup = dict()
     names = result_lookup.keys()
     for name in names:
         # Lookup result
-        result = result_lookup[name]["mean(mean)"]
-
-        # Compute noisy gate
-        noisy_gate = result + noise_free_gate
+        noisy_gate = result_lookup[name]["mean(mean)"]
 
         # Transform to matrices
         l = noisy_gate.shape[0]
@@ -371,8 +359,17 @@ def plot_hellinger(result_lookup: dict,
     x = [float(name) for name in names]
     y = [h_lookup[name] for name in names]
     plt.figure()
-    plt.plot(x, y, "bo", label="Gaussian pulses")
-    plt.title(f"Hellinger distance between noisy \n and ideal distribution of <({gate_name}{psi_name})^2>.")
+    plt.plot(x, y, "b+", label="Gaussian pulses")
+    psi_alt_lookup = {
+        "|0>": r"$\ket{0}$",
+        "|1>": r"$\ket{1}$",
+        "|+>": r"$\ket{+}$",
+        "|->": r"$\ket{-}$",
+        "|00>": r"$\ket{00}$",
+        "|11>": r"$\ket{11}$"
+    }
+
+    plt.title(f"Hellinger distance between noisy \n and ideal distribution of {gate_name}{psi_alt_lookup[psi_name]}")
     plt.xlabel(f"Location parameter of the Gaussian pulse [1]")
     plt.ylabel(f"Hellinger distance [1]")
     plt.legend()
@@ -386,18 +383,18 @@ def plot_hellinger(result_lookup: dict,
 def plasma(x: float, damp: float=0.2) -> list:
     """Converts a value 0 <= x <= 1 to RGB values according to the plasma color map.
 
-        See licencing here:
-        # New matplotlib colormaps by Nathaniel J. Smith, Stefan van der Walt,
-        # and (in the case of viridis) Eric Firing.
-        # See http://creativecommons.org/publicdomain/zero/1.0/
+    See licencing here:
+        New matplotlib colormaps by Nathaniel J. Smith, Stefan van der Walt,
+        and (in the case of viridis) Eric Firing.
+        See http://creativecommons.org/publicdomain/zero/1.0/
 
-        Args:
-            x (float): Intensity value between 0 and 1.
-            damp (float): Damping parameter between 0.0 and 1.0. The higher the damping, the closer are the outputs for
-                different x. For damp=1.0, all x get the same RGB value.
+    Args:
+        x (float): Intensity value between 0 and 1.
+        damp (float): Damping parameter between 0.0 and 1.0. The higher the damping, the closer are the outputs for
+            different x. For damp=1.0, all x get the same RGB value.
 
-        Returns:
-            RGB value as a list with three float values.
+    Returns:
+        RGB value as a list with three float values.
     """
     x = (1-damp) * x + damp * 0.5
     plasma_data = [[0.050383, 0.029803, 0.527975],
@@ -662,5 +659,3 @@ def plasma(x: float, damp: float=0.2) -> list:
     index = max(0, index)
     index = min(n_colors - 1, index)
     return plasma_data[index]
-
-
