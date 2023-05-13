@@ -2,11 +2,11 @@
     "name": "standard_configuration",
     "content":
     {
-        "samples": 10,
-        "runs": 2,
+        "samples": 10000,
+        "runs": 50,
         "device_parameters": "20230305",
         "noise_scaling": 1.0,
-        "pulse_lookup": "gaussian_pulses_10",
+        "pulse_lookup": "gaussian_pulses_20",
         "gates": ["X", "SX", "CR", "CNOT", "CNOT_inv"],
         "extra_gate_args": {
             "X": {"phi":  0.0},

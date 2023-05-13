@@ -8,19 +8,16 @@ logger = logging.getLogger()
 if __name__ == "__main__":
 
     runs = [
-        'power_test',
-        'fourier_test',
-        'gaussian_test',
-        'power_small',
-        'fourier_small',
-        'gaussian_small',
-        'power',
-        'fourier',
-        'gaussian'
+        'power_medium_constrained',
+        'fourier_medium_constrained',
+        'gaussian_medium_constrained',
     ]
-    all_results = [None for run in runs]
 
     for i, run in enumerate(runs):
         logger.info(f"Start run with {run} configuration.")
-        results = main(run=run, use_multiprocessing=True)
-        all_results[i] = results
+        try:
+            main(run=run, use_multiprocessing=True)
+        except Exception as e:
+            print(f"Exception: {e}")
+            logger.info(f"Running {run} failed, proceeding with next run.")
+            logger.info(f"The exception as {e}.")

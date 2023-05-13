@@ -43,7 +43,7 @@ def plot_optimized_waveforms(
     plt.xlabel('Parametrization variable t')
     plt.ylabel(r"Waveform")
     plt.title(f"Optimized pulses with {ansatz_name} ansatz and {weight} loss")
-    add_color_map(fig, ax)
+    add_color_map(fig, ax, vmin=minimum, vmax=maximum)
 
     # Saving
     create_folder(f"plots/integrals/{run}")
