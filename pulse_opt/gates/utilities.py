@@ -363,7 +363,7 @@ def load_aggregated_results(folder: str) -> list:
                 continue
 
             # Extract different variables
-            splitted = filename.split("_")
+            splitted = filename.split("_") if not "CNOT_inv" in filename else ["CNOT_inv"] + filename.split("_")[2:]
             assert len(splitted) == 4, \
                 "Expected filename of the form {prefix}_{part}_{name}_aggregated.txt but found otherwise."
 
