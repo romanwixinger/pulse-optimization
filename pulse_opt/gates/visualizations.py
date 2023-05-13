@@ -359,8 +359,17 @@ def plot_hellinger(result_lookup: dict,
     x = [float(name) for name in names]
     y = [h_lookup[name] for name in names]
     plt.figure()
-    plt.plot(x, y, "bo", label="Gaussian pulses")
-    plt.title(f"Hellinger distance between noisy \n and ideal distribution of {gate_name}{psi_name}")
+    plt.plot(x, y, "b+", label="Gaussian pulses")
+    psi_alt_lookup = {
+        "|0>": r"$\ket{0}$",
+        "|1>": r"$\ket{1}$",
+        "|+>": r"$\ket{+}$",
+        "|->": r"$\ket{-}$",
+        "|00>": r"$\ket{00}$",
+        "|11>": r"$\ket{11}$"
+    }
+
+    plt.title(f"Hellinger distance between noisy \n and ideal distribution of {gate_name}{psi_alt_lookup[psi_name]}")
     plt.xlabel(f"Location parameter of the Gaussian pulse [1]")
     plt.ylabel(f"Hellinger distance [1]")
     plt.legend()
