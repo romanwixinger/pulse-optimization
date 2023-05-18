@@ -15,6 +15,7 @@ from pulse_opt.integrands.weights import (
     variance_weight_lookup,
     covariance_weight_lookup,
     deterministic_weight_lookup,
+    variance_plus_deterministic_weight_lookup
 )
 
 
@@ -25,9 +26,11 @@ if __name__ == "__main__":
         "variance": variance_weight_lookup,
         "covariance": covariance_weight_lookup,
         "deterministic": deterministic_weight_lookup,
+        "variance plus deterministic": variance_plus_deterministic_weight_lookup
     }
 
     for selection, weight_lookup in lookup.items():
         plot_integrands(lower=-np.pi, upper=np.pi, weight_lookup=weight_lookup, selection=selection)
+        plot_integrands(lower=-2*np.pi, upper=2*np.pi, weight_lookup=weight_lookup, selection=selection)
         plot_sum(lower=-2*np.pi, upper=2*np.pi, weight_lookup=weight_lookup, selection=selection)
         plot_sum(lower=-2*np.pi, upper=2*np.pi, weight_lookup=weight_lookup, selection=selection, use_absolute=True)
