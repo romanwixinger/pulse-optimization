@@ -40,9 +40,9 @@ def plot_optimized_waveforms(
         plt.plot(x, y, color=color)
 
     # Styling
-    plt.xlabel('Parametrization variable t')
-    plt.ylabel(r"Waveform")
-    plt.title(f"Optimized pulses with {ansatz_name} ansatz and {weight} loss")
+    plt.xlabel('Parametrization variable s')
+    plt.ylabel(r"Waveform $\omega$(s)")
+    plt.title(f"Waveforms with {ansatz_name} ansatz for {weight if weight != 'variance_plus_deterministic' else 'var. + det.'} loss")
     add_color_map(fig, ax, vmin=minimum, vmax=maximum)
 
     # Saving
@@ -80,9 +80,9 @@ def plot_optimized_parametrizations(
         plt.plot(x, y, color=color)
 
     # Styling
-    plt.xlabel('Parametrization variable t')
-    plt.ylabel(r"Parametrization $\theta$(t)")
-    plt.title(f"Optimized parametrizations with {ansatz_name} ansatz and {weight} loss")
+    plt.xlabel('Parametrization variable s')
+    plt.ylabel(r"Parametrization $\theta$(s)")
+    plt.title(f"Parametrizations with {ansatz_name} ansatz for {weight if weight != 'variance_plus_deterministic' else 'var. + det.'} loss")
 
     # Saving
     add_color_map(fig, ax, vmin=minimum, vmax=maximum)
