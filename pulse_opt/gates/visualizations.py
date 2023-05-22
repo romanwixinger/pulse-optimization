@@ -8,10 +8,14 @@ Note:
 import numpy as np
 import matplotlib.pyplot as plt
 
+from quantum_gates.gates import Gates, NoiseFreeGates
+
+from configuration.device_parameters.lookup import device_param_lookup
 from pulse_opt.gates.utilities import (
     hellinger_distance,
     matrix_elements_labels_1_qubit,
     matrix_elements_labels_2_qubits,
+    construct_x_gate_args,
 )
 from pulse_opt.configuration.plotting_colors import selected_colors_8, selected_colors_32
 from pulse_opt.configuration.plotting_parameters import set_matplotlib_style, activate_latex
@@ -341,19 +345,9 @@ def plot_hellinger(result_lookup: dict,
         noisy_gate = result_lookup[name]["mean(mean)"]
 
         # Transform to matrices
-        l = noisy_gate.shape[0]
-        nqubits = 1 if l == 8 else 2
-        noisy_gate_reshaped = noisy_gate[:l//2] + 1J * noisy_gate[l//2:]
-        noisy_gate_reshaped = noisy_gate_reshaped.reshape((2**nqubits, 2**nqubits))
-        noise_free_reshaped = noise_free_gate[:l//2] + 1J * noise_free_gate[l//2:]
-        noise_free_reshaped = noise_free_reshaped.reshape((2**nqubits, 2**nqubits))
-
-        # Compute probability distributions with Born rule
-        P = np.square(np.abs(noisy_gate_reshaped @ psi))
-        Q = np.square(np.abs(noise_free_reshaped @ psi))
-
-        # Compute hellinger distance
-        h = hellinger_distance(P, Q)
+        noisy_reshaped = reshape_to_complex_array_form(noisy_gate)
+        noiseless_reshaped = reshape_to_complex_array_form(noise_free_gate)
+        h = calculate_hellinger(noisy_gate=noisy_reshaped, noise_free_gate=noiseless_reshaped, psi=psi)
         h_lookup[name] = h
 
     x = [float(name) for name in names]
@@ -378,6 +372,85 @@ def plot_hellinger(result_lookup: dict,
     plt.show()
 
     return h_lookup
+
+
+def plot_hellinger_postponed_averaging(
+        pulses: list,
+        x_values: np.array,
+        psi: np.array,
+        gate_name: str='X',
+        psi_name: str='0'):
+    """ Same as plot_hellinger but we perform the averaging after calculating the Hellinger distance.
+    """
+
+    # Settings
+    shots = 4000
+    device_param = device_param_lookup["20230305"]
+
+    # Prepare data structures
+    x_gate_args = construct_x_gate_args(device_param_lookup=device_param)
+    hellinger_means = np.zeros_like(x_values)
+    hellinger_stds = np.zeros_like(x_values)
+
+    # Calculate values
+    for i, pulse in enumerate(pulses):
+        h_values = []
+        gates = Gates(pulse=pulse)
+        noiseless_gates = NoiseFreeGates()
+        for j in range(shots):
+            x_gate = gates.X(**x_gate_args)
+            x_gate_noiseless = noiseless_gates.X(**x_gate_args)
+            h = calculate_hellinger(noisy_gate=x_gate, noise_free_gate=x_gate_noiseless, psi=psi)
+            h_values.append(h)
+        hellinger_means[i] = np.mean(np.array(h_values))
+        hellinger_stds[i] = np.std(np.array(h_values))
+
+    # Plot
+    plt.figure()
+    plt.errorbar(
+        x=x_values,
+        y=hellinger_means,
+        yerr=hellinger_stds,
+        label=r"$\ket{1} \approx X_{noisy} \ket{0}$",
+        alpha=0.5
+    )
+
+    plt.title(f"Hellinger distance for postponed averaging")
+    plt.xlabel(f"Location parameter of the Gaussian pulse [1]")
+    plt.ylabel(f"Hellinger distance [1]")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(f"plots/gates/x_gate_hellinger_postponed_averaging.pdf")
+    plt.show()
+    return
+
+
+def reshape_to_complex_array_form(x):
+    """ Turns a float 1x8 (1x32) vector into a complex 2x2 (4x4) matrix.
+    """
+    l = x.shape[0]
+    nqubits = 1 if l == 8 else 2
+    x_reshaped = x[:l//2] + 1J * x[l//2:]
+    x_reshaped = x_reshaped.reshape((2**nqubits, 2**nqubits))
+    return x_reshaped
+
+
+def calculate_hellinger(noisy_gate: np.array, noise_free_gate: np.array, psi: np.array):
+    """ Calculate the Hellinger distance between the distribution obtained when either of the gates is applied on psi.
+
+    Args:
+        noisy_gate (np.array): Gate with noise.
+        noise_free_gate (np.array): Reference gate without any noise.
+        psi (np.array): Statevector that is propagated.
+    """
+
+    # Compute probability distributions with Born rule
+    P = np.square(np.abs(noisy_gate @ psi))
+    Q = np.square(np.abs(noise_free_gate @ psi))
+
+    # Compute hellinger distance
+    h = hellinger_distance(P, Q)
+    return h
 
 
 def plasma(x: float, damp: float=0.2) -> list:
