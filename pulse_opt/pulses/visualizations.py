@@ -25,8 +25,8 @@ def plot_pulses(pulse_lookup, filename: str=None, label_prefix: str=""):
         y = [pulse(x_val) for x_val in x]
         plt.plot(x, y, label=f"{label_prefix}{name}")
 
-    plt.xlabel('Parametrization variable t')
-    plt.ylabel("s [1]")
+    plt.xlabel('Parametrization variable s')
+    plt.ylabel(r"$\omega$(s)")
     plt.title("Pulse waveform")
     plt.legend()
     if filename is not None:
@@ -49,8 +49,8 @@ def plot_parametrizations(pulse_lookup, filename: str=None, label_prefix: str=""
         param = pulse.get_parametrization()
         y = [param(x_val) for x_val in x]
         plt.plot(x, y, label=f"{label_prefix}{name}")
-    plt.xlabel('Parametrization variable t')
-    plt.ylabel(r"$\theta$ [1]")
+    plt.xlabel('Parametrization variable s')
+    plt.ylabel(r"$\theta$(s)")
     plt.title("Pulse parametrization")
     plt.legend()
     if filename is not None:

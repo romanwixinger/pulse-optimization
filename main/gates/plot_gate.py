@@ -186,7 +186,7 @@ def construct_psi(gate_name: str) -> dict:
 
 def main():
     runs = [
-        "standard_configuration"
+        "standard_configuration",
         "single_gate_boosted_0.1",
         "single_gate_boosted_1",
         "single_gate_boosted_10",

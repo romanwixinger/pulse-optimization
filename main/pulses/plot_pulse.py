@@ -87,11 +87,11 @@ if __name__ == "__main__":
     # Folder
     plot_folder = "plots/pulses"
 
-    # main_normal(plot_folder)
-    # main_gaussian(plot_folder)
-    # main_power(plot_folder)
-    # main_shifted_power(plot_folder)
-    # main_relu_power(plot_folder)
-    # main_shifted_relu_power(plot_folder)
+    main_normal(plot_folder)
+    main_gaussian(plot_folder)
+    main_power(plot_folder)
+    main_shifted_power(plot_folder)
+    main_relu_power(plot_folder)
+    main_shifted_relu_power(plot_folder)
 
     main_basis(plot_folder)
