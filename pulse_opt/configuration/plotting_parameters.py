@@ -18,11 +18,11 @@ def set_matplotlib_style(overwrite: dict={}):
     """
     plt.rcParams.update({
         "axes.titlesize": 16,
-        "axes.labelsize": 12,
-        "lines.linewidth": 1.5,
+        "axes.labelsize": 16,
+        "lines.linewidth": 2.0,
         "lines.markersize": 5,
-        "xtick.labelsize": 12,
-        "ytick.labelsize": 12,
+        "xtick.labelsize": 16,
+        "ytick.labelsize": 16,
         "legend.fontsize": "medium",
         "figure.figsize": (8, 6),
     })
