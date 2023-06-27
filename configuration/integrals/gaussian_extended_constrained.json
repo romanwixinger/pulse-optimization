@@ -1,5 +1,5 @@
 {
-  "name": "gaussian_constrained",
+  "name": "gaussian_extended_constrained",
   "description": "Configuration to test the Gaussian Pulses with differents shifts and n for Ito integrals up to theta.",
   "content":
   {
@@ -12,9 +12,9 @@
     "variable_args":
     {
       "scale": [0.1, 0.2, 0.3, 0.4, 0.5],
-      "n": [4, 8, 16, 32],
+      "n": [4, 8, 16, 32, 64],
       "theta": [0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359],
-      "weights": ["equal", "covariance", "variance", "deterministic", "variance_plus_deterministic"]
+      "weights": ["variance"]
     },
     "static_args": {
       "a": 1.0,
