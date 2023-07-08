@@ -8,7 +8,7 @@ logger = logging.getLogger()
 if __name__ == "__main__":
 
     runs = [
-        'power_extended_constrained',
+        'power_long_constrained',
     ]
 
     for i, run in enumerate(runs):
