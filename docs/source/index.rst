@@ -14,43 +14,43 @@ Welcome to Pulse Optimization's documentation!
 **Structure**
 =============
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Pulses
 
    pulses
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Integrands
 
    integrands
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Integrals
 
    integrals
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Gates
 
    gates
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Algorithms
 
    algorithms
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Utilities
 
    utilities
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Configuration
 
    configuration
