@@ -83,9 +83,7 @@ def main(run: str, add_default: bool=True):
 if __name__ == "__main__":
 
     runs = [
-        'power_small_constrained',
-        'fourier_small_constrained',
-        'gaussian_small_constrained',
+        'gaussian',
     ]
 
     for run in runs:

@@ -27,7 +27,7 @@ def plot_integrands(lower: float, upper: float, weight_lookup: dict, selection: 
         if name in weight_lookup:
             y = np.array([integrand(s) for s in x])
             plt.plot(x, y, label="$" + name.replace('theta', r'\theta').replace('**', '^') + "$")
-    plt.title(f"{selection[0].upper() + selection[1:]} moments")
+    plt.title(f"{selection[0].upper() + selection[1:]} integrals")
     plt.xlabel(r"$\theta$")
     plt.ylabel("Integrand value")
     plt.legend()
@@ -68,7 +68,7 @@ def plot_sum(lower: float, upper: float, weight_lookup: dict, use_absolute: bool
     weighted_sum_calculator = get_weighted_sum_of_absolute_values if use_absolute else get_weighted_sum
     y = np.array([weighted_sum_calculator(s, weight_lookup) for s in x])
     plt.plot(x, y)
-    plt.title(f"Weighted sum of{' absolute value of' if use_absolute else ''} {selection} moments")
+    plt.title(f"Weighted sum of{' absolute value of' if use_absolute else ''} {selection} integrals")
     plt.xlabel(r"$\theta$")
     plt.ylabel("Weighted sum")
     create_folder(f"plots/integrands")
