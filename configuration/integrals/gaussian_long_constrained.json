@@ -1,0 +1,24 @@
+{
+  "name": "gaussian_long_constrained",
+  "description": "Configuration to test the Gaussian Pulses with different shifts and n for Ito integrals up to theta.",
+  "content":
+  {
+    "factory": "GaussianFactory",
+    "factory_path": "pulse_opt.pulses.gaussian_factory",
+    "factory_args": ["scale", "n", "has_vanishing_endpoints"],
+    "ansatz_name": "Gaussian superposition",
+    "loss": "GaussianLoss",
+    "loss_path": "pulse_opt.integrals.losses",
+    "variable_args":
+    {
+      "scale": [0.1, 0.2, 0.3, 0.4, 0.5],
+      "n": [4, 8, 16, 32, 64, 96, 128],
+      "theta": [0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359],
+      "weights": ["variance"]
+    },
+    "static_args": {
+      "a": 1.0,
+      "has_vanishing_endpoints": true
+    }
+  }
+}

@@ -1,0 +1,1044 @@
+config.name,config.description,config.content.factory,config.content.factory_path,config.content.factory_args,config.content.ansatz_name,config.content.loss,config.content.loss_path,config.content.variable_args.shift,config.content.variable_args.n,config.content.variable_args.theta,config.content.variable_args.weights,config.content.static_args.a,config.content.static_args.has_vanishing_endpoints,args.a,args.has_vanishing_endpoints,args.shift,args.n,args.theta,args.weights,results.nit,results.nfev,results.njev,results.nhev,results.cg_niter,results.cg_stop_cond,results.fun,results.grad,results.lagrangian_grad,results.constr,results.jac,results.constr_nfev,results.constr_njev,results.constr_nhev,results.v,results.method,results.x,results.optimality,results.constr_violation,results.execution_time,results.tr_radius,results.constr_penalty,results.status,results.niter,results.success,results.message
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,0.78539816339,equal,38,287,41,0,56,4,0.9380991461859362,[ 0.14196643  0.13089936  0.02198151  0.27686815 -0.12774159  0.16076228],"[ 1.05850578e-06 -6.29505036e-05 -2.46238092e-05  4.12613319e-05
+  1.60630376e-05 -4.56762839e-06]","[array([-4.31441549e-11]), array([-6.31530384e-11]), array([4.67821337e-11])]","[array([[ 1.,  1., -0.,  2., -1.,  1.]]), array([[ 1.57079632, -0.        ,  3.14159267,  0.        ,  4.71238898,
+         0.        ]]), array([[ 0.        ,  1.57079633, -3.14159267,  0.        ,  0.        ,
+        -4.71238897]])]","[287, 287, 287]","[0, 0, 0]","[0, 0, 0]","[array([-0.13841344]), array([-0.00226123]), array([0.00474354])]",equality_constrained_sqp,"[ 818.59307274 -840.59769441 -528.94018102   15.16974778   79.76242977
+   72.42755588]",6.295050359013572e-05,6.31530383543577e-11,5.557249307632446,4706.957486794798,1.0,1,38,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,0.78539816339,covariance,30,224,32,0,47,4,-0.9010290952996381,[ 0.15623338  0.14371139  0.02496047  0.30466486 -0.14051843  0.17798739],"[-9.24463729e-06 -4.39713806e-05 -1.40588317e-05  3.54773455e-05
+  1.24541002e-05 -5.28457243e-06]","[array([4.33431069e-12]), array([8.01492206e-11]), array([-9.20863386e-12])]","[array([[ 1.        ,  1.        , -0.        ,  1.99999998, -1.        ,
+         1.        ]]), array([[ 1.57079631, -0.        ,  3.14159264,  0.        ,  4.71238898,
+         0.        ]]), array([[ 0.        ,  1.57079632, -3.14159264,  0.        ,  0.        ,
+        -4.71238898]])]","[224, 224, 224]","[0, 0, 0]","[0, 0, 0]","[array([-0.15231469]), array([-0.0025006]), array([0.00544904])]",equality_constrained_sqp,"[ 772.29684469 -794.72788426 -499.52172104   15.45402638   75.58219913
+   68.10518594]",4.397138064847657e-05,8.01492205937393e-11,1.5607092380523682,4521.12977328736,1.0,1,30,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,0.78539816339,variance,5,35,5,0,6,4,1.0028704324563615,[ 0.01042095  0.00973982  0.00132387  0.02144946 -0.01205605  0.01374888],"[ 7.42615481e-05  7.30245165e-06  9.55257283e-05 -5.43759997e-05
+ -8.84376679e-05 -6.12496682e-05]","[array([4.4408921e-16]), array([7.05180359e-09]), array([-2.2923512e-09])]","[array([[ 1.,  1.,  0.,  2., -1.,  1.]]), array([[ 1.57079631, -0.        ,  3.14159266,  0.        ,  4.71238899,
+        -0.        ]]), array([[ 0.        ,  1.57079637, -3.14159266,  0.        , -0.        ,
+        -4.71238899]])]","[35, 35, 35]","[0, 0, 0]","[0, 0, 0]","[array([-0.01075192]), array([0.00025798]), array([0.00064897])]",equality_constrained_sqp,[ 0.57607288 -0.33411125  1.1365826   0.33869225 -0.94974603 -0.86909215],9.552572830520429e-05,7.051803585511607e-09,0.08793997764587402,5.087091549118901,1.0,1,5,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,0.78539816339,deterministic,35,252,36,0,56,4,0.19341606134126788,[ 0.0726237   0.07236725  0.00025232  0.14747059 -0.07709852  0.07769719],"[ 3.36943138e-05 -5.26582056e-05 -8.78714266e-05  1.26425948e-05
+  4.73495133e-05  4.10282158e-05]","[array([4.32691962e-08]), array([1.26739224e-08]), array([-1.0789222e-08])]","[array([[ 1.        ,  1.        , -0.        ,  1.99999998, -1.        ,
+         1.        ]]), array([[ 1.57079632, -0.        ,  3.14159266,  0.        ,  4.71238898,
+         0.        ]]), array([[ 0.        ,  1.57079633, -3.14159266,  0.        ,  0.        ,
+        -4.712389  ]])]","[252, 252, 252]","[0, 0, 0]","[0, 0, 0]","[array([-0.07372897]), array([0.00072509]), array([0.00083338])]",equality_constrained_sqp,"[ 1405.65432568 -1424.805673    -901.27141079    13.2675649
+   132.2961653    125.91238286]",8.78714265757168e-05,4.3269196225992346e-08,2.8523125648498535,2414.6377539967625,1.0,1,35,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,0.78539816339,variance_plus_deterministic,23,175,25,0,38,4,1.8585074085910112,[ 0.15512914  0.13574685  0.03911682  0.29382451 -0.12207804  0.18064817],"[-6.97324862e-05  7.90914439e-05  5.46026534e-05 -6.23930535e-06
+ -1.31576066e-05 -1.00379544e-05]","[array([-8.66577921e-11]), array([8.39150971e-11]), array([1.4606627e-10])]","[array([[ 0.99999999,  1.        ,  0.        ,  2.        , -1.00000001,
+         1.        ]]), array([[ 1.57079632, -0.        ,  3.14159263,  0.        ,  4.71238901,
+        -0.        ]]), array([[-0.        ,  1.57079634, -3.14159268,  0.        ,  0.        ,
+        -4.71238896]])]","[175, 175, 175]","[0, 0, 0]","[0, 0, 0]","[array([-0.14691537]), array([-0.00527344]), array([0.00716045])]",equality_constrained_sqp,"[-14.58328074 -26.01588678   2.63745399  27.56611168   3.10279092
+ -10.43026492]",7.909144392317588e-05,1.460662701902038e-10,2.2420389652252197,214.15134883585225,1.0,1,23,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,1.57079632679,equal,51,357,51,0,72,4,1.062477489495687,[ 0.21109507  0.18361059  0.05497893  0.40438225 -0.17594488  0.25829831],"[ 7.64895168e-05  6.20376351e-05  3.88718936e-05 -9.23514338e-05
+ -5.14111013e-05 -5.23538407e-06]","[array([3.14059889e-12]), array([1.40119027e-11]), array([6.25277607e-13])]","[array([[ 1.        ,  1.        , -0.        ,  2.00000002, -1.        ,
+         1.        ]]), array([[ 1.57079632, -0.        ,  3.14159266,  0.        ,  4.71238899,
+         0.        ]]), array([[ 0.        ,  1.57079633, -3.14159266,  0.        ,  0.        ,
+        -4.71238896]])]","[357, 357, 357]","[0, 0, 0]","[0, 0, 0]","[array([-0.2022373]), array([-0.00559034]), array([0.01189763])]",equality_constrained_sqp,"[ 440.76085412 -461.32739296 -287.24098457   14.21102589   44.57370501
+   37.71819206]",9.235143383118372e-05,1.4011902749189176e-11,4.1248133182525635,995.0156703328468,1.0,1,51,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,1.57079632679,covariance,45,315,45,0,64,4,-0.7654969401223473,[ 0.21173147  0.1881816   0.0470244   0.41042557 -0.18553325  0.25612792],"[-1.22066676e-05 -3.81085983e-05 -2.35453172e-05  3.35435105e-05
+  1.97657672e-05  2.99401194e-06]","[array([1.38413725e-11]), array([-3.32534e-11]), array([7.37259143e-11])]","[array([[ 1.        ,  1.        , -0.        ,  2.        , -0.99999999,
+         1.        ]]), array([[ 1.57079633, -0.        ,  3.14159265,  0.        ,  4.712389  ,
+         0.        ]]), array([[ 0.        ,  1.57079634, -3.14159265,  0.        ,  0.        ,
+        -4.71238896]])]","[315, 315, 315]","[0, 0, 0]","[0, 0, 0]","[array([-0.20519601]), array([-0.00416837]), array([0.01080745])]",equality_constrained_sqp,"[ 446.34839563 -467.74165318 -291.19082327   14.7621717    45.34441697
+   38.21333112]",3.810859827298174e-05,7.3725914262468e-11,2.741616725921631,3541.4684917871095,1.0,1,45,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,1.57079632679,variance,17,119,17,0,30,4,1.0217353660551116,[ 0.07368992  0.06830335  0.01083313  0.1457548  -0.07050638  0.08653763],"[ 4.42660884e-06 -3.65229850e-06  7.61471693e-05 -5.16206792e-07
+ -5.22403167e-05 -5.19822135e-05]","[array([1.77635684e-15]), array([-2.32290631e-09]), array([2.08626716e-09])]","[array([[ 1.00000002,  1.00000001,  0.        ,  2.        , -1.        ,
+         1.        ]]), array([[ 1.57079632, -0.        ,  3.14159274,  0.        ,  4.71238903,
+        -0.        ]]), array([[-0.        ,  1.57079633, -3.14159274,  0.        ,  0.        ,
+        -4.71238901]])]","[119, 119, 119]","[0, 0, 0]","[0, 0, 0]","[array([-0.07287766]), array([-0.00051429]), array([0.00290977])]",equality_constrained_sqp,"[-14.48059395 -17.99313272   0.02618815  22.14915111   4.80940588
+  -6.01516967]",7.614716929757112e-05,2.3229063117469195e-09,0.5982298851013184,90.04349111427356,1.0,1,17,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,1.57079632679,deterministic,54,392,56,0,83,4,0.2654654758606944,[ 0.1123356   0.10138135  0.02175661  0.21919739 -0.10126673  0.13390567],"[-3.33103776e-06 -7.43924222e-05 -9.78025268e-06  5.18156407e-05
+  7.63051440e-06 -1.82773052e-05]","[array([2.36610731e-12]), array([1.89288585e-11]), array([-1.5063506e-11])]","[array([[ 1.        ,  1.        , -0.        ,  1.99999996, -1.        ,
+         1.        ]]), array([[ 1.57079632, -0.        ,  3.14159268,  0.        ,  4.712389  ,
+         0.        ]]), array([[ 0.        ,  1.57079631, -3.14159268,  0.        ,  0.        ,
+        -4.71238901]])]","[392, 392, 392]","[0, 0, 0]","[0, 0, 0]","[array([-0.10957279]), array([-0.00176098]), array([0.00516748])]",equality_constrained_sqp,"[ 692.03199007 -710.47428736 -446.01221954   12.79486486   66.66414967
+   60.51671724]",7.43924222122612e-05,1.892885848064907e-11,2.932783842086792,886.4481087329698,1.0,1,54,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,1.57079632679,variance_plus_deterministic,44,315,45,0,68,4,1.857439663011705,[ 0.13805925  0.12477315  0.02662656  0.26794944 -0.12138502  0.16106334],"[-6.20596052e-05 -7.99705968e-05  9.01928842e-05  9.46868013e-05
+ -3.94420539e-05 -8.67854546e-05]","[array([2.13162821e-14]), array([-2.79101187e-11]), array([4.28883595e-11])]","[array([[ 1.,  1., -0.,  2., -1.,  1.]]), array([[ 1.57079632, -0.        ,  3.14159265,  0.        ,  4.71238904,
+         0.        ]]), array([[ 0.        ,  1.57079633, -3.14159265,  0.        ,  0.        ,
+        -4.712389  ]])]","[315, 315, 315]","[0, 0, 0]","[0, 0, 0]","[array([-0.13392737]), array([-0.00266994]), array([0.00577685])]",equality_constrained_sqp,"[ 510.78119084 -563.61052898 -342.35635237   35.71955876   57.9771713
+   40.36739192]",9.468680134927521e-05,4.288835953047965e-11,6.413670301437378,2685.892241203083,1.0,1,44,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,2.35619449019,equal,58,406,58,0,79,1,1.1356895393639121,[ 0.16865569  0.13686974  0.06353854  0.31369673 -0.12161573  0.21674353],"[ 3.52628286e-05 -1.04903369e-05  5.81508001e-05 -1.65149944e-05
+ -5.05214764e-05 -4.22639793e-05]","[array([-5.43565193e-13]), array([-1.37229989e-07]), array([-3.70479825e-09])]","[array([[ 1.,  1., -0.,  2., -1.,  1.]]), array([[ 1.57079632, -0.        ,  3.14159265,  0.        ,  4.71238896,
+         0.        ]]), array([[ 0.        ,  1.57079634, -3.14159265,  0.        ,  0.        ,
+        -4.71238895]])]","[406, 406, 406]","[0, 0, 0]","[0, 0, 0]","[array([-0.15685662]), array([-0.00748907]), array([0.01271737])]",equality_constrained_sqp,"[ 329.12955782 -349.1368151  -215.85154288   13.83817151   34.19117595
+   27.52209022]",5.81508001192485e-05,1.3722998915000062e-07,5.678457498550415,760.4456249317808,1.0,1,58,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,2.35619449019,covariance,62,434,62,0,84,4,-0.6922402469993223,[ 0.14328406  0.11475263  0.05703347  0.26754001 -0.10506226  0.19063217],"[-2.43351119e-05 -3.49262545e-05 -8.20456471e-06  3.95075776e-05
+  1.35814138e-05 -6.17237495e-06]","[array([-4.26325641e-14]), array([-8.7970875e-10]), array([1.95768735e-10])]","[array([[ 1.,  1., -0.,  2., -1.,  1.]]), array([[ 1.57079633, -0.        ,  3.14159265,  0.        ,  4.71238899,
+         0.        ]]), array([[ 0.        ,  1.57079631, -3.14159265,  0.        ,  0.        ,
+        -4.71238898]])]","[434, 434, 434]","[0, 0, 0]","[0, 0, 0]","[array([-0.13375025]), array([-0.0060849]), array([0.01207203])]",equality_constrained_sqp,"[ 327.06586512 -347.56670195 -214.74490977   14.16722455   34.14131814
+   27.30770586]",3.950757760035062e-05,8.797087502898648e-10,2.685291290283203,1514.7511346908127,1.0,1,62,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,2.35619449019,variance,16,112,16,0,28,1,1.0733731227527779,[ 0.18889672  0.17197377  0.03416027  0.37155534 -0.17629871  0.22731107],"[-5.52296246e-05  5.52151295e-05  9.34808786e-05  9.66310493e-09
+ -4.39107128e-05 -4.39155443e-05]","[array([-1.02156905e-08]), array([-9.35060029e-10]), array([7.09678005e-09])]","[array([[ 1.00000001,  1.00000001,  0.        ,  2.        , -1.        ,
+         1.        ]]), array([[ 1.57079634, -0.        ,  3.14159274,  0.        ,  4.71238895,
+        -0.        ]]), array([[-0.        ,  1.57079632, -3.14159274,  0.        ,  0.        ,
+        -4.71238899]])]","[112, 112, 112]","[0, 0, 0]","[0, 0, 0]","[array([-0.18577766]), array([-0.00202081]), array([0.00882298])]",equality_constrained_sqp,"[-13.76784215 -16.8254325    0.1569419   20.89551643   4.48465278
+  -5.71310543]",9.348087864766846e-05,1.0215690515735787e-08,1.1006600856781006,89.9244396266233,1.0,1,16,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,2.35619449019,deterministic,120,875,125,0,167,1,0.2832923057789002,[-0.09379287 -0.09729969  0.00661962 -0.18928969  0.09695371 -0.0869614 ],"[ 8.49565558e-05 -9.06323816e-05 -4.28504959e-05  3.78388399e-06
+  2.48145062e-07 -1.64379716e-06]","[array([1.8704327e-10]), array([-2.68295253e-09]), array([2.47158027e-09])]","[array([[ 1.        ,  1.        , -0.        ,  2.00000002, -1.        ,
+         1.        ]]), array([[ 1.57079632, -0.        ,  3.14159261,  0.        ,  4.71238895,
+         0.        ]]), array([[ 0.        ,  1.57079633, -3.14159261,  0.        ,  0.        ,
+        -4.71238895]])]","[875, 875, 875]","[0, 0, 0]","[0, 0, 0]","[array([0.09464673]), array([-0.0004895]), array([0.00163123])]",equality_constrained_sqp,"[ 505.91094539 -524.02089895 -327.50993466   12.57330238   49.70297464
+   43.66632345]",9.063238159834211e-05,2.6829525268112775e-09,5.554067850112915,43.48474279244481,1.0,1,120,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,2.35619449019,variance_plus_deterministic,71,497,71,0,95,4,1.887001008973979,[-0.00527295 -0.01540444  0.02030232 -0.01579267  0.01588675  0.01450254],"[-2.44138877e-05 -1.65333041e-05  2.35868417e-05  2.72981279e-05
+ -7.58659850e-06 -2.12356626e-05]","[array([-7.10542736e-15]), array([-7.66391395e-10]), array([4.31867875e-10])]","[array([[ 1.,  1., -0.,  2., -1.,  1.]]), array([[ 1.57079633, -0.        ,  3.14159265,  0.        ,  4.71238897,
+         0.        ]]), array([[ 0.        ,  1.57079632, -3.14159265,  0.        ,  0.        ,
+        -4.71238895]])]","[497, 497, 497]","[0, 0, 0]","[0, 0, 0]","[array([0.00790998]), array([-0.00169433]), array([0.00476059])]",equality_constrained_sqp,"[ 401.75068786 -442.22859025 -268.93377217   27.48526826   45.3722855
+   31.87965137]",2.7298127926348587e-05,7.663913947908441e-10,4.7224647998809814,2106.8207215841767,1.0,1,71,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,3.14159265359,equal,73,518,74,0,94,4,1.167746281185674,[0.06394337 0.02918124 0.06958333 0.09543406 0.00091798 0.10331698],"[ 7.70694326e-07  5.32514472e-06  4.99609004e-05 -4.06389263e-06
+ -3.35641649e-05 -3.15322187e-05]","[array([-2.84217094e-14]), array([4.45794512e-10]), array([-8.91944296e-10])]","[array([[ 1.,  1., -0.,  2., -1.,  1.]]), array([[ 1.57079633, -0.        ,  3.14159264,  0.        ,  4.71238898,
+         0.        ]]), array([[ 0.        ,  1.57079633, -3.14159264,  0.        ,  0.        ,
+        -4.71238896]])]","[518, 518, 518]","[0, 0, 0]","[0, 0, 0]","[array([-0.04771906]), array([-0.01032822]), array([0.01180494])]",equality_constrained_sqp,"[ 264.53795569 -283.87137885 -174.3943312    13.38894877   28.0835689
+   21.63909452]",4.9960900393108965e-05,8.919442961996538e-10,8.358969926834106,1397.0520792830796,1.0,1,73,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,3.14159265359,covariance,77,546,78,0,102,4,-0.6686979877969297,[0.0294939  0.0006257  0.05774356 0.03414234 0.0201512  0.06642135],"[ 6.84073507e-06  3.09183616e-06  1.46601322e-05 -6.62171415e-06
+ -1.20536666e-05 -8.74280949e-06]","[array([5.68434189e-14]), array([-1.33866251e-11]), array([3.69482223e-13])]","[array([[ 1.,  1., -0.,  2., -1.,  1.]]), array([[ 1.57079633, -0.        ,  3.14159267,  0.        ,  4.71238897,
+         0.        ]]), array([[ 0.        ,  1.57079632, -3.14159267,  0.        ,  0.        ,
+        -4.71238895]])]","[546, 546, 546]","[0, 0, 0]","[0, 0, 0]","[array([-0.01707448]), array([-0.00790209]), array([0.01047359])]",equality_constrained_sqp,"[ 263.10903987 -282.79465977 -173.6344098    13.6237466    28.05325991
+   21.49138661]",1.4660132162891415e-05,1.3386625141720288e-11,3.5129480361938477,381.91759628994134,1.0,1,77,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,3.14159265359,variance,32,224,32,0,58,4,1.095780543810539,[ 0.14629813  0.13261359  0.02760752  0.2902572  -0.14139614  0.18287331],"[-6.38081213e-05  5.97747135e-05 -8.71852300e-06  2.68893851e-06
+  2.70817224e-05  2.57372531e-05]","[array([1.42108547e-14]), array([1.3201884e-11]), array([-2.35829134e-11])]","[array([[ 1.,  1., -0.,  2., -1.,  1.]]), array([[ 1.57079633, -0.        ,  3.14159265,  0.        ,  4.71238898,
+         0.        ]]), array([[ 0.        ,  1.57079634, -3.14159265,  0.        ,  0.        ,
+        -4.71238901]])]","[224, 224, 224]","[0, 0, 0]","[0, 0, 0]","[array([-0.14512726]), array([-0.00078602]), array([0.0080045])]",equality_constrained_sqp,"[ 157.71331734 -185.38915752 -109.19163745   18.95056012   20.22331919
+   10.99803913]",6.380812125520862e-05,2.3582913399877725e-11,1.681325912475586,1013.4309308043566,1.0,1,32,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,3.14159265359,deterministic,63,455,65,0,93,4,0.196164641477464,[-0.08494099 -0.08106133 -0.00773791 -0.14948004  0.0439268  -0.05549204],"[ 3.26790007e-05  4.97189917e-05 -1.26848304e-05 -5.49319949e-05
+ -2.43644665e-06  2.50295508e-05]","[array([-3.55271368e-15]), array([9.70601377e-12]), array([0.])]","[array([[ 1.        ,  1.        ,  0.        ,  2.        , -1.00000001,
+         1.        ]]), array([[ 1.57079633,  0.        ,  3.14159263,  0.        ,  4.71238903,
+        -0.        ]]), array([[-0.        ,  1.57079633, -3.14159263,  0.        , -0.        ,
+        -4.71238899]])]","[455, 455, 455]","[0, 0, 0]","[0, 0, 0]","[array([0.07471256]), array([0.00653242]), array([0.00407341])]",equality_constrained_sqp,"[-208.43307918  187.97153627  126.03449375   14.14102861  -14.54530277
+  -21.36581708]",5.493199491216072e-05,9.706013770482969e-12,3.3532397747039795,1285.7959412408266,1.0,1,63,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,2,3.14159265359,variance_plus_deterministic,22,154,22,0,25,1,1.872230816667574,"[-1.27591992e-01 -1.27642890e-01  1.17301941e-04 -2.60652833e-01
+  1.38831796e-01 -1.38573351e-01]","[-5.20746974e-05 -3.10025515e-05 -2.66358084e-05  5.53848323e-05
+  3.51154398e-05  7.42302370e-06]","[array([2.12985185e-12]), array([-1.32890676e-09]), array([-4.7734261e-10])]","[array([[ 0.99999999,  1.        , -0.        ,  2.        , -1.        ,
+         1.        ]]), array([[ 1.57079632,  0.        ,  3.14159298, -0.        ,  4.71238899,
+         0.        ]]), array([[ 0.        ,  1.57079632, -3.14159298, -0.        , -0.        ,
+        -4.71238894]])]","[154, 154, 154]","[0, 0, 0]","[0, 0, 0]","[array([0.13035411]), array([-0.00179157]), array([-0.00174575])]",equality_constrained_sqp,"[ 2.97813083e+01  2.97813492e+01 -1.32760304e-04 -3.92084384e+01
+ -9.92701427e+00  9.92720492e+00]",5.538483229933222e-05,1.3289067624100426e-09,1.7666175365447998,92.72304794693774,1.0,1,22,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,0.78539816339,equal,38,440,40,0,107,4,0.9557935580689394,"[ 1.55417590e-01  1.36430276e-01  3.81076229e-02  2.91489981e-01
+ -1.16479455e-01  1.73901871e-01  1.51277060e-03 -2.71300654e-05
+  1.94395792e-01  9.89378914e-02]","[-5.76017033e-05  4.75182915e-05 -7.72407250e-05  5.48128330e-06
+  6.39752741e-05  8.11465281e-05  1.89811509e-05 -2.71300654e-05
+ -1.11534545e-05 -6.89695300e-06]","[array([-3.45976581e-11]), array([1.31166189e-11]), array([3.98082678e-11])]","[array([[ 1.00000003,  1.00000001,  0.        ,  2.00000002, -1.        ,
+         1.        ,  0.        , -0.        ,  1.        ,  1.        ]]), array([[ 1.57079632, -0.        ,  3.14159265,  0.        ,  4.71238898,
+         0.        ,  6.28318529, -0.        ,  7.85398166, -0.        ]]), array([[-0.        ,  1.57079636, -3.14159279,  0.        , -0.        ,
+        -4.71238905,  6.28318529, -0.        , -0.        ,  7.85398164]])]","[440, 440, 440]","[0, 0, 0]","[0, 0, 0]","[array([-0.14574225]), array([-0.00619618]), array([0.00595844])]",equality_constrained_sqp,"[-12.04282863 -26.88029456  19.80662607   3.64733871 -28.18809322
+  16.45062063  29.11132565 -12.28230612 -11.89028928  -0.1199788 ]",8.1146528060419e-05,3.9808267793262075e-11,13.542969942092896,300.31960639211013,1.0,1,38,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,0.78539816339,covariance,30,330,30,0,64,4,-0.8862487303729814,"[ 1.61660350e-01  1.43334080e-01  3.67790488e-02  3.05170850e-01
+ -1.25123569e-01  1.80545303e-01 -6.33243880e-04 -1.39195387e-05
+  1.98235812e-01  1.06083956e-01]","[-5.41173907e-05  4.90771564e-05 -7.98788717e-05  7.67227654e-06
+  5.93998432e-05  7.39428452e-05  2.16132300e-05 -1.39195387e-05
+ -1.01554631e-05 -1.46918574e-05]","[array([-3.61932706e-14]), array([1.13686838e-13]), array([-2.70716782e-12])]","[array([[ 0.99999999,  0.99999999,  0.        ,  1.99999994, -1.        ,
+         1.        ,  0.        , -0.        ,  1.        ,  1.        ]]), array([[ 1.57079636, -0.        ,  3.14159263,  0.        ,  4.71238898,
+         0.        ,  6.28318531, -0.        ,  7.85398165, -0.        ]]), array([[-0.        ,  1.57079633, -3.14159263,  0.        , -0.        ,
+        -4.71238891,  6.28318531, -0.        , -0.        ,  7.85398164]])]","[330, 330, 330]","[0, 0, 0]","[0, 0, 0]","[array([-0.15258159]), array([-0.00581417]), array([0.00591839])]",equality_constrained_sqp,"[-11.27457053 -31.00523021  19.89552642   4.11380257 -31.44925055
+  16.63674064  31.46334403 -10.4509631  -12.00442135  -1.02937423]",7.987887172193966e-05,2.7071678232459817e-12,5.7461347579956055,404.28734436783475,1.0,1,30,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,0.78539816339,variance,23,264,24,0,52,4,1.0018208721057469,"[ 7.18994439e-03  6.67907298e-03  1.04086101e-03  1.42823011e-02
+ -6.97024167e-03  8.58899951e-03 -1.75067782e-03  2.07573175e-05
+  7.49868155e-03  4.51061130e-03]","[-6.56844898e-06  5.16517690e-05 -9.73222438e-05  1.71253634e-05
+ -2.94287612e-05 -5.90882980e-05  1.42888280e-05  2.07573175e-05
+  4.64687814e-05 -9.61432915e-05]","[array([0.]), array([-7.73963116e-11]), array([-6.21982466e-11])]","[array([[ 1.,  1.,  0.,  2., -1.,  1., -0., -0.,  1.,  1.]]), array([[ 1.57079634, -0.        ,  3.14159262, -0.        ,  4.71238899,
+         0.        ,  6.2831853 , -0.        ,  7.85398161,  0.        ]]), array([[-0.        ,  1.57079631, -3.14159262, -0.        , -0.        ,
+        -4.71238899,  6.28318524, -0.        ,  0.        ,  7.85398167]])]","[264, 264, 264]","[0, 0, 0]","[0, 0, 0]","[array([-0.00713259]), array([-4.06959078e-05]), array([0.0003216])]",equality_constrained_sqp,"[-0.13754623 -0.43175871  0.40467116 -0.15576579 -0.36959868  0.29800396
+ -0.43675706 -0.73323655  0.43680564  0.77642823]",9.732224380123674e-05,7.739631158187876e-11,1.5587589740753174,4.642406228015845,1.0,1,23,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,0.78539816339,deterministic,39,440,40,0,78,4,0.206166159917684,"[ 1.05420914e-01  9.66272432e-02  1.76581820e-02  2.05165032e-01
+ -9.40575860e-02  1.20685418e-01 -1.29880868e-02 -1.69533960e-05
+  1.16669611e-01  7.23721808e-02]","[ 2.26737560e-05  8.47479272e-05 -5.33080779e-05 -5.37187161e-06
+  8.85014384e-05 -2.79071916e-05 -6.94126311e-05 -1.69533960e-05
+  1.92177189e-05  5.12971788e-07]","[array([1.95399252e-14]), array([5.34328137e-12]), array([5.75539616e-12])]","[array([[ 1.        ,  1.        ,  0.        ,  2.        , -1.        ,
+         1.00000003,  0.        , -0.        ,  1.        ,  1.        ]]), array([[ 1.57079638, -0.        ,  3.14159267,  0.        ,  4.71238899,
+         0.        ,  6.28318501, -0.        ,  7.85398163,  0.        ]]), array([[ 0.        ,  1.57079631, -3.14159262,  0.        ,  0.        ,
+        -4.71238877,  6.28318501, -0.        , -0.        ,  7.85398158]])]","[440, 440, 440]","[0, 0, 0]","[0, 0, 0]","[array([-0.1025852]), array([-0.00179084]), array([0.00384691])]",equality_constrained_sqp,"[  6.44093133  -7.36527597  20.1062836    0.11078801   0.86774723
+   2.16354114   0.34710661 -27.59348805 -10.12903332  10.53600803]",8.850143838774749e-05,5.7553961596568115e-12,4.899346113204956,107.8035596655829,1.0,1,39,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,0.78539816339,variance_plus_deterministic,40,462,42,0,104,4,1.7846234492011366,"[ 9.32021675e-02  8.74891148e-02  1.14438961e-02  1.83840126e-01
+ -8.81649256e-02  1.05354311e-01 -1.31199956e-02 -2.92076883e-05
+  9.80939075e-02  6.95122662e-02]","[ 4.42360479e-05  5.12995449e-05  3.66343930e-06 -1.47265692e-05
+  7.09848167e-05 -4.19478622e-05 -8.35730979e-05 -2.92076883e-05
+  1.39549996e-05  3.28952247e-05]","[array([1.35536027e-12]), array([-5.54933877e-12]), array([1.13686838e-12])]","[array([[ 1.,  1.,  0.,  2., -1.,  1., -0., -0.,  1.,  1.]]), array([[ 1.57079634, -0.        ,  3.14159266, -0.        ,  4.71238899,
+         0.        ,  6.28318501, -0.        ,  7.85398161,  0.        ]]), array([[ 0.        ,  1.57079629, -3.14159268, -0.        ,  0.        ,
+        -4.71238898,  6.28318501, -0.        , -0.        ,  7.85398164]])]","[462, 462, 462]","[0, 0, 0]","[0, 0, 0]","[array([-0.09192743]), array([-0.00078336]), array([0.00285818])]",equality_constrained_sqp,"[  4.69767417  -7.01004673  16.9728162   -0.73576307   0.33133053
+   2.23826634  -0.79395431 -22.58462222  -7.29229618  10.16925908]",8.357309785259753e-05,5.5493387662863825e-12,10.700478315353394,28.640067844708934,1.0,1,40,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,1.57079632679,equal,56,616,56,0,156,4,0.9189936415651272,"[ 1.82421896e-01  1.57829398e-01  4.93164448e-02  3.40713652e-01
+ -1.34008778e-01  2.08174221e-01 -2.04479545e-03 -8.58330001e-05
+  2.30854100e-01  1.07436743e-01]","[-3.60196342e-05  5.61676013e-05 -5.29223006e-05 -1.58500637e-05
+  7.64969561e-05  3.48953936e-05 -5.13401580e-05 -8.58330001e-05
+  2.35468003e-05  2.96069223e-05]","[array([-3.62376795e-13]), array([-9.09494702e-13]), array([-1.59161573e-12])]","[array([[ 1.00000001,  1.        ,  0.        ,  1.99999997, -1.        ,
+         1.        ,  0.        ,  0.        ,  1.        ,  1.        ]]), array([[ 1.57079639, -0.        ,  3.14159265,  0.        ,  4.71238894,
+        -0.        ,  6.2831853 ,  0.        ,  7.85398164, -0.        ]]), array([[ 0.        ,  1.57079631, -3.14159265,  0.        , -0.        ,
+        -4.712389  ,  6.2831853 ,  0.        ,  0.        ,  7.85398162]])]","[616, 616, 616]","[0, 0, 0]","[0, 0, 0]","[array([-0.17036475]), array([-0.00769874]), array([0.00801601])]",equality_constrained_sqp,"[ 197.55862259 -234.76922246  291.03230035    3.48625569 -342.82113444
+ -300.14469647   27.80395765  237.30897274   27.52486989  -38.96321937]",8.583300009242214e-05,1.5916157281026244e-12,22.678385734558105,2215.7860947702393,1.0,1,56,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,1.57079632679,covariance,72,814,74,0,248,4,-0.925612982325949,"[ 1.76052396e-01  1.55019630e-01  4.21625541e-02  3.31754724e-01
+ -1.35116465e-01  1.98551807e-01 -2.51467807e-03  5.39310485e-05
+  2.16968423e-01  1.11603570e-01]","[-4.74820721e-05  8.43264105e-06 -1.48080996e-05  1.04689406e-05
+  7.24124501e-05  9.68895207e-05  1.80385300e-05  5.39310485e-05
+ -4.24586397e-05  3.60931202e-05]","[array([7.10542736e-15]), array([3.23163135e-07]), array([2.2408733e-07])]","[array([[ 1.        ,  1.        ,  0.        ,  2.        , -1.00000002,
+         1.        , -0.        ,  0.        ,  1.        ,  1.        ]]), array([[ 1.57079633, -0.        ,  3.14159266,  0.        ,  4.71238897,
+        -0.        ,  6.2831853 ,  0.        ,  7.85398163, -0.        ]]), array([[ 0.        ,  1.57079633, -3.14159273,  0.        , -0.        ,
+        -4.71238899,  6.2831853 ,  0.        ,  0.        ,  7.85398167]])]","[814, 814, 814]","[0, 0, 0]","[0, 0, 0]","[array([-0.16587213]), array([-0.00651119]), array([0.00691428])]",equality_constrained_sqp,"[ 342.51242894 -724.33851687  121.05897423  296.65676913 -218.69278373
+ -429.85322332  -31.8775221   267.46014479   39.79161248  -39.11862321]",9.68895206521006e-05,3.2316313536284724e-07,14.537245988845825,1677.5630075391857,1.0,1,72,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,1.57079632679,variance,25,275,25,0,61,4,1.0160580560439978,"[ 5.35477583e-02  5.13959279e-02  4.31110283e-03  1.07881382e-01
+ -5.51898032e-02  6.16650914e-02 -1.21076256e-02 -1.97071487e-05
+  5.18455174e-02  4.10328649e-02]","[ 2.60352249e-05  3.43303180e-05 -9.14693006e-06 -1.35013015e-05
+  3.47961744e-05 -3.98823284e-05 -6.13723584e-05 -1.97071487e-05
+  2.66719085e-05  1.46436542e-05]","[array([3.60536934e-10]), array([-1.01063797e-08]), array([-4.53321292e-09])]","[array([[ 1.00000001,  1.        ,  0.        ,  2.        , -1.        ,
+         1.        ,  0.        , -0.        ,  1.        ,  1.        ]]), array([[ 1.57079633, -0.        ,  3.14159267,  0.        ,  4.71238899,
+         0.        ,  6.28318524, -0.        ,  7.85398164,  0.        ]]), array([[ 0.        ,  1.57079636, -3.14159267,  0.        , -0.        ,
+        -4.71238882,  6.28318524, -0.        , -0.        ,  7.8539816 ]])]","[275, 275, 275]","[0, 0, 0]","[0, 0, 0]","[array([-0.05394744]), array([0.00027102]), array([0.0016462])]",equality_constrained_sqp,"[ 1.31530334 -2.39456744  5.38506344  0.01461221 -0.24242187  1.11343274
+  0.20948782 -7.09325306 -2.43922318  3.13340825]",6.137235835708583e-05,1.0106379733088033e-08,5.187858819961548,32.16522772069031,1.0,1,25,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,1.57079632679,deterministic,40,462,42,0,120,4,0.28402909877509097,"[ 1.19534530e-01  1.03006905e-01  3.31868642e-02  2.24789637e-01
+ -9.07696784e-02  1.40786482e-01 -9.05089424e-03 -8.38907337e-05
+  1.48161172e-01  6.50952794e-02]","[-1.34907098e-05  7.87675464e-05 -5.29008650e-05  3.72152406e-05
+  9.10902495e-05  6.60645908e-05  5.41318112e-05 -8.38907337e-05
+ -7.41011109e-05 -4.05805493e-05]","[array([-1.66011205e-10]), array([7.20064008e-11]), array([-7.71063213e-11])]","[array([[ 1.        ,  0.99999999,  0.        ,  2.00000005, -1.        ,
+         1.        ,  0.        , -0.        ,  1.        ,  1.        ]]), array([[ 1.57079631, -0.        ,  3.1415927 ,  0.        ,  4.712389  ,
+         0.        ,  6.28318536, -0.        ,  7.85398166, -0.        ]]), array([[-0.        ,  1.57079636, -3.14159259,  0.        , -0.        ,
+        -4.71238905,  6.28318536, -0.        , -0.        ,  7.85398167]])]","[462, 462, 462]","[0, 0, 0]","[0, 0, 0]","[array([-0.11237621]), array([-0.00456572]), array([0.00601483])]",equality_constrained_sqp,"[ -8.9964266  -25.566375    16.9654629    2.28101355 -26.7547204
+  15.30261709  27.00220363 -10.35229975 -10.5358305   -0.52073249]",9.109024950931105e-05,1.660112047829898e-10,6.019647836685181,289.99707956355945,1.0,1,40,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,1.57079632679,variance_plus_deterministic,65,737,67,0,171,4,1.849887912148662,"[ 1.23469141e-01  1.10992704e-01  2.50213057e-02  2.36482694e-01
+ -1.02446723e-01  1.40113274e-01 -8.10009175e-03 -6.29717554e-06
+  1.44479773e-01  8.18872602e-02]","[-2.32961980e-05  2.40781882e-05 -2.63166434e-05 -2.84629717e-06
+  4.70560271e-05  4.80622444e-05 -2.16065904e-06 -6.29717554e-06
+ -1.13191919e-05  1.52235785e-05]","[array([1.98063788e-13]), array([-3.96482847e-12]), array([4.4408921e-12])]","[array([[ 1.00000001,  1.00000001,  0.        ,  1.99999998, -1.        ,
+         1.        ,  0.        , -0.        ,  1.        ,  1.        ]]), array([[ 1.57079638, -0.        ,  3.14159266,  0.        ,  4.71238897,
+         0.        ,  6.28318531, -0.        ,  7.85398161, -0.        ]]), array([[-0.        ,  1.57079632, -3.14159266,  0.        , -0.        ,
+        -4.7123889 ,  6.28318531, -0.        , -0.        ,  7.85398158]])]","[737, 737, 737]","[0, 0, 0]","[0, 0, 0]","[array([-0.11824277]), array([-0.00334204]), array([0.00463087])]",equality_constrained_sqp,"[-24.03082921 -43.85196632  20.07327386   5.96537167 -49.60808967
+  28.9658188   51.4642253   -5.14675593 -14.62967014  -6.99218615]",4.806224444824092e-05,4.440892098500626e-12,15.862987518310547,411.0743073414806,1.0,1,65,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,2.35619449019,equal,84,935,85,0,283,4,0.9225229090627711,"[ 1.31427661e-01  1.09734137e-01  4.34643183e-02  2.39917092e-01
+ -8.54080469e-02  1.50640736e-01  5.23793720e-03 -1.86411217e-05
+  1.77574978e-01  6.88258032e-02]","[-4.92175370e-05  1.32089599e-06 -2.38093207e-05  8.86173016e-06
+ -2.22248851e-05  2.27232464e-05  3.20769741e-05 -1.86411217e-05
+  7.04058766e-06 -2.18155389e-05]","[array([1.86659577e-11]), array([1.18973276e-10]), array([1.14192744e-09])]","[array([[ 0.99999999,  1.        ,  0.        ,  2.        , -1.        ,
+         1.        ,  0.        ,  0.        ,  1.        ,  1.        ]]), array([[ 1.57079633, -0.        ,  3.14159267, -0.        ,  4.71238898,
+        -0.        ,  6.28318527,  0.        ,  7.85398166, -0.        ]]), array([[ 0.        ,  1.57079633, -3.14159267, -0.        , -0.        ,
+        -4.71238898,  6.28318527,  0.        ,  0.        ,  7.85398161]])]","[935, 935, 935]","[0, 0, 0]","[0, 0, 0]","[array([-0.11995412]), array([-0.00733562]), array([0.00650708])]",equality_constrained_sqp,"[ 234.16131308 -268.70602702  337.93417661   -0.40832063 -400.87324676
+ -352.19281975   30.27266925  281.80045193   34.2998794   -46.61895121]",4.921753698250257e-05,1.1419274414947722e-09,36.75244069099426,1361.4406832325787,1.0,1,84,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,2.35619449019,covariance,81,891,81,0,244,4,-0.8874447082647219,"[ 1.30088862e-01  1.06689605e-01  4.69159642e-02  2.37175539e-01
+ -8.39728913e-02  1.54500277e-01 -1.87583184e-03  1.70357091e-05
+  1.76137428e-01  5.86736504e-02]","[-3.52399273e-06  8.47575859e-05 -5.91135154e-05  1.44929707e-05
+  7.20422848e-05 -7.27276796e-06 -2.05820427e-05  1.70357091e-05
+ -2.40953195e-06 -2.84949499e-05]","[array([-7.35127514e-11]), array([2.09922746e-10]), array([1.69222858e-10])]","[array([[ 1.        ,  1.        ,  0.        ,  2.        , -1.        ,
+         1.        ,  0.        ,  0.        ,  0.99999999,  1.        ]]), array([[ 1.57079633, -0.        ,  3.14159266,  0.        ,  4.71238897,
+        -0.        ,  6.2831853 ,  0.        ,  7.85398162, -0.        ]]), array([[ 0.        ,  1.5707963 , -3.14159266,  0.        , -0.        ,
+        -4.71238896,  6.2831853 ,  0.        ,  0.        ,  7.85398157]])]","[891, 891, 891]","[0, 0, 0]","[0, 0, 0]","[array([-0.11858052]), array([-0.00732868]), array([0.00762395])]",equality_constrained_sqp,"[ 2.06718102e+02 -2.41427833e+02  3.00595358e+02  2.67105629e-01
+ -3.58190689e+02 -3.10965640e+02  2.95790655e+01  2.49765779e+02
+  2.96693977e+01 -4.17189269e+01]",8.475758591617102e-05,2.09922745852964e-10,16.111377716064453,1926.3190856435174,1.0,1,81,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,2.35619449019,variance,49,539,49,0,125,4,1.0401626142432687,"[ 1.07063013e-01  1.02557050e-01  9.02048222e-03  2.14514648e-01
+ -1.07932714e-01  1.21455193e-01 -2.00259771e-02 -7.33489619e-05
+  1.05990429e-01  8.33901158e-02]","[ 6.45126218e-05  7.38260394e-05 -1.00713159e-05  2.83301069e-05
+  4.44188632e-05 -6.77699985e-05 -7.60689813e-06 -7.33489619e-05
+ -2.94397973e-05 -5.33702155e-05]","[array([-7.5850437e-13]), array([-1.33439926e-11]), array([-2.3426594e-11])]","[array([[ 0.99999999,  1.        ,  0.        ,  2.        , -1.        ,
+         1.        ,  0.        , -0.        ,  1.        ,  1.        ]]), array([[ 1.57079632, -0.        ,  3.14159274,  0.        ,  4.712389  ,
+         0.        ,  6.28318538, -0.        ,  7.85398163, -0.        ]]), array([[-0.        ,  1.57079636, -3.14159274,  0.        , -0.        ,
+        -4.71238902,  6.28318538, -0.        , -0.        ,  7.85398164]])]","[539, 539, 539]","[0, 0, 0]","[0, 0, 0]","[array([-0.10724316]), array([0.00015575]), array([0.00303027])]",equality_constrained_sqp,"[-24.08909017 -32.18482228   7.79047225   5.71901942 -35.08231663
+  28.29232787  41.76146256  -3.08022635 -10.65815093  -6.88061997]",7.382603938754437e-05,2.3426593998010503e-11,6.465594053268433,184.88908646449792,1.0,1,49,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,2.35619449019,deterministic,101,1265,115,0,372,4,0.5994389145134513,"[-5.67550120e-02 -6.00509533e-02  6.59754971e-03 -1.17753288e-01
+  6.50910512e-02 -5.51730338e-02  3.01222609e-03  2.81317611e-05
+ -4.86681167e-02 -6.52444568e-02]","[ 8.43579183e-05  9.82259243e-05 -2.20730118e-05  8.49001548e-06
+  8.55951309e-05 -9.70129577e-05 -8.07036449e-05  2.81317611e-05
+  5.16345723e-06 -2.21192453e-05]","[array([-8.2067686e-13]), array([-1.27897692e-13]), array([-7.16227078e-12])]","[array([[ 1.00000003,  0.99999999,  0.        ,  1.99999996, -1.        ,
+         0.99999998, -0.        , -0.        ,  0.99999999,  1.        ]]), array([[ 1.5707964 , -0.        ,  3.14159269, -0.        ,  4.71238899,
+         0.        ,  6.28318527, -0.        ,  7.85398161,  0.        ]]), array([[ 0.        ,  1.5707963 , -3.14159262, -0.        , -0.        ,
+        -4.71238875,  6.28318527, -0.        , -0.        ,  7.85398162]])]","[1265, 1265, 1265]","[0, 0, 0]","[0, 0, 0]","[array([0.05888089]), array([-0.00129967]), array([0.00080742])]",equality_constrained_sqp,"[  6.88115721 -13.43629254  29.18215772  -3.05689222  -0.22117335
+   3.92745408  -3.57505552 -38.94849754 -10.05634611  19.57663846]",9.82259242779432e-05,7.16227077646181e-12,42.72494292259216,20.033615239828748,1.0,1,101,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,2.35619449019,variance_plus_deterministic,74,847,77,0,279,4,1.859099675430059,"[-1.63667323e-03 -1.29118652e-02  2.26161236e-02 -1.61791966e-02
+  2.75469145e-02  6.49628995e-03  6.48362644e-03 -2.66436003e-05
+  2.42460086e-02 -3.23203797e-02]","[-1.70907181e-05  2.63506759e-05 -2.11435364e-05  6.89763367e-08
+  4.71309858e-05  4.01733941e-05 -2.24139256e-06 -2.66436003e-05
+ -1.46099191e-05  1.21696001e-05]","[array([1.51384683e-10]), array([2.05957917e-10]), array([1.3374688e-09])]","[array([[ 0.99999999,  0.99999999,  0.        ,  2.        , -1.        ,
+         1.00000001,  0.        , -0.        ,  1.        ,  1.        ]]), array([[ 1.57079632, -0.        ,  3.14159267,  0.        ,  4.71238898,
+         0.        ,  6.28318535, -0.        ,  7.85398168, -0.        ]]), array([[-0.        ,  1.57079631, -3.14159267,  0.        , -0.        ,
+        -4.71238885,  6.28318535, -0.        , -0.        ,  7.85398167]])]","[847, 847, 847]","[0, 0, 0]","[0, 0, 0]","[array([0.00808963]), array([-0.00411896]), array([0.0030867])]",equality_constrained_sqp,"[-59.07334098 -45.44830253  35.13433251  36.63020666 -41.29151592
+  11.9308566   46.12430909  -3.5105837  -14.36360252  -6.5975398 ]",4.713098577724048e-05,1.3374688023759518e-09,20.40809726715088,158.2468560233368,1.0,1,74,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,3.14159265359,equal,65,726,66,0,194,4,0.9573630394456814,"[ 8.15759009e-02  5.15932809e-02  6.01300465e-02  1.27116757e-01
+ -9.29864516e-03  9.96761436e-02  2.40981960e-02 -2.97846985e-05
+  1.53846363e-01  3.31973471e-03]","[-3.28022639e-05  8.38437858e-05 -6.84850553e-05  2.21757074e-05
+  6.44487717e-05  1.52514373e-05  4.04305680e-06 -2.97846985e-05
+ -7.94923383e-06 -3.82463615e-05]","[array([-2.13162821e-14]), array([-5.68434189e-14]), array([-1.13686838e-13])]","[array([[ 1.        ,  1.        ,  0.        ,  1.99999968, -1.        ,
+         1.        ,  0.        ,  0.        ,  1.        ,  1.        ]]), array([[ 1.57079634, -0.        ,  3.14159264, -0.        ,  4.712389  ,
+        -0.        ,  6.28318529,  0.        ,  7.85398166, -0.        ]]), array([[ 0.        ,  1.57079631, -3.1415926 , -0.        , -0.        ,
+        -4.71238895,  6.28318536,  0.        ,  0.        ,  7.85398171]])]","[726, 726, 726]","[0, 0, 0]","[0, 0, 0]","[array([-0.0635473]), array([-0.01149825]), array([0.00766354])]",equality_constrained_sqp,"[ 164.5058078  -191.52211034  239.86454124   -3.76419602 -289.4511024
+ -242.78499903   27.82770707  197.94180556   22.56151773  -33.68292651]",8.38437858415534e-05,1.1368683772161603e-13,25.033416748046875,2521.012518929111,1.0,1,65,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,3.14159265359,covariance,68,748,68,0,189,4,-0.8865607014603465,"[ 3.15552924e-02  1.53111481e-02  3.25173970e-02  4.54476121e-02
+  3.77571294e-03  4.49062492e-02  5.76195274e-03  3.57294430e-05
+  6.69692698e-02 -1.42909557e-02]","[-1.41258830e-05 -1.03454988e-05  2.15482846e-05 -1.27806159e-06
+ -3.47580543e-05 -2.70525426e-05 -6.12775609e-06  3.57294430e-05
+  1.99629003e-05 -6.40906943e-07]","[array([-1.79696258e-11]), array([8.52651283e-13]), array([-2.16004992e-12])]","[array([[ 1.00000001,  0.99999999,  0.        ,  1.99999995, -1.        ,
+         1.        ,  0.        ,  0.        ,  1.        ,  1.        ]]), array([[ 1.57079635, -0.        ,  3.14159265, -0.        ,  4.71238895,
+        -0.        ,  6.28318533,  0.        ,  7.85398159, -0.        ]]), array([[ 0.        ,  1.57079629, -3.14159265, -0.        , -0.        ,
+        -4.71238895,  6.28318539,  0.        ,  0.        ,  7.85398165]])]","[748, 748, 748]","[0, 0, 0]","[0, 0, 0]","[array([-0.02272445]), array([-0.00563088]), array([0.00471287])]",equality_constrained_sqp,"[ 215.08824796 -244.33990317  308.42399008   -4.56716929 -370.05846728
+ -318.33575173   30.76292633  258.16215737   31.03749368  -43.37421544]",3.572944299539239e-05,1.7969625787372934e-11,15.84861969947815,2680.488445020971,1.0,1,68,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,3.14159265359,variance,46,528,48,0,136,4,1.0691583262524753,"[ 9.55406191e-02  8.89064572e-02  1.32994845e-02  1.87974184e-01
+ -8.92317259e-02  1.09239875e-01 -1.38948444e-02  1.22228315e-05
+  1.01789981e-01  6.87769901e-02]","[-1.96519967e-05 -2.77312819e-05  4.73215869e-05 -1.13612653e-06
+  3.81000065e-05  9.18051388e-05  2.85933356e-05  1.22228315e-05
+ -6.07329067e-05  5.66833064e-05]","[array([-1.42128087e-10]), array([1.00187947e-09]), array([4.04783123e-08])]","[array([[ 1.00000001,  1.        ,  0.        ,  2.00000003, -1.        ,
+         1.        ,  0.        , -0.        ,  1.        ,  1.        ]]), array([[ 1.57079634, -0.        ,  3.14159251,  0.        ,  4.71238897,
+         0.        ,  6.2831853 , -0.        ,  7.85398165, -0.        ]]), array([[-0.        ,  1.57079629, -3.14159275,  0.        , -0.        ,
+        -4.71238898,  6.2831853 , -0.        , -0.        ,  7.85398163]])]","[528, 528, 528]","[0, 0, 0]","[0, 0, 0]","[array([-0.09398766]), array([-0.00100116]), array([0.00321714])]",equality_constrained_sqp,"[-33.1028266  -41.03204257   8.02304349   7.5288688  -46.0629845
+  37.42000937  55.20164528  -1.50927693 -13.1121776  -10.29368469]",9.180513876830623e-05,4.047831225761911e-08,7.223388433456421,270.20867298296525,1.0,1,46,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,3.14159265359,deterministic,66,737,67,0,194,4,0.060166241280015326,"[-1.68473494e-01 -1.55160804e-01 -2.67197304e-02 -3.22357053e-01
+  1.39037261e-01 -1.79228588e-01 -5.60069588e-03  1.48506895e-05
+ -1.98129514e-01 -1.31290539e-01]","[ 9.50388587e-05  3.65548897e-05  2.26168098e-05  1.12620882e-05
+  6.22907944e-06 -8.40345316e-05 -1.03891264e-05  1.48506895e-05
+ -2.34806423e-05 -4.03736715e-05]","[array([8.34887715e-14]), array([3.12638804e-13]), array([4.26325641e-14])]","[array([[ 1.,  1., -0.,  2., -1.,  1.,  0., -0.,  1.,  1.]]), array([[ 1.57079634,  0.        ,  3.14159266,  0.        ,  4.71238899,
+         0.        ,  6.28318534, -0.        ,  7.85398167,  0.        ]]), array([[-0.        ,  1.57079626, -3.14159262,  0.        ,  0.        ,
+        -4.712389  ,  6.28318534, -0.        , -0.        ,  7.85398168]])]","[737, 737, 737]","[0, 0, 0]","[0, 0, 0]","[array([0.16118416]), array([0.00470104]), array([-0.00381131])]",equality_constrained_sqp,"[-142.0529344    87.81709456 -168.98440883   17.28646469  166.78657115
+  198.60881303   25.68740282 -134.9065667   -24.61751454   13.45818311]",9.503885874234154e-05,3.126388037344441e-13,8.933439493179321,1788.8090964780708,1.0,1,66,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,4,3.14159265359,variance_plus_deterministic,28,319,29,0,71,4,1.8620571991329888,"[-1.92888222e-01 -1.91248419e-01 -3.31108976e-03 -3.97844920e-01
+  2.16951250e-01 -2.22007790e-01  5.47282731e-02 -4.92529178e-05
+ -1.69063504e-01 -1.60487162e-01]","[ 5.78543247e-05  1.48380665e-06  8.12588543e-05  2.92037123e-05
+  4.12305638e-05 -9.24897915e-06  1.56941629e-05 -4.92529178e-05
+ -8.13680746e-05  1.41020621e-05]","[array([-3.83559851e-12]), array([-6.33448849e-12]), array([-5.30420152e-12])]","[array([[ 1.        ,  1.        , -0.        ,  2.        , -1.00000001,
+         1.        ,  0.        , -0.        ,  1.        ,  1.        ]]), array([[ 1.57079633, -0.        ,  3.14159261,  0.        ,  4.71238894,
+         0.        ,  6.28318531, -0.        ,  7.85398164, -0.        ]]), array([[-0.        ,  1.57079634, -3.14159261,  0.        , -0.        ,
+        -4.71238899,  6.28318531, -0.        , -0.        ,  7.85398162]])]","[319, 319, 319]","[0, 0, 0]","[0, 0, 0]","[array([0.19893706]), array([-0.00381398]), array([-0.0048938])]",equality_constrained_sqp,"[-10.99392322  -7.93227291  -2.75468242   8.60668055  -1.16471736
+   7.96229727   9.79726726  -3.12678938  -3.83832577  -2.57585383]",8.136807455117606e-05,6.334488489301293e-12,11.059745788574219,76.73332884312636,1.0,1,28,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,0.78539816339,equal,33,510,34,0,103,4,0.8069882130412113,"[ 1.05186268e-01  9.77371905e-02  1.49119087e-02  2.04601482e-01
+ -9.36474877e-02  1.16047770e-01 -6.85028607e-03  1.54570057e-05
+  1.16651216e-01  7.93226438e-02  4.47544396e-02  2.04609916e-01
+ -8.21189832e-02  1.34361186e-01]","[ 1.80147572e-05  3.04574165e-05 -1.11295231e-05  1.85247748e-05
+  1.36685342e-05  2.05775256e-06 -1.84008881e-05  1.54570057e-05
+ -2.41321877e-05 -4.51093109e-05 -1.46748380e-05  2.69588567e-05
+  3.50788866e-05 -2.35082689e-05]","[array([-5.86197757e-13]), array([-3.09796633e-12]), array([-2.84501311e-11])]","[array([[ 1.        ,  1.        ,  0.        ,  2.        , -1.        ,
+         0.99999999, -0.        , -0.        ,  1.        ,  1.00000001,
+        -0.        ,  2.        , -1.00000001,  1.        ]]), array([[ 1.57079657, -0.        ,  3.14159269, -0.        ,  4.7123892 ,
+         0.        ,  6.28318556, -0.        ,  7.85398168, -0.        ,
+         9.42477801, -0.        , 10.99557418,  0.        ]]), array([[  0.        ,   1.5707964 ,  -3.14159269,  -0.        ,
+          0.        ,  -4.71238893,   6.28318556,  -0.        ,
+          0.        ,   7.85398193,  -9.42477801,  -0.        ,
+          0.        , -10.99557433]])]","[510, 510, 510]","[0, 0, 0]","[0, 0, 0]","[array([-0.10229148]), array([-0.00183141]), array([0.00291874])]",equality_constrained_sqp,"[ 10.98202202 -18.84180875  48.14746224  -0.41904449   5.39037776
+   9.98018353  -4.5529869  -41.71735522  21.44573114 -10.16498174
+ -52.55898076  -2.96852886  14.69844238  14.46282063]",4.5109310916828516e-05,2.845013113983441e-11,21.87645149230957,421.5595872846723,1.0,1,33,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,0.78539816339,covariance,35,525,35,0,94,4,-1.0175577688311033,"[ 1.10881297e-01  1.03718789e-01  1.43394393e-02  2.16762394e-01
+ -1.00887845e-01  1.22437355e-01 -8.83256315e-03  3.95081263e-05
+  1.20705363e-01  8.48866677e-02  4.29478827e-02  2.16679911e-01
+ -9.09567369e-02  1.41011731e-01]","[ 5.29560215e-05  4.91188270e-05  2.20998848e-05  6.55237674e-05
+  2.08740385e-05  5.26284894e-05 -3.71220487e-05  3.95081263e-05
+ -4.25993930e-05 -6.79460682e-05 -4.13533706e-06 -1.69590996e-05
+  3.23598919e-05 -8.80532812e-05]","[array([3.79913345e-09]), array([2.43007605e-08]), array([2.74208048e-07])]","[array([[ 1.        ,  1.        ,  0.        ,  2.        , -1.00000001,
+         0.99999999, -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.        , -1.        ,  1.        ]]), array([[ 1.5707966 , -0.        ,  3.14159267, -0.        ,  4.71238939,
+         0.        ,  6.28318449, -0.        ,  7.8539817 , -0.        ,
+         9.42477798,  0.        , 10.9955743 ,  0.        ]]), array([[  0.        ,   1.57079644,  -3.14159267,  -0.        ,
+          0.        ,  -4.71238911,   6.28318693,  -0.        ,
+          0.        ,   7.85398172,  -9.42477798,   0.        ,
+          0.        , -10.99557426]])]","[525, 525, 525]","[0, 0, 0]","[0, 0, 0]","[array([-0.10834843]), array([-0.00157876]), array([0.00297859])]",equality_constrained_sqp,"[ 11.78672122 -14.00861854  39.87285793  -0.84082436   9.792189
+  11.57258565  -1.5611902  -36.64705369  20.59225145 -19.43881767
+ -54.60133862   2.00524639  15.71179017  13.67101301]",8.805328124639883e-05,2.7420804826761014e-07,12.402904510498047,309.4028899075912,1.0,1,35,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,0.78539816339,variance,18,270,18,0,48,4,1.0014232517956436,"[ 5.44813275e-03  5.20539284e-03  4.90516424e-04  1.09540969e-02
+ -5.56345284e-03  6.31920993e-03 -1.27506256e-03  3.02195549e-05
+  5.23744524e-03  4.04405594e-03  1.47688389e-03  1.09165013e-02
+ -5.90534508e-03  7.59889185e-03]","[ 1.48543031e-05  1.61171721e-05  2.51085082e-06 -8.68136288e-06
+  6.22683581e-05 -3.85196340e-05  8.58340867e-05  3.02195549e-05
+ -3.39047098e-06  2.32341752e-05  1.28671496e-05 -4.62769926e-05
+ -8.71811385e-05  7.27083852e-05]","[array([-2.22044605e-16]), array([7.39181161e-10]), array([6.56834587e-10])]","[array([[ 1.,  1.,  0.,  2., -1.,  1., -0., -0.,  1.,  1.,  0.,  2., -1.,
+         1.]]), array([[ 1.57079637, -0.        ,  3.14159262,  0.        ,  4.71238899,
+         0.        ,  6.2831853 , -0.        ,  7.85398161, -0.        ,
+         9.42477798,  0.        , 10.9955743 , -0.        ]]), array([[  0.        ,   1.57079631,  -3.14159262,   0.        ,
+          0.        ,  -4.71238899,   6.2831853 ,  -0.        ,
+          0.        ,   7.85398161,  -9.42477798,   0.        ,
+         -0.        , -10.9955743 ]])]","[270, 270, 270]","[0, 0, 0]","[0, 0, 0]","[array([-0.00548139]), array([3.06282143e-05]), array([0.00018597])]",equality_constrained_sqp,"[ 0.08712245 -0.03848132  0.23155863  0.08608766  0.05429558  0.21679102
+ -0.04700228 -0.09638749  0.34405924 -0.17701931  0.18460199  0.2233715
+ -0.47900364 -0.47609847]",8.718113845147091e-05,7.39181160724911e-10,3.9428014755249023,2.2400494155613386,1.0,1,18,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,0.78539816339,deterministic,57,870,58,0,159,4,0.06467027559715052,"[ 6.54998862e-02  6.20598049e-02  6.87548011e-03  1.28670055e-01
+ -6.08679547e-02  7.11477837e-02 -4.46913910e-03 -7.39541561e-05
+  7.02063803e-02  5.28931278e-02  2.06129188e-02  1.28728721e-01
+ -5.62137357e-02  8.02824021e-02]","[-6.17384341e-06 -6.11193707e-06 -4.80572673e-06 -1.79891968e-05
+ -1.00445935e-05 -3.05551419e-05 -4.86585773e-06 -7.39541561e-05
+  5.21701280e-05 -6.03675757e-05 -2.79387792e-05  4.06766748e-05
+ -3.97649195e-06 -8.35767146e-06]","[array([5.12514475e-11]), array([3.91935373e-10]), array([1.0684289e-09])]","[array([[ 1.        ,  1.        ,  0.        ,  2.        , -1.00000001,
+         1.        , -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.        , -1.        ,  1.        ]]), array([[ 1.57079661, -0.        ,  3.14159265, -0.        ,  4.71238895,
+         0.        ,  6.28318832, -0.        ,  7.85398157, -0.        ,
+         9.42477797,  0.        , 10.99557432,  0.        ]]), array([[  0.        ,   1.57079638,  -3.14159265,  -0.        ,
+          0.        ,  -4.71238932,   6.28318832,  -0.        ,
+          0.        ,   7.85398177,  -9.42477797,   0.        ,
+          0.        , -10.99557428]])]","[870, 870, 870]","[0, 0, 0]","[0, 0, 0]","[array([-0.06434402]), array([-0.00073978]), array([0.00145029])]",equality_constrained_sqp,"[ 18.33407498 -21.68420468  62.09168954  -0.77725185  15.30992231
+  18.51448301  -1.31312479 -57.1488873   33.61089554 -30.42984187
+ -85.51821934   0.2997625   23.12287379  22.04236782]",7.39541561205936e-05,1.0684289009077474e-09,18.11678957939148,65.21931878629651,1.0,1,57,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,0.78539816339,variance_plus_deterministic,62,975,65,0,222,4,1.7408903182252804,"[ 6.18818615e-02  5.94240205e-02  4.92296395e-03  1.22803608e-01
+ -5.99630701e-02  6.73658862e-02 -6.07110690e-03  5.63880491e-06
+  6.37651443e-02  5.13834713e-02  1.48784387e-02  1.22758960e-01
+ -5.80624630e-02  7.53469053e-02]","[ 1.43594227e-05  3.09030679e-05 -2.58027181e-05  2.35654980e-05
+ -5.50454928e-06 -1.48300054e-05  6.55536203e-06  5.63880491e-06
+ -1.22925209e-05 -2.20488379e-05  3.21386718e-05 -2.10758340e-05
+ -1.48330300e-05 -2.14080360e-05]","[array([2.7661784e-09]), array([5.49894708e-09]), array([9.09614073e-09])]","[array([[ 1.00000001,  0.99999999,  0.        ,  2.00000012, -1.        ,
+         1.00000001, -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.00000002, -1.        ,  1.        ]]), array([[ 1.57079635, -0.        ,  3.14159268,  0.        ,  4.71238909,
+         0.        ,  6.2831854 , -0.        ,  7.85398172, -0.        ,
+         9.42477789, -0.        , 10.99557431,  0.        ]]), array([[  0.        ,   1.57079625,  -3.14159261,   0.        ,
+          0.        ,  -4.71238895,   6.2831854 ,  -0.        ,
+          0.        ,   7.85398155,  -9.42477789,  -0.        ,
+          0.        , -10.99557422]])]","[975, 975, 975]","[0, 0, 0]","[0, 0, 0]","[array([-0.06139002]), array([-0.00030398]), array([0.00127127])]",equality_constrained_sqp,"[  8.25169413 -13.88811271  55.74528592   1.20090572  12.37819674
+  11.7000967   -5.33622515 -46.0157648   30.23064238 -21.98880785
+ -69.49706042  -1.30151032  18.613885    17.88777829]",3.213867176959234e-05,9.09614072952536e-09,32.2072069644928,267.8906761882101,1.0,1,62,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,1.57079632679,equal,54,810,54,0,169,4,0.8782244489118418,"[ 1.26675207e-01  1.12444312e-01  2.84915959e-02  2.37426612e-01
+ -9.47647889e-02  1.37569823e-01  6.81558611e-03  2.33030028e-05
+  1.58669642e-01  8.73145397e-02  8.55382843e-02  2.37435436e-01
+ -6.28073063e-02  1.62652728e-01]","[-2.46816345e-05  5.18597176e-06 -2.99322123e-05 -4.93653722e-06
+ -1.37791062e-06  2.41228521e-05 -1.43187160e-05  2.33030028e-05
+  3.32712710e-05 -1.80114783e-05 -2.62995880e-05  3.89328513e-06
+  1.96279753e-05  4.49587828e-07]","[array([6.700418e-12]), array([1.05515596e-12]), array([1.35855771e-11])]","[array([[ 0.99999998,  0.99999999,  0.        ,  2.00000005, -1.        ,
+         0.99999998, -0.        , -0.        ,  0.99999999,  0.99999999,
+        -0.        ,  2.        , -1.00000003,  1.        ]]), array([[ 1.5707963 , -0.        ,  3.14159268, -0.        ,  4.71238901,
+         0.        ,  6.28318517, -0.        ,  7.85398162,  0.        ,
+         9.42477796, -0.        , 10.9955743 ,  0.        ]]), array([[ -0.        ,   1.5707964 ,  -3.14159268,  -0.        ,
+         -0.        ,  -4.71238902,   6.28318517,  -0.        ,
+          0.        ,   7.85398162,  -9.42477796,  -0.        ,
+         -0.        , -10.99557428]])]","[810, 810, 810]","[0, 0, 0]","[0, 0, 0]","[array([-0.11871577]), array([-0.00508285]), array([0.00399584])]",equality_constrained_sqp,"[-24.79009477 -58.0959229   42.1128432   -9.35069344 -44.51535784
+  43.69840529  -8.23821678 -38.85792387  51.907368    59.66577185
+ -22.03922552 -58.91636763  -2.89116255  17.74207429]",3.3271271003929015e-05,1.3585577107733116e-11,46.9313268661499,682.9034096861004,1.0,1,54,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,1.57079632679,covariance,56,885,59,0,222,4,-0.9433643795586832,"[ 1.32300611e-01  1.18669638e-01  2.72835638e-02  2.49929288e-01
+ -1.02918080e-01  1.43884568e-01  4.17781413e-03  2.36878467e-06
+  1.61719443e-01  9.34306491e-02  8.18014733e-02  2.49902521e-01
+ -7.35607716e-02  1.69078346e-01]","[-4.25103157e-06  7.14883164e-06 -1.18403552e-06  4.69499877e-06
+  1.65216860e-05  2.28442236e-05  6.78480600e-06  2.36878467e-06
+  4.43190083e-05 -3.26055569e-05 -5.27696917e-05 -2.20744571e-05
+  3.56256099e-06  1.73876884e-05]","[array([-1.17125865e-10]), array([1.32560984e-09]), array([-7.12532255e-10])]","[array([[ 0.99999999,  1.        ,  0.        ,  1.99999998, -1.        ,
+         1.        , -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.        , -0.99999994,  1.        ]]), array([[ 1.57079633, -0.        ,  3.14159266, -0.        ,  4.71238902,
+         0.        ,  6.28318556, -0.        ,  7.85398163,  0.        ,
+         9.42477793, -0.        , 10.99557427,  0.        ]]), array([[ -0.        ,   1.57079635,  -3.14159266,  -0.        ,
+         -0.        ,  -4.71238898,   6.28318482,  -0.        ,
+          0.        ,   7.8539816 ,  -9.42477793,  -0.        ,
+         -0.        , -10.9955743 ]])]","[885, 885, 885]","[0, 0, 0]","[0, 0, 0]","[array([-0.1249623]), array([-0.00467442]), array([0.00401058])]",equality_constrained_sqp,"[-29.26170941 -72.26188015  50.7796127   -3.16445021 -57.2887688
+  38.47705944  -5.09592984 -33.0730168   54.44510669  62.87017514
+ -20.64671269 -63.32773119  -4.05610679  18.37073551]",5.276969171282009e-05,1.3256098441161157e-09,23.544799089431763,739.2988785355356,1.0,1,56,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,1.57079632679,variance,49,735,49,0,157,4,1.0094887677753503,"[ 3.27779372e-02  3.18192992e-02  1.92712951e-03  6.55239006e-02
+ -3.26848229e-02  3.56173945e-02 -3.69267633e-03  7.20563159e-05
+  3.28327617e-02  2.81364408e-02  5.72043347e-03  6.56341411e-02
+ -3.27218962e-02  3.93670873e-02]","[-2.10901099e-05 -2.78503837e-05  2.33732978e-05 -4.76375775e-05
+  6.11643582e-05  1.57721500e-05  8.75643147e-06  7.20563159e-05
+ -1.93056339e-05  4.37640955e-05  9.16470468e-06  6.26047044e-05
+ -2.89479089e-05  1.09920780e-05]","[array([-8.19690982e-11]), array([-2.81090706e-11]), array([6.22904395e-10])]","[array([[ 0.99999999,  1.        ,  0.        ,  2.00000008, -0.99999998,
+         1.        , -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.00000003, -1.        ,  1.        ]]), array([[ 1.57079636, -0.        ,  3.14159271, -0.        ,  4.71238936,
+         0.        ,  6.28318547, -0.        ,  7.85398162, -0.        ,
+         9.42477799,  0.        , 10.99557421,  0.        ]]), array([[  0.        ,   1.57079627,  -3.1415926 ,  -0.        ,
+          0.        ,  -4.71238886,   6.28318467,  -0.        ,
+          0.        ,   7.85398166,  -9.42477799,   0.        ,
+          0.        , -10.9955743 ]])]","[735, 735, 735]","[0, 0, 0]","[0, 0, 0]","[array([-0.03278577]), array([-8.44152659e-06]), array([0.00059754])]",equality_constrained_sqp,"[  2.63095238  -8.16314126  16.5962187   -1.49319941   1.8491395
+   6.78012396  -2.39500366 -15.25451499  10.30978315  -5.70480664
+ -22.5186841    1.16704829   7.39605646   5.04458661]",7.205631589917135e-05,6.229043947314494e-10,12.73917555809021,138.38343464511135,1.0,1,49,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,1.57079632679,deterministic,54,840,56,0,240,4,0.123975018019715,"[ 8.42303460e-02  7.70785381e-02  1.43206247e-02  1.63973278e-01
+ -7.52630326e-02  9.67864028e-02 -1.08332419e-02  1.55034781e-05
+  9.31485725e-02  5.72552177e-02  4.30214631e-02  1.64122209e-01
+ -6.64620918e-02  1.16693144e-01]","[-1.07470345e-05  1.02871703e-05 -2.50597047e-05 -5.55300397e-05
+  7.13035920e-05 -6.64589740e-05  4.46167143e-05  1.55034781e-05
+  7.22780461e-07 -2.84213129e-05 -1.55900397e-05  9.33998841e-05
+ -3.45121224e-05  5.56691498e-05]","[array([2.1813662e-12]), array([6.34656772e-11]), array([1.62856395e-11])]","[array([[ 1.        ,  0.99999999,  0.        ,  2.        , -1.        ,
+         1.        ,  0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.00000002, -1.        ,  1.        ]]), array([[ 1.57079634, -0.        ,  3.14159279, -0.        ,  4.71238905,
+         0.        ,  6.28318528, -0.        ,  7.85398162, -0.        ,
+         9.42477793,  0.        , 10.99557419,  0.        ]]), array([[  0.        ,   1.57079609,  -3.1415926 ,  -0.        ,
+         -0.        ,  -4.71238861,   6.28318632,  -0.        ,
+          0.        ,   7.85398152,  -9.42477793,   0.        ,
+          0.        , -10.99557419]])]","[840, 840, 840]","[0, 0, 0]","[0, 0, 0]","[array([-0.0820144]), array([-0.00141755]), array([0.00314882])]",equality_constrained_sqp,"[ 50.43987941 -15.86759675  20.05961634 -30.38010819  -9.37766223
+  16.0140689    3.68104883 -11.56479181  28.35340014 -28.15272971
+ -52.53706663   1.59427808  13.75786833  12.16484434]",9.3399884106532e-05,6.346567715809215e-11,20.630528688430786,81.17694617928038,1.0,1,54,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,1.57079632679,variance_plus_deterministic,74,1140,76,0,235,4,1.7890340125426798,"[ 8.16618061e-02  7.75610043e-02  8.21140295e-03  1.62084720e-01
+ -7.91900102e-02  9.15323019e-02 -1.15635649e-02  1.27328584e-05
+  8.40950455e-02  6.35056990e-02  2.47047654e-02  1.62159687e-01
+ -7.69022333e-02  1.05546983e-01]","[ 3.82252467e-07  8.66894939e-06 -6.77330688e-06 -2.68526983e-05
+  4.88765493e-05 -3.38489591e-05  2.77153565e-05  1.27328584e-05
+  1.10863718e-05 -3.28192397e-05  5.02365543e-05  4.81072666e-05
+ -8.58825583e-05 -3.29845237e-05]","[array([1.57029945e-12]), array([1.25623956e-11]), array([2.45563569e-11])]","[array([[ 1.00000001,  1.        ,  0.        ,  1.99999993, -1.        ,
+         1.        , -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.00000002, -1.        ,  1.        ]]), array([[ 1.57079635, -0.        ,  3.14159273, -0.        ,  4.71238921,
+         0.        ,  6.28318527, -0.        ,  7.85398182, -0.        ,
+         9.42477799,  0.        , 10.99557423,  0.        ]]), array([[  0.        ,   1.5707961 ,  -3.14159264,  -0.        ,
+          0.        ,  -4.71238879,   6.28318527,  -0.        ,
+          0.        ,   7.85398171,  -9.42477799,   0.        ,
+          0.        , -10.99557432]])]","[1140, 1140, 1140]","[0, 0, 0]","[0, 0, 0]","[array([-0.08105579]), array([-0.00038556]), array([0.00223037])]",equality_constrained_sqp,"[ 10.99264349 -16.55752229  42.43477661  -1.71503657   8.70816897
+  13.54443931  -2.99863521 -38.93795235  22.56752538 -18.82656963
+ -57.38605121   2.52014812  17.3552168   13.73264641]",8.58825583083837e-05,2.4556356947869062e-11,47.224268436431885,240.5771376905655,1.0,1,74,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,2.35619449019,equal,55,825,55,0,204,4,0.9230513327926791,"[ 1.06303182e-01  8.71726435e-02  3.83098813e-02  1.88312285e-01
+ -5.76083097e-02  1.15192830e-01  2.07220048e-02  6.62316506e-05
+  1.55087611e-01  5.91772189e-02  1.15008593e-01  1.88324626e-01
+ -8.92805837e-03  1.43177676e-01]","[-3.80368585e-05  5.36159505e-06 -3.79963798e-05 -1.73231849e-05
+  2.72588943e-05  3.54445630e-05  6.45517644e-06  6.62316506e-05
+  4.07395867e-05  4.14583199e-08 -3.50430329e-05 -4.98785236e-06
+  1.85607074e-06  3.01866938e-05]","[array([-6.90231872e-10]), array([-9.29251698e-09]), array([5.9416152e-09])]","[array([[ 0.99999999,  1.00000001,  0.        ,  1.99999994, -1.00000001,
+         1.00000001, -0.        , -0.        ,  0.99999999,  1.00000001,
+        -0.        ,  2.        , -1.        ,  1.        ]]), array([[ 1.57079627, -0.        ,  3.14159266, -0.        ,  4.71238896,
+         0.        ,  6.28318526, -0.        ,  7.85398163,  0.        ,
+         9.42477804, -0.        , 10.9955743 ,  0.        ]]), array([[ -0.        ,   1.57079627,  -3.14159248,  -0.        ,
+         -0.        ,  -4.71238893,   6.283185  ,  -0.        ,
+          0.        ,   7.85398165,  -9.42477804,  -0.        ,
+         -0.        , -10.99557434]])]","[825, 825, 825]","[0, 0, 0]","[0, 0, 0]","[array([-0.09416481]), array([-0.00775175]), array([0.00445476])]",equality_constrained_sqp,"[-22.83502315 -46.83476289  30.65111499  -8.07523176 -36.91895442
+  37.28698301  -7.37439474 -28.24940458  45.38675539  48.8541216
+ -17.53469299 -49.37911305  -2.84834052  14.28332072]",6.623165063462751e-05,9.292516978121057e-09,43.932305574417114,534.9972313392564,1.0,1,55,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,2.35619449019,covariance,89,1365,91,0,657,1,-0.9023517690357918,"[ 9.49099781e-02  7.71377260e-02  3.55913390e-02  1.68403626e-01
+ -5.19901004e-02  1.05491629e-01  1.45456004e-02  8.36360057e-05
+  1.37819171e-01  4.87752823e-02  1.06806265e-01  1.68424318e-01
+ -9.16753576e-03  1.33822533e-01]","[-1.72280040e-05  1.61416190e-05 -1.99024931e-05 -1.01087466e-05
+  5.57895454e-05  2.88769626e-05  5.45882264e-06  8.36360057e-05
+  1.06544769e-05 -5.13072176e-06 -2.74592945e-05  1.05648720e-05
+ -2.95536483e-06  1.86075946e-05]","[array([-9.62924886e-08]), array([3.45646953e-07]), array([5.94371556e-08])]","[array([[ 1.00000001,  1.00000001,  0.        ,  1.99999979, -0.99999997,
+         0.99999996, -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.        , -1.00000001,  1.        ]]), array([[ 1.57079642, -0.        ,  3.14159262,  0.        ,  4.71238901,
+        -0.        ,  6.28318533, -0.        ,  7.85398158,  0.        ,
+         9.42477797, -0.        , 10.99557434,  0.        ]]), array([[ -0.        ,   1.57079637,  -3.14159269,   0.        ,
+         -0.        ,  -4.71238913,   6.28318533,  -0.        ,
+          0.        ,   7.85398164,  -9.42477788,  -0.        ,
+         -0.        , -10.99557435]])]","[1365, 1365, 1365]","[0, 0, 0]","[0, 0, 0]","[array([-0.08420688]), array([-0.00682477]), array([0.00451064])]",equality_constrained_sqp,"[ -1.54737471 -51.02639078  50.24257711   3.63972655 -14.181825
+  -7.10718661 -60.93713969 -41.36196189  51.48031624  87.36590821
+  -5.20377447 -59.30872698  -5.54609713  13.44480627]",8.363600565864499e-05,3.456469528373418e-07,41.288307189941406,229.9945571860256,1.0,1,89,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,2.35619449019,variance,51,765,51,0,169,4,1.0316887420859304,"[ 7.84967037e-02  7.65079769e-02  3.97329930e-03  1.57905931e-01
+ -8.03493948e-02  8.62932172e-02 -1.16747302e-02 -1.89988425e-05
+  7.66120006e-02  6.66995886e-02  1.18337067e-02  1.57963201e-01
+ -8.21738509e-02  9.60797730e-02]","[ 7.20779159e-06 -2.12175444e-06  1.45020220e-05 -6.50054771e-06
+  6.97054121e-06 -1.34576270e-06 -2.33962673e-05 -1.89988425e-05
+ -1.06264853e-05 -2.60445915e-05 -4.26852780e-05  5.07719744e-05
+  4.93865302e-05  7.45020287e-07]","[array([-3.65396602e-12]), array([-5.01216846e-11]), array([6.36717346e-10])]","[array([[ 0.99999998,  1.        ,  0.        ,  2.00000002, -0.99999998,
+         1.        , -0.        , -0.        ,  1.        ,  0.99999999,
+        -0.        ,  2.        , -1.        ,  1.        ]]), array([[ 1.57079621, -0.        ,  3.14159263, -0.        ,  4.71238879,
+         0.        ,  6.28318556, -0.        ,  7.85398162, -0.        ,
+         9.42477798,  0.        , 10.99557424,  0.        ]]), array([[  0.        ,   1.57079628,  -3.14159263,  -0.        ,
+          0.        ,  -4.7123888 ,   6.28318466,  -0.        ,
+          0.        ,   7.85398157,  -9.42477798,   0.        ,
+          0.        , -10.9955743 ]])]","[765, 765, 765]","[0, 0, 0]","[0, 0, 0]","[array([-0.07895621]), array([0.00029712]), array([0.00155725])]",equality_constrained_sqp,"[  3.56148798  -9.06961237  19.42164738  -1.34752415   2.52677101
+   7.60687969  -2.12245174 -17.85660026  11.90210775  -6.88544638
+ -26.47148988   0.45639829   8.26044454   6.45405061]",5.077197439010139e-05,6.367173455146258e-10,15.743494987487793,128.28323524414515,1.0,1,51,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,2.35619449019,deterministic,56,930,62,0,268,4,0.13597878385141177,"[-5.21899591e-02 -5.85469990e-02  1.27395424e-02 -1.10573952e-01
+  6.45619187e-02 -4.53945516e-02 -9.64102194e-04  3.18393213e-05
+ -3.99903755e-02 -7.19380300e-02  3.82799817e-02 -1.10521390e-01
+  7.68084971e-02 -3.21341129e-02]","[ 3.47044266e-05  5.95924864e-05 -2.43117984e-05  1.60596278e-05
+  5.58863385e-05 -3.43002269e-05  8.69319088e-07  3.18393213e-05
+ -4.70797686e-05 -8.50984491e-05 -1.15812009e-05  6.86228738e-05
+  2.10955616e-05 -2.02015710e-05]","[array([-2.66453526e-15]), array([-1.64845915e-12]), array([-4.206413e-12])]","[array([[ 0.99999998,  1.        ,  0.        ,  1.99999998, -0.99999999,
+         1.        , -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.        , -1.        ,  1.        ]]), array([[ 1.5707962 , -0.        ,  3.14159259,  0.        ,  4.71238892,
+        -0.        ,  6.28318515, -0.        ,  7.85398166, -0.        ,
+         9.42477792,  0.        , 10.99557429,  0.        ]]), array([[  0.        ,   1.57079633,  -3.14159266,   0.        ,
+          0.        ,  -4.71238901,   6.28318515,  -0.        ,
+          0.        ,   7.85398157,  -9.42477792,   0.        ,
+          0.        , -10.99557424]])]","[930, 930, 930]","[0, 0, 0]","[0, 0, 0]","[array([0.05529501]), array([-0.00195464]), array([0.00210822])]",equality_constrained_sqp,"[ 12.49619696 -21.60260476  29.21835802  15.60894191   7.97421781
+ -17.04871229  -7.68045229  -9.01249298  13.51382679 -19.23228252
+ -34.07760353   6.53449164  10.39467571   6.95560222]",8.50984491440887e-05,4.206412995699793e-12,18.155991077423096,47.352559897704936,1.0,1,56,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,2.35619449019,variance_plus_deterministic,69,1080,72,0,226,4,1.8086683886739237,"[-4.10723444e-03 -8.07857209e-03  7.96611545e-03 -1.00812089e-02
+  7.85630760e-03  4.16539476e-03 -8.58755580e-03  6.95369950e-05
+ -4.37543465e-04 -2.04146081e-02  2.40943907e-02 -9.97848059e-03
+  1.15240666e-02  1.64667994e-02]","[-6.36363735e-06  2.75119730e-05 -4.43113030e-05 -2.00974359e-05
+  3.66973302e-05 -3.06345927e-05 -4.18195327e-06  6.95369950e-05
+ -5.54122169e-05 -6.41040768e-06  6.31109248e-05  8.26308733e-05
+ -1.42831992e-05 -3.13438633e-05]","[array([9.85345139e-12]), array([3.19943183e-10]), array([-5.60888225e-10])]","[array([[ 1.        ,  1.        ,  0.        ,  2.00000002, -1.        ,
+         1.        , -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.00000002, -1.        ,  1.        ]]), array([[ 1.57079633, -0.        ,  3.14159265, -0.        ,  4.71238888,
+         0.        ,  6.28318505, -0.        ,  7.85398168, -0.        ,
+         9.42477793,  0.        , 10.9955742 ,  0.        ]]), array([[  0.        ,   1.5707963 ,  -3.14159272,  -0.        ,
+          0.        ,  -4.71238885,   6.28318505,  -0.        ,
+          0.        ,   7.85398156,  -9.42477793,   0.        ,
+          0.        , -10.99557425]])]","[1080, 1080, 1080]","[0, 0, 0]","[0, 0, 0]","[array([0.00503056]), array([-0.00059186]), array([0.00195794])]",equality_constrained_sqp,"[  8.10318952 -11.21119537  29.90296108  -1.25981896   6.68628909
+   9.22642546  -2.16498973 -27.64805588  14.98281268 -14.08996039
+ -40.37658022   3.28190407  12.57677113   9.20761808]",8.263087332655537e-05,5.608882247543079e-10,43.293845891952515,18.7673225510091,1.0,1,69,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,3.14159265359,equal,67,1005,67,0,222,4,0.9433524491239696,"[ 4.47043436e-02  2.20551665e-02  4.53585120e-02  5.62345936e-02
+  2.17921071e-02  4.63822193e-02  4.22986263e-02  4.05212170e-05
+  1.11475896e-01 -2.21467165e-03  1.36287172e-01  5.62991868e-02
+  8.84144147e-02  7.06511590e-02]","[-8.41115017e-05 -1.39940517e-05 -8.00747862e-05 -4.42050419e-05
+ -1.56523863e-05  3.20985215e-05 -1.66236178e-05  4.05212170e-05
+  9.12293928e-05 -2.87114331e-06 -2.85894600e-05  2.03858109e-05
+  1.04432140e-05  2.00780748e-05]","[array([-9.17292908e-11]), array([-1.31786848e-09]), array([-6.67984068e-09])]","[array([[ 1.00000006,  1.        ,  0.        ,  1.99999992, -1.        ,
+         1.        , -0.        , -0.        ,  0.99999999,  0.99999998,
+        -0.        ,  2.        , -1.00000004,  1.        ]]), array([[ 1.5707963 , -0.        ,  3.14159267, -0.        ,  4.71238898,
+         0.        ,  6.28318516, -0.        ,  7.85398166,  0.        ,
+         9.42477805, -0.        , 10.99557428,  0.        ]]), array([[ -0.        ,   1.5707963 ,  -3.1415926 ,  -0.        ,
+         -0.        ,  -4.712389  ,   6.28318571,  -0.        ,
+          0.        ,   7.85398163,  -9.42477805,  -0.        ,
+         -0.        , -10.99557427]])]","[1005, 1005, 1005]","[0, 0, 0]","[0, 0, 0]","[array([-0.0281394]), array([-0.01059912]), array([0.00386443])]",equality_constrained_sqp,"[-21.25445637 -40.51335355  24.75133473  -7.31501992 -32.49167239
+  33.33287217  -6.89684108 -22.78279392  41.23075737  42.74938299
+ -15.02318691 -43.73802684  -2.74292814  12.32629037]",9.122939282790732e-05,6.679840680590132e-09,60.96509313583374,621.7296856523299,1.0,1,67,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,3.14159265359,covariance,89,1365,91,0,522,1,-0.8814859656498985,"[ 2.75025949e-02  8.52001168e-03  3.80108502e-02  2.98208427e-02
+  2.28924542e-02  3.42391261e-02  2.45452005e-02  5.22727442e-05
+  7.77552434e-02 -1.73626628e-02  1.13964899e-01  2.98716241e-02
+  7.30748400e-02  5.99427399e-02]","[ 2.42470017e-05  4.60067635e-05  2.16648215e-06  2.16737150e-06
+  9.47632922e-05  2.37907834e-05  1.04951017e-05  5.22727442e-05
+  8.59197087e-07 -9.53371945e-05 -6.11541153e-05  5.29494207e-05
+  1.11120805e-06 -1.39256318e-05]","[array([3.14408055e-09]), array([4.66352834e-08]), array([-4.51752982e-08])]","[array([[ 1.00000001,  0.99999999,  0.        ,  2.00000005, -1.00000003,
+         1.00000001,  0.        , -0.        ,  1.        ,  1.00000001,
+        -0.        ,  2.        , -1.        ,  1.        ]]), array([[ 1.57079645, -0.        ,  3.14159267, -0.        ,  4.71238902,
+         0.        ,  6.28318518, -0.        ,  7.8539816 ,  0.        ,
+         9.42477805, -0.        , 10.9955743 ,  0.        ]]), array([[ -0.        ,   1.57079624,  -3.14159253,  -0.        ,
+         -0.        ,  -4.71238898,   6.28318553,  -0.        ,
+          0.        ,   7.85398163,  -9.42477805,  -0.        ,
+         -0.        , -10.99557427]])]","[1365, 1365, 1365]","[0, 0, 0]","[0, 0, 0]","[array([-0.01490934]), array([-0.00800168]), array([0.00409686])]",equality_constrained_sqp,"[ -9.91995224 -22.09717008  13.85372487 -20.22202352 -24.29621159
+  44.67106122   5.4829056  -29.07939935  25.25682729  27.68358969
+ -15.34554697 -29.19800227  -0.14876281   9.80072131]",9.533719454948852e-05,4.66352834127548e-08,38.33686900138855,278.3258460331169,1.0,1,89,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,3.14159265359,variance,47,735,49,0,281,4,1.0568292168576174,"[ 8.06751717e-02  7.72509902e-02  6.86477522e-03  1.62312337e-01
+ -8.25949515e-02  9.29448603e-02 -1.76927298e-02  5.54453599e-05
+  7.86846838e-02  6.15027720e-02  2.07041442e-02  1.62445592e-01
+ -8.46248990e-02  1.08685613e-01]","[-9.20224764e-06  1.00155358e-05 -2.20210964e-05 -3.60966676e-05
+  4.87929094e-05 -2.90785482e-05 -3.94537068e-07  5.54453599e-05
+ -4.03197092e-05 -5.24094487e-06  4.37552486e-05  9.71583588e-05
+ -2.17841540e-05 -2.12887128e-05]","[array([7.65925989e-10]), array([-1.45204808e-08]), array([2.68607323e-08])]","[array([[ 1.        ,  0.99999999,  0.        ,  2.        , -1.        ,
+         1.        ,  0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.        , -1.        ,  1.        ]]), array([[ 1.57079633, -0.        ,  3.14159271, -0.        ,  4.71238889,
+         0.        ,  6.28318596, -0.        ,  7.85398175, -0.        ,
+         9.42477795,  0.        , 10.99557429,  0.        ]]), array([[  0.        ,   1.57079637,  -3.14159266,  -0.        ,
+         -0.        ,  -4.71238896,   6.28318596,  -0.        ,
+          0.        ,   7.85398157,  -9.42477795,   0.        ,
+          0.        , -10.99557435]])]","[735, 735, 735]","[0, 0, 0]","[0, 0, 0]","[array([-0.08117422]), array([0.00031184]), array([0.00250398])]",equality_constrained_sqp,"[  9.77669023  -4.40887301  20.48187065  -9.6958583   -3.67895247
+   8.28138221   0.67365311 -18.56471866   4.65924682  -2.71476648
+ -18.71605695   1.65965363   6.65741729   4.4571944 ]",9.715835877696644e-05,2.686073230506736e-08,19.358031034469604,116.95978054860169,1.0,1,47,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,3.14159265359,deterministic,159,2550,170,0,814,4,0.23826386342759812,"[-1.73114328e-01 -1.67470819e-01 -1.12861383e-02 -3.44721865e-01
+  1.70060430e-01 -1.86991294e-01  1.64292749e-02 -2.86003401e-05
+ -1.76182511e-01 -1.48022985e-01 -3.37576266e-02 -3.44653827e-01
+  1.66974854e-01 -2.06384183e-01]","[-2.97605395e-06  1.04375021e-05 -2.59537413e-05 -2.82721885e-05
+  7.27183313e-06 -4.78598536e-05  2.52892584e-05 -2.86003401e-05
+ -1.29721556e-05 -3.90509573e-06  2.29262418e-05  3.97756242e-05
+ -2.01122383e-05  2.14283785e-05]","[array([-2.29795827e-09]), array([-3.14651629e-08]), array([-2.1102041e-08])]","[array([[ 1.00000002,  1.        , -0.        ,  1.99999995, -1.        ,
+         1.        , -0.        ,  0.        ,  0.99999999,  1.        ,
+         0.        ,  2.        , -1.        ,  1.        ]]), array([[ 1.57079631, -0.        ,  3.14159274, -0.        ,  4.71238906,
+         0.        ,  6.28318523,  0.        ,  7.85398161,  0.        ,
+         9.42477798, -0.        , 10.99557422,  0.        ]]), array([[ -0.        ,   1.57079635,  -3.14159274,  -0.        ,
+         -0.        ,  -4.71238896,   6.28318523,   0.        ,
+          0.        ,   7.85398159,  -9.42477798,  -0.        ,
+         -0.        , -10.99557424]])]","[2550, 2550, 2550]","[0, 0, 0]","[0, 0, 0]","[array([0.1723468]), array([0.00048673]), array([-0.0030975])]",equality_constrained_sqp,"[-117.39819189  -92.11521544  -34.79856606  -26.79798574 -126.9725532
+   91.69693363  -25.37324123   28.45456217   95.58735327  175.89566492
+   78.63572658 -133.65779833  -40.04931104    1.22315943]",4.785985360930729e-05,3.146516291963053e-08,94.10028100013733,830.4887370620145,1.0,1,159,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,6,3.14159265359,variance_plus_deterministic,76,1230,82,0,355,4,1.9922390776188221,"[-1.11231009e-01 -1.11275106e-01  8.44001770e-05 -2.23048218e-01
+  1.12320721e-01 -1.12205688e-01  1.82257269e-03 -8.85000840e-07
+ -1.10414445e-01 -1.10524982e-01  6.12437725e-05 -2.23017601e-01
+  1.13254428e-01 -1.13033613e-01]","[ 6.69750605e-05  4.45849496e-05  4.09842415e-05  2.36472294e-05
+  7.09523072e-05 -2.10442019e-05  5.83451927e-06 -8.85000840e-07
+ -6.82460508e-05 -7.02430225e-05 -6.90040406e-05  5.42598182e-05
+  5.28737089e-05  1.59851850e-05]","[array([-9.12550036e-11]), array([4.21422897e-11]), array([-2.74560819e-10])]","[array([[ 1.        ,  0.99999999, -0.        ,  2.00000004, -0.99999999,
+         0.99999999, -0.        , -0.        ,  1.        ,  1.        ,
+         0.        ,  2.        , -1.        ,  1.        ]]), array([[ 1.57079631, -0.        ,  3.1415925 , -0.        ,  4.71238883,
+         0.        ,  6.2831853 , -0.        ,  7.85398149,  0.        ,
+         9.42477798,  0.        , 10.99557429, -0.        ]]), array([[ -0.        ,   1.57079638,  -3.1415925 ,  -0.        ,
+         -0.        ,  -4.71238904,   6.2831853 ,  -0.        ,
+         -0.        ,   7.85398149,  -9.42477798,   0.        ,
+          0.        , -10.99557421]])]","[1230, 1230, 1230]","[0, 0, 0]","[0, 0, 0]","[array([0.11153593]), array([-0.00015148]), array([-0.00013766])]",equality_constrained_sqp,"[-4.98019241 -4.50584682 -0.37986682 -3.31969065 -1.80497064  2.4300801
+ -6.68799582 -1.21229671 -0.1584377   0.80123666  0.09997205 11.30101137
+  5.44273964 -4.91171225]",7.095230718826137e-05,2.745608185250603e-10,62.5167191028595,6.907252443129555,1.0,1,76,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,0.78539816339,equal,55,1045,55,0,173,4,0.7255651864664244,"[ 7.87665519e-02  7.42171779e-02  9.10572077e-03  1.53591586e-01
+ -7.08734596e-02  8.45407952e-02 -2.42143253e-03 -3.15150426e-05
+  8.67893506e-02  6.38108333e-02  2.76053622e-02  1.53655448e-01
+ -6.28453231e-02  9.50766161e-02 -4.82913477e-03 -2.79690460e-05
+  9.47789347e-02  5.34735555e-02]","[-4.43543016e-05  1.44984357e-07 -8.20232644e-05 -4.01519148e-05
+ -4.26949176e-05 -7.15864601e-05 -6.22514511e-06 -3.15150426e-05
+ -1.69561641e-06 -1.08524804e-05  4.21297081e-05  2.37016412e-05
+  5.30212047e-06  6.88867551e-05  1.28031055e-06 -2.79690460e-05
+  7.74762847e-06  4.72172379e-05]","[array([2.14939178e-12]), array([6.0254024e-12]), array([3.69482223e-12])]","[array([[ 1.00000001,  0.99999999,  0.        ,  1.99999995, -0.99999999,
+         1.        , -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.00000006, -1.        ,  1.        ,  0.        ,
+         0.        ,  1.00000001,  1.        ]]), array([[ 1.57079609, -0.        ,  3.14159265, -0.        ,  4.7123889 ,
+         0.        ,  6.28318497, -0.        ,  7.85398169, -0.        ,
+         9.42477806,  0.        , 10.99557432, -0.        , 12.56637075,
+         0.        , 14.13716686, -0.        ]]), array([[  0.        ,   1.57079633,  -3.14159265,  -0.        ,
+          0.        ,  -4.71238895,   6.28318497,  -0.        ,
+          0.        ,   7.8539818 ,  -9.42477806,   0.        ,
+         -0.        , -10.99557423,  12.56637075,   0.        ,
+          0.        ,  14.13716693]])]","[1045, 1045, 1045]","[0, 0, 0]","[0, 0, 0]","[array([-0.07681587]), array([-0.00127008]), array([0.00165447])]",equality_constrained_sqp,"[ 30.57043056 -38.07804338 109.64065919  -3.37465104  36.31986009
+  41.0806428   -5.55173105 -79.1881105   70.39041915 -69.52375247
+ -59.31284832   6.26714066 -89.8740698  -88.13696505   7.23796838
+ 137.75493194  26.50392563 -31.14584618]",8.202326440271551e-05,6.0254023992456496e-12,77.98252749443054,1453.3066827403352,1.0,1,55,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,0.78539816339,covariance,62,1178,62,0,204,4,-1.0940559546031376,"[ 7.60669585e-02  7.26028443e-02  6.93053614e-03  1.49560854e-01
+ -7.09206207e-02  8.13224232e-02 -3.58369015e-03  3.43236107e-06
+  8.11987767e-02  6.38666826e-02  2.08036888e-02  1.49545684e-01
+ -6.57678260e-02  9.00378064e-02 -7.12951397e-03  9.86630578e-06
+  8.63621439e-02  5.51379327e-02]","[ 4.00012452e-06  7.65797851e-06 -5.00803438e-06  9.26769878e-06
+ -6.31186004e-06  4.79699854e-06 -9.89983608e-06  3.43236107e-06
+ -1.28309539e-05 -6.06445617e-06 -2.94354176e-06 -5.91273175e-06
+ -2.16525127e-06 -2.25915624e-06  1.80671926e-05  9.86630578e-06
+  1.88734465e-06 -1.23749241e-05]","[array([-4.93258767e-11]), array([-5.57065505e-11]), array([8.92441676e-12])]","[array([[ 1.        ,  1.        ,  0.        ,  1.99999992, -0.99999999,
+         1.        , -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.00000005, -1.        ,  1.        ,  0.        ,
+         0.        ,  1.        ,  1.        ]]), array([[ 1.57079602, -0.        ,  3.14159257, -0.        ,  4.71238895,
+         0.        ,  6.28318499, -0.        ,  7.85398166, -0.        ,
+         9.42477786,  0.        , 10.99557431, -0.        , 12.56637092,
+         0.        , 14.13716695, -0.        ]]), array([[  0.        ,   1.57079652,  -3.14159269,  -0.        ,
+          0.        ,  -4.71238916,   6.28318499,  -0.        ,
+          0.        ,   7.85398164,  -9.42477786,   0.        ,
+         -0.        , -10.99557437,  12.56637092,   0.        ,
+          0.        ,  14.13716694]])]","[1178, 1178, 1178]","[0, 0, 0]","[0, 0, 0]","[array([-0.0747758]), array([-0.00081943]), array([0.00138822])]",equality_constrained_sqp,"[  34.47525584  -43.15047089  123.8964147    -3.68135896   40.6741845
+   46.39378069   -6.11117274  -89.78394441   79.71271797  -77.97723916
+  -67.77844048    6.8358992  -100.78490668 -100.17085433    7.04195582
+  156.95272502   30.82442283  -35.52741563]",1.8067192579296343e-05,5.5706550483591855e-11,37.962005615234375,835.3719107057608,1.0,1,62,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,0.78539816339,variance,21,399,21,0,48,4,1.001132408665186,"[ 4.35326993e-03  4.16193902e-03  3.85731459e-04  8.66127014e-03
+ -4.25721705e-03  4.84482944e-03 -5.89787960e-04  4.17232513e-06
+  4.46794927e-03  3.45727801e-03  1.26560032e-03  8.67471099e-03
+ -4.07978892e-03  5.66512346e-03 -1.21363997e-03  9.37283039e-05
+  4.73007560e-03  2.69976258e-03]","[-2.16571271e-05  3.77855187e-06 -4.78017161e-05 -1.96693281e-05
+ -2.01192927e-05 -4.25680663e-05  1.61976851e-06  4.17232513e-06
+ -4.48070927e-05  2.83545736e-05 -3.49991755e-05 -6.22848073e-06
+  1.94795288e-05  4.84889228e-05 -3.08245231e-05  9.37283039e-05
+  7.94899290e-05  7.61626938e-08]","[array([0.]), array([5.14699394e-12]), array([-3.37996298e-11])]","[array([[ 1.,  1.,  0.,  2., -1.,  1., -0., -0.,  1.,  1.,  0.,  2., -1.,
+         1., -0., -0.,  1.,  1.]]), array([[ 1.57079637, -0.        ,  3.14159262, -0.        ,  4.71238899,
+         0.        ,  6.28318536, -0.        ,  7.85398161, -0.        ,
+         9.42477798,  0.        , 10.99557436,  0.        , 12.56637067,
+        -0.        , 14.13716698,  0.        ]]), array([[ -0.        ,   1.57079637,  -3.14159274,  -0.        ,
+         -0.        ,  -4.71238899,   6.28318536,  -0.        ,
+          0.        ,   7.85398173,  -9.42477798,   0.        ,
+         -0.        , -10.99557436,  12.56637067,  -0.        ,
+          0.        ,  14.13716698]])]","[399, 399, 399]","[0, 0, 0]","[0, 0, 0]","[array([-0.00434047]), array([-2.1936215e-05]), array([0.00011606])]",equality_constrained_sqp,"[-0.08688279 -0.10759469  0.02999685 -0.11942806 -0.03642737  0.03224345
+ -0.19060373 -0.08197027  0.00198469 -0.17952148  0.0538408   0.130735
+ -0.30878264  0.13602247 -0.09979254 -0.21468284  0.39171518  0.44420928]",9.372830390930176e-05,3.3799629761688266e-11,6.616818189620972,1.9166050461269557,1.0,1,21,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,0.78539816339,deterministic,86,1672,88,0,387,4,-0.01287293992648994,"[ 4.77362250e-02  4.57202120e-02  4.03516154e-03  9.39623849e-02
+ -4.47104191e-02  5.07723205e-02 -2.02737646e-03  2.37336200e-06
+  5.07733686e-02  4.06535824e-02  1.21575766e-02  9.39638086e-02
+ -4.16671405e-02  5.58418944e-02 -4.04667075e-03 -3.35006262e-05
+  5.38282575e-02  3.55447569e-02]","[-3.47567322e-06  7.47767189e-06 -1.87730329e-05  2.79283693e-06
+ -1.03324084e-05 -8.66683003e-06  1.25603868e-06  2.37336200e-06
+ -5.94795770e-06  9.10260525e-06 -4.22751574e-06  4.20657320e-06
+ -6.66975154e-06 -7.34785574e-06  1.06070585e-05 -3.35006262e-05
+  9.32572012e-06 -3.14686617e-05]","[array([-1.80477855e-12]), array([1.49012749e-08]), array([1.21355015e-08])]","[array([[ 0.99999999,  1.00000001,  0.        ,  1.99999994, -1.00000002,
+         0.99999998, -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.00000015, -1.        ,  1.        ,  0.        ,
+         0.        ,  1.        ,  1.        ]]), array([[ 1.57079621, -0.        ,  3.14159254,  0.        ,  4.71238897,
+         0.        ,  6.28318794, -0.        ,  7.85398162, -0.        ,
+         9.42477794, -0.        , 10.99557427, -0.        , 12.56637059,
+         0.        , 14.13716699, -0.        ]]), array([[  0.        ,   1.57079635,  -3.14159254,   0.        ,
+          0.        ,  -4.71238905,   6.28317894,  -0.        ,
+          0.        ,   7.85398154,  -9.42477794,  -0.        ,
+         -0.        , -10.9955743 ,  12.56637059,   0.        ,
+          0.        ,  14.13716693]])]","[1672, 1672, 1672]","[0, 0, 0]","[0, 0, 0]","[array([-0.0469798]), array([-0.00048377]), array([0.00080664])]",equality_constrained_sqp,"[  85.05039131  -98.73903029  146.55928774    7.89869621   60.99554919
+   56.44421304   -1.69512232 -107.25174836  117.24757046 -114.74485604
+  -82.69148387   -7.83443489 -162.2455359  -140.12363569   12.84711235
+  223.75571317   43.16419759  -48.67735972]",3.350062624701721e-05,1.4901274880685378e-08,48.76618957519531,711.7220575931965,1.0,1,86,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,0.78539816339,variance_plus_deterministic,67,1330,70,0,254,4,1.745405215046612,"[ 5.68939985e-02  5.37501615e-02  6.30336670e-03  1.10735475e-01
+ -5.07501066e-02  6.02546993e-02 -3.53093273e-04  4.57114298e-05
+  6.30688207e-02  4.72376593e-02  1.91271382e-02  1.10746168e-01
+ -4.44829117e-02  6.68660924e-02 -6.89766673e-04 -6.44708300e-05
+  6.92739115e-02  4.06628549e-02]","[-2.25688526e-05  1.61803757e-05 -6.18109960e-05 -2.46095757e-06
+ -2.39410816e-05 -1.92336941e-05 -3.54660107e-06  4.57114298e-05
+ -3.81550231e-05  4.36307378e-05  3.16044280e-05  8.23020386e-06
+  5.28488450e-05  5.22067790e-05  9.32686703e-06 -6.44708300e-05
+ -2.34675354e-05  8.77648171e-06]","[array([5.86808824e-10]), array([-6.81218637e-09]), array([-4.23709601e-09])]","[array([[ 0.99999995,  1.        ,  0.        ,  1.99999996, -1.        ,
+         1.00000001, -0.        , -0.        ,  1.00000002,  0.99999998,
+         0.        ,  2.        , -0.99999999,  1.00000005,  0.        ,
+        -0.        ,  1.        ,  1.        ]]), array([[ 1.57079628, -0.        ,  3.14159254, -0.        ,  4.71238899,
+         0.        ,  6.28318536, -0.        ,  7.8539815 , -0.        ,
+         9.42477795,  0.        , 10.99557429, -0.        , 12.56637063,
+        -0.        , 14.13716687, -0.        ]]), array([[ -0.        ,   1.57079631,  -3.14159254,  -0.        ,
+          0.        ,  -4.71238903,   6.28318527,  -0.        ,
+          0.        ,   7.85398151,  -9.42477795,   0.        ,
+         -0.        , -10.99557364,  12.56637063,  -0.        ,
+         -0.        ,  14.13716698]])]","[1330, 1330, 1330]","[0, 0, 0]","[0, 0, 0]","[array([-0.05536897]), array([-0.00098523]), array([0.00104087])]",equality_constrained_sqp,"[-3.80196875 -6.98022268  7.5024956  -6.33298912  0.79667203  6.42587227
+ -9.89876279 -2.84844177  5.09472527 -4.96492496  1.44805333 10.1139902
+ -7.77901955 -1.89845982 13.38432187 -2.63997008 -6.75348576 -0.66588523]",6.447083000870926e-05,6.8121863705528085e-09,53.64593315124512,153.754554983812,1.0,1,67,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,1.57079632679,equal,59,1159,61,0,322,4,0.782822509570899,"[ 9.62453153e-02  8.97636195e-02  1.29693721e-02  1.87288374e-01
+ -8.58420715e-02  1.05313851e-01 -5.18019497e-03  1.33050642e-05
+  1.06600010e-01  7.41695742e-02  3.89349669e-02  1.87265158e-01
+ -7.54730472e-02  1.20893310e-01 -1.03396336e-02  1.24508455e-05
+  1.17040264e-01  5.86039685e-02]","[ 7.34490750e-06  1.55044875e-05 -1.03407809e-05  7.96155533e-06
+  4.83672536e-06 -2.62372321e-06 -2.89988690e-06  1.33050642e-05
+ -2.90264427e-05 -1.01817158e-05 -4.17154907e-06 -1.52603475e-05
+ -1.72083968e-05  8.47691716e-06  1.49514376e-05  1.24508455e-05
+  2.01594237e-05 -7.42794013e-06]","[array([-1.87938554e-12]), array([-1.55523594e-10]), array([6.65068001e-11])]","[array([[ 0.99999999,  1.        ,  0.        ,  2.00000003, -1.00000003,
+         1.        , -0.        , -0.        ,  0.99999999,  1.        ,
+        -0.        ,  2.00000009, -1.        ,  1.        ,  0.        ,
+         0.        ,  1.        ,  1.        ]]), array([[ 1.57079635, -0.        ,  3.14159267, -0.        ,  4.71238877,
+         0.        ,  6.28318787, -0.        ,  7.8539816 , -0.        ,
+         9.42477798,  0.        , 10.99557432, -0.        , 12.56637071,
+         0.        , 14.13716702, -0.        ]]), array([[  0.        ,   1.57079631,  -3.14159267,  -0.        ,
+          0.        ,  -4.71238903,   6.28318787,  -0.        ,
+          0.        ,   7.85398155,  -9.42477798,   0.        ,
+         -0.        , -10.99557427,  12.56637033,   0.        ,
+          0.        ,  14.13716693]])]","[1159, 1159, 1159]","[0, 0, 0]","[0, 0, 0]","[array([-0.0936402]), array([-0.00165379]), array([0.00247778])]",equality_constrained_sqp,"[ 20.97284541 -38.63392052  66.93156237  -3.61247678  15.85340931
+  33.40852355  -0.80852053 -45.52755989  53.62268691 -48.11695389
+ -40.77965022   3.36053976 -60.3954324  -60.681952     4.98404291
+  93.51968035  17.81089271 -21.42027123]",2.9026442714359668e-05,1.5552359400317073e-10,80.99417066574097,772.7448758890466,1.0,1,59,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,1.57079632679,covariance,58,1121,59,0,217,4,-1.0301278281204618,"[ 1.03633093e-01  9.70875014e-02  1.30995993e-02  2.02447598e-01
+ -9.39936439e-02  1.13666266e-01 -6.97806778e-03  1.64619453e-05
+  1.13225798e-01  8.04478209e-02  3.93703363e-02  2.02416866e-01
+ -8.43702944e-02  1.30306434e-01 -1.39648305e-02 -1.30748502e-06
+  1.22836987e-01  6.38160509e-02]","[ 1.34142158e-05  2.71600357e-05 -1.90714471e-05  1.94182858e-05
+  3.69039388e-06 -9.07598330e-06  1.45887221e-05  1.64619453e-05
+ -1.62206296e-05  2.47938445e-06  1.43239925e-05 -1.13158890e-05
+  4.70050091e-06  1.60909320e-05  2.04882977e-05 -1.30748502e-06
+ -2.73720108e-05 -1.42898425e-05]","[array([3.69482223e-13]), array([6.6222583e-12]), array([5.17275112e-12])]","[array([[ 1.00000001,  0.99999999,  0.        ,  1.99999996, -0.99999998,
+         1.00000001, -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  1.99999998, -1.        ,  1.        ,  0.        ,
+         0.        ,  1.        ,  1.        ]]), array([[ 1.57079641, -0.        ,  3.14159265, -0.        ,  4.71238869,
+         0.        ,  6.28318616, -0.        ,  7.85398166, -0.        ,
+         9.42477796,  0.        , 10.99557425, -0.        , 12.56637074,
+         0.        , 14.13716688, -0.        ]]), array([[  0.        ,   1.57079611,  -3.14159265,  -0.        ,
+          0.        ,  -4.71238875,   6.28318474,  -0.        ,
+          0.        ,   7.85398153,  -9.42477796,   0.        ,
+         -0.        , -10.99557439,  12.56637074,   0.        ,
+          0.        ,  14.13716696]])]","[1121, 1121, 1121]","[0, 0, 0]","[0, 0, 0]","[array([-0.10121409]), array([-0.00153144]), array([0.00264436])]",equality_constrained_sqp,"[ 18.65205688 -25.56693774  70.62154273  -3.23608954  22.80292652
+  27.03135225  -5.36180341 -50.97839787  45.01114528 -44.66970705
+ -37.0600385    6.37467987 -59.3860254  -57.83674403   6.99783562
+  90.20576865  16.68525435 -21.16669948]",2.737201082078991e-05,6.622258297284134e-12,42.58543109893799,625.1893941991771,1.0,1,58,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,1.57079632679,variance,53,1007,53,0,178,4,1.0085343254493473,"[ 2.97274802e-02  2.89632186e-02  1.53076153e-03  5.95108267e-02
+ -2.98438519e-02  3.21460582e-02 -3.33049482e-03  2.75671482e-06
+  2.95701142e-02  2.57195291e-02  4.63692844e-03  5.94536698e-02
+ -2.99649881e-02  3.53850126e-02 -6.77306592e-03  1.04308128e-06
+  2.93925004e-02  2.25275103e-02]","[ 2.05275364e-05  2.53067347e-05 -7.32084674e-06  2.45930018e-05
+  7.75665440e-06 -1.26736423e-05  3.49809230e-05  2.75671482e-06
+  7.81745435e-06  2.43824553e-06  2.26817475e-05 -3.25639491e-05
+  3.12758367e-05  5.46078012e-06 -4.21144958e-05  1.04308128e-06
+ -2.51413493e-05  3.12386263e-05]","[array([-4.45470327e-11]), array([6.44462261e-11]), array([9.10773679e-11])]","[array([[ 0.99999999,  1.        ,  0.        ,  2.        , -1.        ,
+         1.        , -0.        , -0.        ,  0.99999998,  0.99999997,
+         0.        ,  2.        , -0.99999999,  1.        ,  0.        ,
+        -0.        ,  1.        ,  1.        ]]), array([[ 1.57079628, -0.        ,  3.14159274, -0.        ,  4.71238899,
+         0.        ,  6.28318531, -0.        ,  7.85398179, -0.        ,
+         9.42477798,  0.        , 10.99557422,  0.        , 12.56637066,
+        -0.        , 14.1371669 , -0.        ]]), array([[ -0.        ,   1.57079636,  -3.14159294,  -0.        ,
+         -0.        ,  -4.71238887,   6.28318539,  -0.        ,
+          0.        ,   7.85398163,  -9.42477798,   0.        ,
+         -0.        , -10.995574  ,  12.56637066,  -0.        ,
+         -0.        ,  14.13716687]])]","[1007, 1007, 1007]","[0, 0, 0]","[0, 0, 0]","[array([-0.02974312]), array([2.30226576e-05]), array([0.00051261])]",equality_constrained_sqp,"[-2.94496516 -4.34669711  2.42073052 -3.58997964 -0.87495259  3.31625749
+ -5.84830662 -0.98690962  1.55683426 -1.93176061  0.42159173  6.69235409
+ -3.61654434  0.33417442  9.20638816 -0.66065265 -3.8363809  -1.8437082 ]",4.211449578240146e-05,9.107736786972964e-11,22.253928422927856,65.97551972999617,1.0,1,53,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,1.57079632679,deterministic,80,1539,81,0,297,4,0.02756207590170201,"[ 5.77748194e-02  5.44144419e-02  6.72204268e-03  1.13325505e-01
+ -5.33311122e-02  6.34140284e-02 -4.56287374e-03 -7.19728498e-06
+  6.22116282e-02  4.54041384e-02  2.01482509e-02  1.13332085e-01
+ -4.89197449e-02  7.24042266e-02 -9.10976789e-03  2.33804052e-05
+  6.66405957e-02  3.63740557e-02]","[ 4.00977650e-06  3.24215662e-06  2.82648737e-06  2.03166012e-06
+  3.43345791e-06  6.57744038e-07  3.03115103e-06 -7.19728498e-06
+  4.55694719e-06 -4.89244318e-06 -9.39765368e-06  8.59587392e-06
+ -2.14610830e-05 -1.13139754e-05  2.20478136e-05  2.33804052e-05
+ -2.73794271e-06 -3.28049563e-05]","[array([2.23820962e-13]), array([2.27373675e-13]), array([-7.38964445e-13])]","[array([[ 1.00000002,  0.99999999,  0.        ,  1.99999977, -0.99999999,
+         1.        , -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.00000004, -1.        ,  1.        ,  0.        ,
+         0.        ,  1.        ,  1.        ]]), array([[ 1.5707961 , -0.        ,  3.14159255, -0.        ,  4.71238875,
+         0.        ,  6.28318748, -0.        ,  7.85398168, -0.        ,
+         9.42477794,  0.        , 10.99557437, -0.        , 12.56637143,
+         0.        , 14.13716693, -0.        ]]), array([[  0.        ,   1.57079645,  -3.1415927 ,  -0.        ,
+          0.        ,  -4.71238897,   6.28318452,  -0.        ,
+          0.        ,   7.85398154,  -9.42477794,   0.        ,
+         -0.        , -10.99557426,  12.56637143,   0.        ,
+          0.        ,  14.13716696]])]","[1539, 1539, 1539]","[0, 0, 0]","[0, 0, 0]","[array([-0.05666174]), array([-0.00070605]), array([0.00143274])]",equality_constrained_sqp,"[ 27.796574   -36.22677642 102.57562163  -3.07899653  33.51807738
+  39.83002357  -5.15259094 -73.67289001  68.07053004 -64.54284149
+ -54.60631682   5.69187103 -83.41301454 -86.25136438   3.51571001
+ 129.81017417  25.57322075 -28.37005223]",3.28049562607069e-05,7.389644451905042e-13,42.9825496673584,1126.9932055847435,1.0,1,80,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,1.57079632679,variance_plus_deterministic,96,1843,97,0,353,4,1.7539711433067038,"[ 5.90183881e-02  5.66114451e-02  4.82317048e-03  1.16827512e-01
+ -5.65763641e-02  6.38452163e-02 -4.78683389e-03  4.89474672e-05
+  6.14352866e-02  4.94330806e-02  1.44756219e-02  1.16878116e-01
+ -5.41964924e-02  7.11050015e-02 -9.61794639e-03 -3.84101732e-05
+  6.38513661e-02  4.21419630e-02]","[-1.07219424e-05 -5.54651260e-06 -1.06503983e-06 -2.13252597e-05
+  3.39841931e-05 -1.48640634e-06  2.41149937e-05  4.89474672e-05
+ -1.25846861e-05  4.57980945e-05  2.91523540e-06  2.92790804e-05
+ -4.90482439e-06  2.85894919e-05  3.95104205e-06 -3.84101732e-05
+ -1.52670094e-05 -1.56093015e-05]","[array([3.69482223e-13]), array([2.84217094e-12]), array([6.48014975e-12])]","[array([[ 1.        ,  0.99999999,  0.        ,  1.99999997, -0.99999999,
+         1.00000001, -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  1.99999995, -1.        ,  1.        ,  0.        ,
+         0.        ,  1.00000001,  1.        ]]), array([[ 1.57079629, -0.        ,  3.14159265, -0.        ,  4.7123891 ,
+         0.        ,  6.28318551, -0.        ,  7.85398166, -0.        ,
+         9.42477789,  0.        , 10.99557428, -0.        , 12.56637059,
+         0.        , 14.13716701, -0.        ]]), array([[  0.        ,   1.57079633,  -3.14159258,  -0.        ,
+          0.        ,  -4.71238886,   6.28318551,  -0.        ,
+          0.        ,   7.85398144,  -9.42477789,   0.        ,
+         -0.        , -10.9955742 ,  12.56637059,   0.        ,
+          0.        ,  14.13716688]])]","[1843, 1843, 1843]","[0, 0, 0]","[0, 0, 0]","[array([-0.05842442]), array([-0.00038496]), array([0.00115064])]",equality_constrained_sqp,"[ 25.2106914  -43.78504614 106.24128875  -8.17962038  30.97271948
+  44.1607835  -13.35084218 -77.94943546  69.60404618 -64.29466283
+ -58.11466613  14.49922885 -83.53897833 -85.02335099  13.66932444
+ 130.85961603  22.09755111 -32.17548803]",4.8947467176206904e-05,6.480149750132114e-12,109.31221723556519,354.83897998483,1.0,1,96,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,2.35619449019,equal,58,1140,60,0,320,4,0.8187761207986596,"[ 8.07594366e-02  7.25664545e-02  1.63943465e-02  1.54273463e-01
+ -6.62800051e-02  9.08906649e-02 -3.90951897e-03 -9.53178812e-07
+  9.51793036e-02  5.41239029e-02  4.92810356e-02  1.54232763e-01
+ -5.18518872e-02  1.09331814e-01 -7.85608364e-03  8.50416567e-06
+  1.09638355e-01  3.57704500e-02]","[ 1.71616997e-05  3.40710350e-05 -2.54290626e-05  1.56110954e-05
+  8.89152370e-06 -2.78946571e-05  2.32756623e-05 -9.53178812e-07
+ -1.63490804e-05 -2.23119958e-05  2.17115728e-05 -2.50964285e-05
+ -1.63681542e-05  2.70835854e-05  9.50436691e-06  8.50416567e-06
+ -1.06736335e-05  1.04070845e-05]","[array([-1.47082346e-12]), array([1.09707798e-11]), array([2.04920525e-11])]","[array([[ 1.        ,  0.99999998,  0.        ,  1.99999991, -1.        ,
+         1.        , -0.        , -0.        ,  1.00000001,  1.        ,
+        -0.        ,  2.        , -1.00000001,  1.        ,  0.        ,
+         0.        ,  0.99999999,  1.        ]]), array([[ 1.57079671, -0.        ,  3.14159272, -0.        ,  4.71238883,
+         0.        ,  6.28318629, -0.        ,  7.85398154, -0.        ,
+         9.42477789, -0.        , 10.99557436, -0.        , 12.56637058,
+         0.        , 14.13716695, -0.        ]]), array([[  0.        ,   1.57079676,  -3.14159286,  -0.        ,
+          0.        ,  -4.71238935,   6.28318629,  -0.        ,
+          0.        ,   7.85398161,  -9.42477789,  -0.        ,
+         -0.        , -10.99557423,  12.56637058,   0.        ,
+          0.        ,  14.13716698]])]","[1140, 1140, 1140]","[0, 0, 0]","[0, 0, 0]","[array([-0.07712893]), array([-0.00230033]), array([0.00292625])]",equality_constrained_sqp,"[ 17.97167689 -19.60706945  52.93081743  -4.01508087  17.88102064
+  21.53659058  -3.07526155 -40.84153289  34.21348239 -33.40282079
+ -31.04389007  -0.26671475 -47.61008219 -35.7701279   10.12471157
+  66.04814512  11.36594264 -16.47314468]",3.407103499907492e-05,2.049205249932129e-11,91.1470832824707,568.7690805605062,1.0,1,58,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,2.35619449019,covariance,500,9880,520,0,3796,4,-0.40336236677932924,"[ 1.80530265e-02  1.44429469e-02  7.22857715e-03  3.07233864e-02
+ -7.29164366e-03  1.81827628e-02  6.96854821e-03 -1.91709236e-06
+  2.87779691e-02  1.05270314e-02  2.19485053e-02  3.05900602e-02
+  3.57025520e-03  2.20512457e-02  1.36849760e-02 -7.93420618e-05
+  3.94736773e-02  6.65508920e-03]","[ 3.84025599e-05  7.95569916e-05 -7.38910905e-05  6.78962382e-05
+ -2.45350724e-05 -3.80471805e-05  7.84525834e-05 -1.91709236e-06
+  1.58295742e-05  2.10611025e-05  4.11020914e-05 -6.54299361e-05
+  8.98478780e-05 -2.69841727e-05 -9.52153931e-05 -7.93420618e-05
+ -3.59775474e-05  6.53887443e-06]","[array([-6.7785777e-12]), array([-1.55750968e-11]), array([2.53294274e-10])]","[array([[ 1.00000001,  0.99999999,  0.        ,  2.        , -1.        ,
+         1.        , -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  2.        , -1.        ,  1.        ,  0.        ,
+         0.        ,  1.        ,  1.        ]]), array([[ 1.57079625, -0.        ,  3.14159271, -0.        ,  4.71238886,
+         0.        ,  6.28318537, -0.        ,  7.85398159, -0.        ,
+         9.42477796,  0.        , 10.99557437, -0.        , 12.56637056,
+         0.        , 14.1371668 , -0.        ]]), array([[  0.        ,   1.57079639,  -3.14159333,  -0.        ,
+          0.        ,  -4.71238902,   6.2831856 ,  -0.        ,
+          0.        ,   7.85398149,  -9.42477796,   0.        ,
+         -0.        , -10.99557439,  12.56637056,   0.        ,
+          0.        ,  14.13716702]])]","[9880, 9880, 9880]","[0, 0, 0]","[0, 0, 0]","[array([-0.01532775]), array([-0.00171052]), array([0.00061393])]",equality_constrained_sqp,"[ 112.91721262 -140.14687941   49.78321635 -148.20223929  142.68595971
+  276.74356855 -127.93116397 -150.1353741   334.95946307 -258.27262881
+ -319.59968275  142.88442214  -79.03614043 -201.73949587   40.81726405
+  290.26037065   37.85542035  -87.03120692]",9.521539307778826e-05,2.532942744437605e-10,1141.1718006134033,516.8246673564224,1.0,1,500,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,2.35619449019,variance,63,1216,64,0,335,4,1.0267131654254338,"[ 6.83836441e-02  6.62917518e-02  4.19068159e-03  1.36307799e-01
+ -6.74524855e-02  7.37566842e-02 -6.53698478e-03  6.03058692e-06
+  6.93512146e-02  5.87914497e-02  1.27198100e-02  1.36327123e-01
+ -6.64631245e-02  8.13176970e-02 -1.30554672e-02 -5.98531125e-05
+  7.03720444e-02  5.12986891e-02]","[-2.07685942e-05  5.07580668e-06 -4.47951592e-05 -1.54956714e-05
+ -1.91338941e-05 -2.98856207e-05 -8.15046154e-06  6.03058692e-06
+ -2.42599168e-05  4.66722705e-06  1.33784994e-05  3.82589662e-06
+ -8.31136327e-07  3.12318310e-05  2.20134075e-06 -5.98531125e-05
+  2.55109175e-05  1.18028678e-05]","[array([-8.42526049e-12]), array([2.33200126e-11]), array([-3.21165317e-12])]","[array([[ 0.99999999,  1.00000002,  0.        ,  1.99999996, -0.99999997,
+         1.00000001, -0.        , -0.        ,  1.00000002,  1.00000003,
+        -0.        ,  2.        , -1.        ,  1.00000004,  0.        ,
+         0.        ,  1.        ,  1.        ]]), array([[ 1.57079644, -0.        ,  3.14159263, -0.        ,  4.71238905,
+         0.        ,  6.28318532, -0.        ,  7.85398167, -0.        ,
+         9.42477798,  0.        , 10.99557445,  0.        , 12.56637054,
+         0.        , 14.13716707, -0.        ]]), array([[ -0.        ,   1.57079635,  -3.14159231,  -0.        ,
+         -0.        ,  -4.7123888 ,   6.28318532,  -0.        ,
+          0.        ,   7.8539814 ,  -9.42477798,   0.        ,
+         -0.        , -10.99557353,  12.56637054,   0.        ,
+         -0.        ,  14.13716693]])]","[1216, 1216, 1216]","[0, 0, 0]","[0, 0, 0]","[array([-0.06816165]), array([-0.00015455]), array([0.00119365])]",equality_constrained_sqp,"[ -5.3719118   -6.89888558   2.98624038  -6.17462124  -2.28841811
+   4.57346935 -10.12617986  -1.37630829   1.81350895  -2.34962934
+  -0.36665915  11.34142103  -5.50260448   1.15662857  15.84945955
+   1.08447925  -5.37507001  -4.67273232]",5.9853112547347646e-05,2.3320012587646488e-11,39.25455951690674,77.7295338006091,1.0,1,63,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,2.35619449019,deterministic,88,1767,93,0,430,4,0.03571140319474181,"[-3.22747744e-02 -3.55697137e-02  6.59162483e-03 -6.79621752e-02
+  3.90861275e-02 -2.92052951e-02  4.31232154e-04 -3.65850414e-05
+ -2.54392023e-02 -4.20045190e-02  1.98315813e-02 -6.79552740e-02
+  4.58720324e-02 -2.27878478e-02  8.30184668e-04 -6.18359330e-06
+ -1.86297577e-02 -4.84128222e-02]","[ 6.66823515e-07  1.08163287e-05 -1.85496171e-05 -2.89066995e-06
+ -6.11239180e-06 -2.83170452e-05  1.79850927e-05 -3.65850414e-05
+  1.94414682e-05 -2.04386849e-05  1.05810997e-06  4.00889846e-06
+ -3.70051784e-05 -1.44204400e-05  3.68897738e-06 -6.18359330e-06
+  1.20886238e-05 -2.51911011e-05]","[array([-5.31130695e-11]), array([-5.25034238e-10]), array([1.78999926e-10])]","[array([[ 0.99999998,  1.00000002,  0.        ,  2.00000005, -1.        ,
+         1.        , -0.        , -0.        ,  0.99999999,  1.        ,
+        -0.        ,  2.        , -1.        ,  1.        ,  0.        ,
+         0.        ,  1.        ,  1.        ]]), array([[ 1.57079636, -0.        ,  3.14159262, -0.        ,  4.71238898,
+         0.        ,  6.28318787, -0.        ,  7.85398163, -0.        ,
+         9.42477795,  0.        , 10.99557421, -0.        , 12.56637001,
+         0.        , 14.13716694, -0.        ]]), array([[  0.        ,   1.57079641,  -3.14159273,  -0.        ,
+          0.        ,  -4.71238918,   6.28318787,  -0.        ,
+          0.        ,   7.85398174,  -9.42477795,   0.        ,
+         -0.        , -10.99557419,  12.5663681 ,   0.        ,
+          0.        ,  14.13716696]])]","[1767, 1767, 1767]","[0, 0, 0]","[0, 0, 0]","[array([0.03397964]), array([-0.00108493]), array([0.00101916])]",equality_constrained_sqp,"[ 15.43074363 -22.13707787  72.5991487   -7.46537525  22.2222567
+  36.93207251  -0.57906305 -58.83457284  43.65139228 -46.39236069
+ -42.35102642  11.99878263 -49.78626732 -61.37847034   0.22886445
+  87.8859442   17.50473265 -19.24185756]",3.7005178383937506e-05,5.250342383078532e-10,51.69032263755798,273.130054848931,1.0,1,88,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,2.35619449019,variance_plus_deterministic,276,5586,294,0,2529,4,1.99800864981844,"[-6.15920932e-03 -8.93658227e-03  5.56427245e-03 -1.67210692e-02
+  1.49807483e-02 -6.60632103e-03  6.47453726e-03  2.75217801e-05
+  2.62790915e-03 -1.13008719e-02  1.67745788e-02 -1.67794684e-02
+  2.38210828e-02 -4.24725700e-03  1.28512462e-02 -8.07615405e-05
+  1.15348383e-02 -1.37186551e-02]","[ 6.29023467e-06  2.64470743e-05 -3.07872875e-05  2.05329417e-05
+ -5.95754140e-06 -1.22043835e-05  2.22434068e-05  2.75217801e-05
+ -2.77978540e-05  3.10704776e-05 -1.06006057e-05 -3.78657542e-05
+  1.31696440e-05 -2.20525346e-05 -5.33416188e-05 -8.07615405e-05
+  5.79246321e-05 -1.77999151e-05]","[array([-8.3357321e-11]), array([5.15569809e-11]), array([4.09102086e-10])]","[array([[ 0.99999999,  0.99999998,  0.        ,  1.99999994, -0.99999997,
+         0.99999998, -0.        , -0.        ,  1.        ,  1.        ,
+         0.        ,  2.        , -1.        ,  1.00000009,  0.        ,
+         0.        ,  1.        ,  1.        ]]), array([[ 1.57079632, -0.        ,  3.14159271, -0.        ,  4.71238878,
+         0.        ,  6.28318526, -0.        ,  7.85398155,  0.        ,
+         9.42477807, -0.        , 10.99557428, -0.        , 12.56637062,
+         0.        , 14.13716681, -0.        ]]), array([[ -0.        ,   1.57079628,  -3.14159231,  -0.        ,
+         -0.        ,  -4.71238874,   6.28318526,  -0.        ,
+          0.        ,   7.85398175,  -9.42477769,  -0.        ,
+         -0.        , -10.99557459,  12.56637062,   0.        ,
+         -0.        ,  14.13716691]])]","[5586, 5586, 5586]","[0, 0, 0]","[0, 0, 0]","[array([0.0083708]), array([-0.00140394]), array([0.00037702])]",equality_constrained_sqp,"[-86.88947788 -23.89913989  38.38540516 -16.47819572 -15.03699541
+  59.10016339 -43.25310255 -20.22571852  69.35429554  32.61560799
+  19.8955067  -39.63243008 -89.64948968  -3.76881139  69.52131165
+  34.74288198 -18.50294659 -19.47492468]",8.076154047844238e-05,4.091020855412353e-10,757.3650002479553,247.98426734993907,1.0,1,276,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,3.14159265359,equal,70,1349,71,0,284,4,0.8349312623464694,"[ 3.11581493e-02  2.22381711e-02  1.78509934e-02  5.28361798e-02
+ -1.22086145e-02  3.90078969e-02  2.11136773e-03 -3.48357501e-06
+  5.00603098e-02  5.33893347e-03  5.36835014e-02  5.28216449e-02
+  6.68881788e-03  5.59243477e-02  4.25188709e-03  8.30820038e-06
+  6.90664464e-02 -1.14072984e-02]","[ 1.20607524e-06  2.44384444e-05 -3.54274841e-05 -6.07777522e-06
+  5.06786156e-06 -3.54165704e-05 -2.31190040e-06 -3.48357501e-06
+ -3.98940593e-05 -4.52179591e-05  2.42388557e-05 -2.06090064e-05
+ -4.07605590e-05  5.14527309e-05  2.45275429e-05  8.30820038e-06
+  2.29815153e-05  3.81306871e-05]","[array([9.23705556e-14]), array([2.84217094e-13]), array([-2.84217094e-14])]","[array([[ 0.99999999,  1.        ,  0.        ,  2.00000006, -0.99999999,
+         0.99999999, -0.        , -0.        ,  1.        ,  1.        ,
+        -0.        ,  1.99999991, -1.        ,  1.        ,  0.        ,
+         0.        ,  1.        ,  1.        ]]), array([[ 1.57079638, -0.        ,  3.1415926 , -0.        ,  4.71238893,
+         0.        ,  6.28318492, -0.        ,  7.85398153, -0.        ,
+         9.42477795,  0.        , 10.9955743 , -0.        , 12.56637068,
+         0.        , 14.13716692, -0.        ]]), array([[  0.        ,   1.57079638,  -3.14159269,  -0.        ,
+          0.        ,  -4.7123889 ,   6.28318492,  -0.        ,
+          0.        ,   7.85398174,  -9.42477786,   0.        ,
+         -0.        , -10.99557431,  12.56637068,   0.        ,
+          0.        ,  14.13716685]])]","[1349, 1349, 1349]","[0, 0, 0]","[0, 0, 0]","[array([-0.02642113]), array([-0.00301491]), array([0.00267851])]",equality_constrained_sqp,"[ 11.65951742 -14.89932679  42.5205426   -2.13867754  14.59657298
+  15.70688789  -3.49971265 -30.5866108   26.26068632 -28.52911427
+ -22.74990885   4.13194247 -37.87631209 -32.1296867    7.82212929
+  53.75265172   9.02907788 -13.36431074]",5.145273089235056e-05,2.8421709430404007e-13,113.6517984867096,238.92233128953902,1.0,1,70,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,3.14159265359,covariance,68,1311,69,0,271,4,-0.9824421931319769,"[ 1.88825494e-02  1.07855039e-02  1.62053046e-02  2.95937109e-02
+ -2.56237566e-03  2.68918736e-02  1.05361999e-04 -1.15724259e-05
+  3.51153300e-02 -5.53516653e-03  4.88077390e-02  2.95259010e-02
+  1.36736187e-02  4.32749567e-02  2.99984613e-07  1.83561110e-05
+  5.14569502e-02 -2.16872266e-02]","[ 2.05748810e-05  5.32831962e-05 -5.42029924e-05  8.26657603e-06
+  2.25856530e-05 -8.23483484e-05  7.03469314e-05 -1.15724259e-05
+ -2.36586738e-05 -2.53859071e-05  2.92142815e-05 -5.95413185e-05
+ -1.84343116e-05  5.87317009e-05 -6.97241387e-05  1.83561110e-05
+  4.09474888e-05  6.45564856e-05]","[array([1.87529992e-11]), array([-7.33990646e-11]), array([6.44888587e-11])]","[array([[ 0.99999999,  1.        ,  0.        ,  2.00000011, -1.00000001,
+         0.99999999, -0.        , -0.        ,  1.        ,  1.00000001,
+        -0.        ,  1.99999997, -1.        ,  1.        ,  0.        ,
+         0.        ,  1.        ,  1.        ]]), array([[ 1.57079628, -0.        ,  3.14159257, -0.        ,  4.71238886,
+         0.        ,  6.28318514, -0.        ,  7.8539816 , -0.        ,
+         9.42477803,  0.        , 10.99557426, -0.        , 12.56637071,
+         0.        , 14.13716693, -0.        ]]), array([[  0.        ,   1.57079639,  -3.14159257,  -0.        ,
+          0.        ,  -4.7123887 ,   6.28318391,  -0.        ,
+          0.        ,   7.85398145,  -9.4247782 ,   0.        ,
+         -0.        , -10.99557433,  12.56637058,   0.        ,
+          0.        ,  14.1371669 ]])]","[1311, 1311, 1311]","[0, 0, 0]","[0, 0, 0]","[array([-0.01479272]), array([-0.00259057]), array([0.00258499])]",equality_constrained_sqp,"[ 10.40890993 -14.72256996  41.88355148  -1.89434184  14.37073453
+  16.12464346  -3.11523965 -30.61372876  25.51645525 -28.07982942
+ -22.40961177   4.41212922 -37.12812067 -31.67483511   7.79867433
+  52.88678803   8.83950962 -13.20524466]",8.234834842381182e-05,7.339906460401835e-11,54.31562399864197,542.4673442566251,1.0,1,68,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,3.14159265359,variance,115,2413,127,0,751,4,1.1042132491503645,"[ 3.98323435e-02  3.81333853e-02  3.40542226e-03  7.86186418e-02
+ -3.77258509e-02  4.28540151e-02 -2.61580376e-03  9.35792923e-06
+  4.19709008e-02  3.33815357e-02  1.03579136e-02  7.86363629e-02
+ -3.55847179e-02  4.76808880e-02 -5.30916634e-03 -6.62097826e-05
+  4.40980748e-02  2.85591580e-02]","[-1.23519378e-05  1.30589960e-05 -4.33154799e-05 -7.79974147e-06
+ -7.05551463e-06 -3.78872482e-05  2.98716629e-05  9.35792923e-06
+  3.05558377e-07  3.27823680e-05  1.17003550e-05  9.92206639e-06
+  8.17794252e-06  1.74086824e-05 -1.78157653e-05 -6.62097826e-05
+  1.57926618e-06 -1.80179096e-05]","[array([4.18438617e-11]), array([5.97026428e-10]), array([4.40469705e-09])]","[array([[ 1.        ,  1.        ,  0.        ,  2.00000002, -1.        ,
+         1.00000001, -0.        ,  0.        ,  0.99999999,  1.00000008,
+         0.        ,  2.        , -1.00000001,  1.00000005,  0.        ,
+        -0.        ,  1.        ,  1.        ]]), array([[ 1.57079632, -0.        ,  3.14159268, -0.        ,  4.71238886,
+         0.        ,  6.28318521,  0.        ,  7.85398225, -0.        ,
+         9.42477803,  0.        , 10.99557411,  0.        , 12.56637066,
+        -0.        , 14.13716697, -0.        ]]), array([[ -0.        ,   1.57079666,  -3.14159268,  -0.        ,
+         -0.        ,  -4.71238889,   6.28318545,   0.        ,
+          0.        ,   7.85398271,  -9.42477803,   0.        ,
+         -0.        , -10.99557449,  12.56637066,  -0.        ,
+         -0.        ,  14.13716686]])]","[2413, 2413, 2413]","[0, 0, 0]","[0, 0, 0]","[array([-0.03931322]), array([-0.00033835]), array([0.00075942])]",equality_constrained_sqp,"[-21.28173791  -5.04752209   9.13828064 -12.98940547  -9.67867664
+  10.10983699 -15.89398705   0.59745493   4.77902895  -1.56724346
+   2.42958569  18.53651595  -8.42854462   1.86424056  26.39747959
+  -1.88712653 -10.55950317  -6.49854209]",6.620978258105031e-05,4.404697051541007e-09,141.22403693199158,24.13518937281911,1.0,1,115,True,`gtol` termination condition is satisfied.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,3.14159265359,deterministic,1000,19437,1023,0,13612,4,0.30913782173658344,"[-1.78683872e-01 -1.71522693e-01 -1.44123211e-02 -3.55857240e-01
+  1.75444241e-01 -1.97473694e-01  2.28261549e-02 -7.28143759e-04
+ -1.80881078e-01 -1.46175765e-01 -4.25287254e-02 -3.55439470e-01
+  1.72520728e-01 -2.22473233e-01  4.50376865e-02  1.18456977e-04
+ -1.84100465e-01 -1.20676881e-01]","[-1.45823843e-04 -6.72286036e-05 -2.47015160e-04 -2.12545372e-04
+ -2.31024323e-04 -5.50465069e-04  2.21102367e-04 -7.28143759e-04
+  5.19750124e-04 -1.88201414e-04 -3.28090899e-05  2.05231526e-04
+ -2.91758922e-04 -8.21768460e-05 -1.72416803e-04  1.18456977e-04
+  1.63140949e-04 -1.57150822e-04]","[array([4.39648318e-12]), array([-3.16617843e-11]), array([6.40767439e-11])]","[array([[ 1.00000001,  1.00000041, -0.        ,  1.99999996, -1.        ,
+         1.00000003, -0.        ,  0.        ,  1.00000001,  1.00000001,
+         0.        ,  2.        , -1.00000001,  1.        ,  0.        ,
+        -0.        ,  1.        ,  1.        ]]), array([[ 1.57079615, -0.        ,  3.14159252,  0.        ,  4.71238938,
+        -0.        ,  6.2831852 ,  0.        ,  7.85398153,  0.        ,
+         9.42477776,  0.        , 10.9955743 ,  0.        , 12.56637069,
+        -0.        , 14.13716694, -0.        ]]), array([[ -0.        ,   1.57079663,  -3.14159271,   0.        ,
+          0.        ,  -4.712389  ,   6.28318555,   0.        ,
+         -0.        ,   7.85398155,  -9.42477776,   0.        ,
+          0.        , -10.99557428,  12.56637069,  -0.        ,
+         -0.        ,  14.13716687]])]","[19437, 19437, 19437]","[0, 0, 0]","[0, 0, 0]","[array([0.17782235]), array([0.00045563]), array([-0.00405333])]",equality_constrained_sqp,"[-37.45138982  -1.38438741 -39.89738199  26.50612593  14.96050835
+ -35.67267727 -22.22421073   4.20851158 -65.00916202  21.325525
+  12.12720973  31.72520204  28.94319985  75.41696586  54.21992825
+ -62.59829866 -24.75753351  -4.02628856]",0.0007281437585575662,6.407674391084583e-11,1038.1577696800232,332.92869399558424,1.0,0,1000,False,The maximum number of function evaluations is exceeded.
+fourier_medium_constrained,Configuration to test the Fourier Pulses with constraints but fast.,FourierFactory,pulse_opt.pulses.fourier_factory,"['shift', 'n', 'has_vanishing_endpoints']",Fourier series,FourierLoss,pulse_opt.integrals.losses,[0.0],"[2, 4, 6, 8]","[0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359]","['equal', 'covariance', 'variance', 'deterministic', 'variance_plus_deterministic']",1.0,True,1.0,True,0.0,8,3.14159265359,variance_plus_deterministic,114,2280,120,0,475,4,1.9001942835675605,"[-7.26782184e-02 -7.27074953e-02  5.68392602e-05 -1.45301488e-01
+  7.25512188e-02 -7.24735461e-02 -3.90027588e-04 -1.11758709e-05
+ -7.28319168e-02 -7.29821628e-02  1.57803297e-04 -1.45301061e-01
+  7.23714791e-02 -7.21958005e-02 -7.81825856e-04  2.88784504e-05
+ -7.30125874e-02 -7.32073896e-02]","[ 1.02461442e-05  5.93510939e-06  6.90117148e-06  3.72914039e-07
+  1.28736039e-05 -1.01417746e-05  1.01046632e-05 -1.11758709e-05
+  6.67609991e-06 -1.87306967e-05  7.98878646e-06  8.03073795e-07
+ -1.67287450e-05  1.76238114e-05  1.84386560e-05  2.88784504e-05
+ -2.38676891e-05  6.05187568e-06]","[array([-1.58966174e-11]), array([-6.26698693e-11]), array([3.47313289e-11])]","[array([[ 1.00000001,  0.99999997, -0.        ,  1.99999996, -1.00000013,
+         0.99999967, -0.        ,  0.        ,  1.00000002,  0.99999993,
+        -0.        ,  2.        , -1.        ,  1.        ,  0.        ,
+         0.        ,  1.        ,  1.        ]]), array([[ 1.57079626, -0.        ,  3.14159332, -0.        ,  4.71238903,
+         0.        ,  6.28318523,  0.        ,  7.8539811 ,  0.        ,
+         9.42477798,  0.        , 10.99557452,  0.        , 12.5663706 ,
+         0.        , 14.13716687, -0.        ]]), array([[ -0.        ,   1.57079637,  -3.14159101,  -0.        ,
+         -0.        ,  -4.71238934,   6.28318523,   0.        ,
+          0.        ,   7.85398157,  -9.42477798,   0.        ,
+         -0.        , -10.9955742 ,  12.5663706 ,   0.        ,
+         -0.        ,  14.13716683]])]","[2280, 2280, 2280]","[0, 0, 0]","[0, 0, 0]","[array([0.07265093]), array([2.38936066e-05]), array([3.97894199e-05])]",equality_constrained_sqp,"[-11.4118976  -10.66351451  -1.65162803 -13.42721108  -2.32110185
+   1.07122696 -31.52935258   0.0545989    1.95942781   3.3940642
+  -0.9766199   22.03059327  -8.52185795  10.8792503   37.12700304
+   0.40755142 -10.38939654 -11.88888478]",2.8878450393676758e-05,6.266986929404084e-11,174.09178137779236,83.77709937798772,1.0,1,114,True,`gtol` termination condition is satisfied.

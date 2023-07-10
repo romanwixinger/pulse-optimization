@@ -5,6 +5,9 @@ Attributes:
     gaussian_pulse_lookup_10 (dict): Lookup with the pulse name (str) as key and the pulse (Pulse) as value. Contains
         the Gaussian pulses with scale=0.25 and location parameter in [0.0, 0.1, ..., 1.0].
 
+    gaussian_pulse_lookup_20 (dict): Lookup with the pulse name (str) as key and the pulse (Pulse) as value. Contains
+        the Gaussian pulses with scale=0.25 and location parameter in [0.0, 0.05, ..., 1.0].
+
     gaussian_pulse_lookup_100 (dict): Lookup with the pulse name (str) as key and the pulse (Pulse) as value. Contains
         the Gaussian pulses with scale=0.25 and location parameter in [0.0, 0.01, ..., 1.0].
 
@@ -176,9 +179,19 @@ class ReluPowerPulse(Pulse):
         return pulse, parametrization
 
 
+_gaussian_args_2 = [0.0, 1.0]
+gaussian_pulse_lookup_2 = {
+    loc: GaussianPulse(loc=loc, scale=0.2) for loc in _gaussian_args_2
+}
+
 _gaussian_args_10 = [round(loc, 2) for loc in 0.1 * np.arange(11)]
 gaussian_pulse_lookup_10 = {
     loc: GaussianPulse(loc=loc, scale=0.2) for loc in _gaussian_args_10
+}
+
+_gaussian_args_20 = [round(loc, 2) for loc in 0.05 * np.arange(21)]
+gaussian_pulse_lookup_20 = {
+    loc: GaussianPulse(loc=loc, scale=0.2) for loc in _gaussian_args_20
 }
 
 _gaussian_args_100 = [round(loc, 2) for loc in 0.01 * np.arange(101)]
@@ -188,6 +201,8 @@ gaussian_pulse_lookup_100 = {
 
 
 gaussian_pulse_lookup = {
+    "gaussian_pulses_2": gaussian_pulse_lookup_2,
     "gaussian_pulses_10": gaussian_pulse_lookup_10,
+    "gaussian_pulses_20": gaussian_pulse_lookup_20,
     "gaussian_pulses_100": gaussian_pulse_lookup_100,
 }

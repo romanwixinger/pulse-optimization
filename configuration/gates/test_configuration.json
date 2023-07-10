@@ -1,0 +1,19 @@
+{
+    "name": "test_configuration",
+    "content":
+    {
+        "samples": 2,
+        "runs": 2,
+        "device_parameters": "20230305",
+        "noise_scaling": 1.0,
+        "pulse_lookup": "gaussian_pulses_2",
+        "gates": ["X", "SX", "CR", "CNOT", "CNOT_inv"],
+        "extra_gate_args": {
+            "X": {"phi":  0.0},
+            "SX": {"phi":  0.0},
+            "CR": {"theta":  0.7853981, "phi":  0.0},
+            "CNOT": {"phi_ctr": 0.0, "phi_trg":  0.0},
+            "CNOT_inv": {"phi_ctr": 0.0, "phi_trg":  0.0}
+        }
+    }
+}

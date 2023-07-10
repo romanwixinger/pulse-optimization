@@ -58,7 +58,7 @@ def main(run: str):
 
 if __name__ == "__main__":
 
-    runs = ["standard_configuration"]
+    runs = ["test_configuration"]
 
     for run in runs:
         print(f"Start run with configuration {run}")

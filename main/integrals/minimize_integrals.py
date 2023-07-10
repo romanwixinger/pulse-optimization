@@ -131,7 +131,9 @@ def simulation(loss_arg, LossClass, optimizer: callable) -> dict:
 if __name__ == "__main__":
 
     runs = [
-        'power_test',
+        'power_small_constrained',
+        'fourier_small_constrained',
+        'gaussian_small_constrained',
     ]
 
     for i, run in enumerate(runs):

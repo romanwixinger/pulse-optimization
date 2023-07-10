@@ -31,19 +31,19 @@ def plot_optimized_waveforms(
 
     # Plotting
     fig, ax = plt.subplots()
+    minimum, maximum = weight_to_min_max[weight]
     for pulse, fun in zip(pulses, funs):
         x = np.linspace(0.0, 1.0, 100)
         waveform = pulse.get_pulse()
         y = np.array([theta * waveform(s) for s in x])
-        minimum, maximum = (0.0, 5.0) if weight != 'covariance' else (-2.0, 3.0)
         color = convert_value_to_color(fun, minimum=minimum, maximum=maximum)
         plt.plot(x, y, color=color)
 
     # Styling
-    plt.xlabel('Parametrization variable t')
-    plt.ylabel(r"Waveform")
-    plt.title(f"Optimized pulses with {ansatz_name} ansatz and {weight} loss")
-    add_color_map(fig, ax)
+    plt.xlabel('Parametrization variable s')
+    plt.ylabel(r"Waveform $\omega$(s)")
+    plt.title(f"Waveforms with {ansatz_name} ansatz for {weight if weight != 'variance_plus_deterministic' else 'var. + det.'} loss")
+    add_color_map(fig, ax, vmin=minimum, vmax=maximum)
 
     # Saving
     create_folder(f"plots/integrals/{run}")
@@ -71,18 +71,18 @@ def plot_optimized_parametrizations(
 
     # Plotting
     fig, ax = plt.subplots()
+    minimum, maximum = weight_to_min_max[weight]
     for pulse, fun in zip(pulses, funs):
         x = np.linspace(0.0, 1.0, 100)
         parametrization = pulse.get_parametrization()
         y = np.array([theta * parametrization(s) for s in x])
-        minimum, maximum = (0.0, 5.0) if weight != 'covariance' else (-2.0, 3.0)
         color = convert_value_to_color(fun, minimum=minimum, maximum=maximum)
         plt.plot(x, y, color=color)
 
     # Styling
-    plt.xlabel('Parametrization variable t')
-    plt.ylabel(r"Parametrization $\theta$(t)")
-    plt.title(f"Optimized parametrizations with {ansatz_name} ansatz and {weight} loss")
+    plt.xlabel('Parametrization variable s')
+    plt.ylabel(r"Parametrization $\theta$(s)")
+    plt.title(f"Parametrizations with {ansatz_name} ansatz for {weight if weight != 'variance_plus_deterministic' else 'var. + det.'} loss")
 
     # Saving
     add_color_map(fig, ax, vmin=minimum, vmax=maximum)
@@ -159,3 +159,12 @@ def add_color_map(fig, ax, vmin=0, vmax=5, label='Loss'):
     sm = plt.cm.ScalarMappable(norm=norm, cmap=cmap)
     sm.set_array([])
     fig.colorbar(sm, ax=ax, label=label)
+
+
+weight_to_min_max = {
+    "equal": (0.5, 3.5),
+    "variance": (0.0, 3.0),
+    "covariance": (-1.5, 1.5),
+    "deterministic": (-1.0, 2.0),
+    "variance_plus_deterministic": (0.5, 3.5),
+}

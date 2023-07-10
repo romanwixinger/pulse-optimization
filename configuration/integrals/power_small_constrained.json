@@ -1,0 +1,24 @@
+{
+    "name": "power_small_constrained",
+    "description": "Configuration to test the Power Pulses with differents shifts and n for Ito integrals up to theta.",
+    "content":
+    {
+        "factory": "PowerFactory",
+        "factory_path": "pulse_opt.pulses.power_factory",
+        "factory_args": ["shift", "n", "has_vanishing_endpoints"],
+        "ansatz_name": "Power series",
+        "loss": "PowerLoss",
+        "loss_path": "pulse_opt.integrals.losses",
+        "variable_args":
+        {
+            "shift": [0.5],
+            "n": [5, 7],
+            "theta": [0.78539816339, 1.57079632679, 2.35619449019, 3.14159265359],
+            "weights": ["equal", "covariance", "variance", "deterministic", "variance_plus_deterministic"]
+        },
+        "static_args": {
+            "a": 1.0,
+            "has_vanishing_endpoints": true
+        }
+    }
+}

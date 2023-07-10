@@ -1,5 +1,5 @@
 {
-  "name": "gaussian_small",
+  "name": "gaussian_constrained",
   "description": "Configuration to test the Gaussian Pulses with differents shifts and n for Ito integrals up to theta.",
   "content":
   {
