@@ -24,6 +24,7 @@ setup(
         "pandas>=1.4.0",
         "scipy>=1.9",
         "quantum_gates>=1.0.3",
+        "qiskit-aer>=0.11.0",
         "pylatexenc",
         "tqdm",
         "uncertainties",
