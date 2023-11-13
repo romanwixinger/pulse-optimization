@@ -24,12 +24,17 @@ setup(
         "pandas>=1.4.0",
         "scipy>=1.9",
         "quantum_gates>=1.0.3",
-        "qiskit-aer>=0.11.0",
+        "qiskit-aer==0.12.0",
+        "qiskit==0.42.1",
+        "qiskit-ibm-provider==0.4.0",
+        "qiskit-ibmq-provider==0.20.2",
+        "qiskit-terra==0.23.3",
         "pylatexenc",
         "tqdm",
         "uncertainties",
         "pytest",
         "simpy",
+        "jupyter"
     ],
     extras_require={
         "docs": [
