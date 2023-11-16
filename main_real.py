@@ -8,7 +8,6 @@ Todo:
 
 """
 
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -28,6 +27,7 @@ from configuration.token import Token
 
 plt.rcParams['text.usetex'] = False
 run = "fourier_extended_constrained"
+folder = "data/real"
 
 
 """ Load available backends. """
@@ -81,7 +81,7 @@ def X_circ(depth):
     return circ
 
 
-def main(scaling: float, waveform: callable, shots: int=100):
+def main(scaling: float, waveform: callable, shots: int=1000):
     """ Performs run on real hardware of weighted average of optimized pulse and constant pulse. The scaling between 0 and 1 determines 
     the weight of the optimized pulse. Saves the results as txt files.
     """
@@ -110,7 +110,8 @@ def main(scaling: float, waveform: callable, shots: int=100):
         pulse.play(drive_pulse, pulse.drive_channel(0))
 
         # Create 10 circuits of different length
-        for i in range(0, 100, 10):
+        lengths = range(0, 11 * 10, 10)
+        for i in lengths:
             qc = X_circ(i)
             qc.add_calibration('x', [0], x_q0)
             qc_list.append(qc)
@@ -120,7 +121,7 @@ def main(scaling: float, waveform: callable, shots: int=100):
         result = job.result()
         
         # Perform postprocessing
-        for i in range(0, 100, 10):
+        for i, length in enumerate(lengths):
             counts_0 = result.get_counts(qc_list[i])
             counts = fix_counts(counts_0,1)
             p_real = [counts[j][1]/shots for j in range(0,2)]
@@ -128,15 +129,15 @@ def main(scaling: float, waveform: callable, shots: int=100):
             r11_device.append(p_real[1])
             
         # Save results
-        np.savetxt('r00_X_DEVICE_1_{scaling}.txt', r00_device)
-        np.savetxt('r11_X_DEVICE_1_{scaling}.txt', r11_device)
+        np.savetxt(f'{folder}/{run}/r00_X_DEVICE_1_{scaling}.txt', r00_device)
+        np.savetxt(f'{folder}/{run}/r11_X_DEVICE_1_{scaling}.txt', r11_device)
         print("Saved results.")
     
     return
 
 
-main(scaling=0.0, waveform=optimal_waveform, shots=100)
-main(scaling=0.25, waveform=optimal_waveform, shots=100)
-main(scaling=0.5, waveform=optimal_waveform, shots=100)
-main(scaling=0.75, waveform=optimal_waveform, shots=100)
-main(scaling=1.0, waveform=optimal_waveform, shots=100)
+if __name__=="__main__": 
+
+    for scaling in np.arange(0.0, 1.0, step=0.1):
+        print(f"Start with scaling {scaling}.")
+        main(scaling=scaling, waveform=optimal_waveform, shots=1000)
