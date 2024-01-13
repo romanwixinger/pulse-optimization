@@ -17,7 +17,7 @@ We recommend virtualenv if you use pip as package manager. Open your CLI and che
 We recommend Conda if you use it also as package manager. Open the Anaconda prompt and navigate to the repository. Verify that you have the correct Python version, and that you are in the base environment(base). Following the [documentation](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html), we create a new virtual environment with `conda env create -f environment.yml`.
 
 ### Usage
-To get the most out of this repo, we recommend reading introduction of the initial publication, study the experiment descriptions, and look into the [documentation](https://quantum-gates.readthedocs.io/en/latest/index.html) of the [quantum-gates](https://pypi.org/project/quantum-gates/).
+To get the most out of this repo, we recommend reading introduction of the [initial publication](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.5.043210), study the experiment descriptions, and look into the [documentation](https://quantum-gates.readthedocs.io/en/latest/index.html) of the [quantum-gates](https://pypi.org/project/quantum-gates/).
 
 
 ## Contributors
