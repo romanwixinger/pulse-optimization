@@ -27,15 +27,15 @@ from configuration.token import Token
 
 plt.rcParams['text.usetex'] = False
 run = "fourier_extended_constrained"
-folder = "data/real"
+folder = "data/real_comprehensive"
 
 
 """ Load available backends. """
 
-# IBMProvider.save_account(token=Token, overwrite=True)
+IBMProvider.save_account(token=Token, overwrite=True)
 
-provider = IBMProvider(instance='ibm-q-research-2/uni-trieste-1/main')
-backend = provider.get_backend("ibm_nairobi")
+provider = IBMProvider(instance='ibm-q-cern/internal/battery-pulse')
+backend = provider.get_backend("ibmq_mumbai")
 
 
 """ Load optimized pulses"""
@@ -110,7 +110,7 @@ def main(scaling: float, waveform: callable, shots: int=1000):
         pulse.play(drive_pulse, pulse.drive_channel(0))
 
         # Create 10 circuits of different length
-        lengths = range(0, 11 * 10, 10)
+        lengths = range(0, 21)
         for i in lengths:
             qc = X_circ(i)
             qc.add_calibration('x', [0], x_q0)
