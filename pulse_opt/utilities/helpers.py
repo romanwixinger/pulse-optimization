@@ -111,3 +111,16 @@ def create_folder(path):
         current_path += folder + '/'
         if not os.path.exists(current_path):
             os.makedirs(current_path)
+
+
+def compute_Hellinger_distance(p_ng: float, p_real: float, nqubits: int) -> float:
+    """ Given two distributions as array, returns the Hellinger distance.
+    """
+    dh_ng = (np.sqrt(p_real)-np.sqrt(p_ng))**2
+    h_ng = 0
+
+    for i in range(2**nqubits):
+        h_ng = h_ng + dh_ng[i]
+
+    h_ng = (1/np.sqrt(2)) * np.sqrt(h_ng)
+    return h_ng
