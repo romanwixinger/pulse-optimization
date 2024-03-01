@@ -130,7 +130,7 @@ dmypy.json
 
 
 # Token
-*configuration/token*
+*configuration/token.py
 
 # IDE
 *IDEA*
