@@ -13,6 +13,8 @@ import multiprocessing
 import ast
 
 from pulse_opt.utilities.helpers import flatten_dict, add_prefix, CustomEncoder
+from pulse_opt.pulses.combined_factory import CombinedFactory
+
 
 markers = [".", "^", "o", "2", "*", "D", "x", "X", "+"]
 
@@ -268,3 +270,20 @@ def run_without_multiprocessing(simulation: callable, items: list, config: dict)
     return results
 
 
+def load_pulses(run: str, filter_function: callable, folder_path: str=None):
+    """ Retrieves the pulses from a run, applies a filter, and constructs the remaining pulses.
+    """
+    # Load pulses
+    df = load_table_from_pickle(run=run, folder_path=folder_path)
+
+    # Apply the filtering and validate the result
+    pulse_series = filter_function(df)
+    assert isinstance(pulse_series, pd.Series), \
+        f"Expected to receive a pd.Series from filtering, but found {type(pulse_series)}."
+
+    # Construct the pulses
+    pulses = []
+    cf = CombinedFactory()
+    for index, row in pulse_series.iterrows():
+        pulses.append(cf(row))
+    return pulses
