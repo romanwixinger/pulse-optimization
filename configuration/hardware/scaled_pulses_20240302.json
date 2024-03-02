@@ -1,0 +1,20 @@
+{
+  "name": "scaled_pulses_20240302",
+  "description": "The goal of this experiment is to try a weighted combination of pulses on real hardware. The combination is between a constant pulse and an optimized one. This configuration specifies how to retrieve the optimized pulse, which hardware to use, and which linear combinations (scalings) should be tried.",
+  "content": {
+      "hub": "ibm-q-cern",
+      "group": "internal",
+      "project": "battery-pulse",
+      "backend": "ibmq_mumbai",
+      "scalings": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+      "lengths": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      "shots": 1000,
+      "result_folder": "data/real_comprehensive",
+      "optimized_pulse": {
+        "description": "This configuration makes it possible to load the pulse optimized for an X gate with theta=pi, where the basis of the pulse is a Fourier series with constrained ends. The name of the run will be used to retrieve the results of the optimization.",
+        "run": "fourier_extended_constrained",
+        "config": "integrals/fourier_extended_constrained.json",
+        "theta": 3.14
+      }
+  }
+}
