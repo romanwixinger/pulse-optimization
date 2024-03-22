@@ -17,6 +17,39 @@ from pulse_opt.integrals.utilities import load_pulses
 from configuration.token import IBM_TOKEN
 
 
+def load_optimal_pulse(run: str, theta=3.14):
+    """ Loads the optimal pulse (hardcoded) found in a run.
+
+    Todo: Make dynamic.
+    Todo: Fix filtering (float precision).
+    """
+    def filter_function(df: pd.DataFrame) -> pd.Series:
+        """ Filters a dataframe of pulses, retrieving the resulting rows as Series.
+        """
+        df_filtered = df.loc[round(df['args.theta'], 2) == theta]
+        filtered_pulses = df_filtered.iloc[[19]]
+        return filtered_pulses
+
+    pulses = load_pulses(run=run, filter_function=filter_function, folder_path=None)
+    assert len(pulses) == 1, "Expected to just get the most optimal pulse."
+    best_pulse = pulses[0]
+    optimal_waveform = best_pulse.get_pulse()
+    return optimal_waveform
+
+
+def setup_weighted_pulse(pulse1: callable, pulse2: callable, scaling: float):
+    """ Creates the waveform of a weighted combination of two pulses.
+
+    The idea is to use this construction to check how the resulting circuit changes when we smoothly replace one pulse
+    waveform with the other.
+    """
+    weighted_waveform = lambda t: scaling * pulse2(t) + (1 - scaling) * pulse1(t)
+    scaled_waveform = lambda s: weighted_waveform(s/160)
+    x = np.linspace(0.0, 160.0, 160)
+    y = np.array([np.pi/(4*160) * scaled_waveform(s) for s in x])
+    drive_pulse = Waveform(y, name='Weighted_Pulse', limit_amplitude=False)
+    return drive_pulse
+
 def main_with_args(backend, scaling_options: list[float], lengths: list[int], shots: int, folder: str, run: str):
     """
     Performs runs on real hardware of weighted average of optimized pulse and constant pulse.
@@ -30,37 +63,15 @@ def main_with_args(backend, scaling_options: list[float], lengths: list[int], sh
         lengths (list): Each length will be tried as a number of X gates in the circuit.
         shots (int): The number of times each circuit is ran.
     """
-
-    # Load the optimal pulse (hardcoded). Todo: Make dynamic.
-    def filter_function(df: pd.DataFrame) -> pd.Series:
-        """ Filters a dataframe of pulses, retrieving the resulting rows as Series.
-        """
-        df_filtered = df.loc[round(df['args.theta'], 2) == 3.14]
-        filtered_pulses = df_filtered.iloc[[19]]
-        return filtered_pulses
-
-    pulses = load_pulses(run=run, filter_function=filter_function, folder_path=None)
-    assert len(pulses) == 1, "Expected to just get the most optimal pulse."
-    best_pulse = pulses[0]
-    optimal_waveform = best_pulse.get_pulse()
-
-    # Perform runs for each scaling and length
+    optimal_waveform = load_optimal_pulse(run=run, theta=3.14)
+    results = []
     for scaling in scaling_options:
 
         # Setup weighted pulse
-        print("Setup pulse.")
-        constant = lambda x: 1
-        weighted_waveform = lambda x: scaling * optimal_waveform(x) + (1 - scaling) * constant(x)
+        constant = lambda t: 1
+        drive_pulse = setup_weighted_pulse(pulse1=constant, pulse2=optimal_waveform, scaling=scaling)
 
-        def waveform_scaled(s):
-            return weighted_waveform(s/160)
-
-        x = np.linspace(0.0, 160.0, 160)
-        y = np.array([np.pi/(4*160) * waveform_scaled(s) for s in x])
-
-        drive_pulse = Waveform(y, name = 'Weighted_Pulse', limit_amplitude = False)
-
-        # Prototype
+        # Prototype and results
         qc_list = []
         r00_device = []
         r11_device = []
@@ -69,7 +80,7 @@ def main_with_args(backend, scaling_options: list[float], lengths: list[int], sh
         with pulse.build(backend, name='x-gate') as x_q0:
             pulse.play(drive_pulse, pulse.drive_channel(0))
 
-            # Create 10 circuits of different length
+            # Create circuits of different length
             for i in lengths:
                 qc = n_x_gates(nqubits=1, N=i, add_barrier=True, add_measurement=True)
                 qc.add_calibration('x', [0], x_q0)
@@ -87,12 +98,13 @@ def main_with_args(backend, scaling_options: list[float], lengths: list[int], sh
                 r00_device.append(p_real[0])
                 r11_device.append(p_real[1])
 
-            # Save results
-            np.savetxt(f'{folder}/{run}/r00_X_DEVICE_1_{scaling}.txt', r00_device)
-            np.savetxt(f'{folder}/{run}/r11_X_DEVICE_1_{scaling}.txt', r11_device)
-            print("Saved results.")
+        # Add results
+        results.append({"r00": r00_device, "r11": r11_device})
 
-        return
+    # Save results in suitable format
+    # Todo: Implement
+
+    return
 
 
 def main(run: str):
@@ -108,6 +120,9 @@ def main(run: str):
     # Todo: Add.
 
     # Save configs
+    # Todo: Add.
+
+    # Save current commit
     # Todo: Add.
 
     # Setup backend.
